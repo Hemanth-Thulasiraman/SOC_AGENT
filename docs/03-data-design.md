@@ -32,9 +32,13 @@ Note: standard "cleaned" CICIDS distributions strip source/dest IP (to prevent c
 
 Phishing raw_evidence
 
-No dataset to derive from — designed to match what a real email-security tool would emit, scoped to the two evidence sources the agent actually queries (link/sender reputation, click history).
+No dataset to derive from — designed to match what a real email-security tool would emit, scoped to the two evidence sources the agent actually queries (link/sender reputation, click history). Rows are generated from a 2×2 scenario matrix (true_label × signal-agreement): ~40% true-malicious (above the overall ~22% alert base rate, because phishing that reaches investigation already passed a filter or human flag), and within each label group a 50/50 split between "signals agree with truth" and "signals disagree."
 
-FieldEvidence source it feedssender_domain, sender_emaillink/sender reputation checkurllink/sender reputation checkuser_idclick historyclick_timestampclick history (null if no click)click_actionclick history — three states: viewed_only | clicked_link | entered_credentials. Granularity matters: severity differs sharply between these three, not just "clicked: yes/no."
+FieldEvidence source it feedssender_domain, sender_emaillink/sender reputation checkurllink/sender reputation checkuser_idclick historyclick_timestampclick history (null if no click)click_actionclick history — three states: viewed_only | clicked_link | entered_credentials. Granularity matters: severity differs sharply between these three, not just "clicked: yes/no."is_syntheticbool — always True for this alert type (fully synthetic)true_labelhidden ground truth: malicious | benign. Never shown to the agent. Required to compute false-negative rate ("agent said benign, truth was malicious") on disagreement cases.reputation_signalmock fixture only: known_malicious | unknown | known_clean | suspicious. Not a live-queryable schema field — Faker domains have no real VT/AbuseIPDB history. Phase 6 reputation tool must read this fixture for synthetic phishing rows instead of calling live APIs, otherwise every row collapses to "unknown" and the 2×2 matrix cannot be evaluated.scenario_typederived tag for eval slicing: {true_label}_{agree|disagree}
+
+Scenario matrix (generation order: pick cell first, then fill fields):
+
+signals agreesignals disagreemaliciousknown_malicious + entered_credentialsunknown + entered_credentialsbenignknown_clean + viewed_onlysuspicious + viewed_only
 
 
 Validation Rules
