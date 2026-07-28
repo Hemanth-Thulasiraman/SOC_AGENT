@@ -27,8 +27,9 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# Raw data downloads (e.g. CICIDS) can be huge
-data/
+# Raw data downloads (e.g. CICIDS) can be huge — root data/ only
+# (do not ignore src/data/, which holds pipeline code)
+/data/
 
 # PyInstaller
 #   Usually these files are written by a python script from a template
