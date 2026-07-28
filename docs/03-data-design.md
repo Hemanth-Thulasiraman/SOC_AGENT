@@ -1,0 +1,44 @@
+Phase 3: Data Design and Ingestion
+
+Dataset Strategy: Hybrid (CICIDS2017 + Synthetic)
+
+Two alert types are in scope, backed by two different data sources:
+
+
+Lateral-movement / infiltration — real data, from CICIDS2017
+Phishing — fully synthetic, no public dataset covers this evidence type
+
+
+Why both, instead of going deeper on CICIDS alone: CICIDS2017 covers several real, labeled attack types (DDoS, brute force, botnet, infiltration, port scan), but all of them are network-flow signals — same evidence modality, same tool category (log correlation, IP reputation). Picking three CICIDS-only attack types would give wide label coverage but narrow reasoning coverage — the agent would run essentially the same investigation shape every time, just with different flags tripped.
+
+Phishing is the one alert type that forces the agent to reason over a genuinely different evidence modality — identity/communication metadata and human behavior (did the user click) rather than network flow. Including it is what actually demonstrates adaptive reasoning across evidence types, which is the core agentic justification from Phase 1 — not an argument for attack-count breadth for its own sake.
+
+Trade-off, stated honestly: the lateral-movement path is backed by real, labeled data. The phishing path is not — it's designed from scratch, with no dataset to validate realism against. That's a deliberate choice, made for the reasoning above, not a shortcut.
+
+
+Schema
+
+Shared fields (both alert types)
+
+FieldPurposealert_idunique identifieralert_typeroutes the alert to the correct investigation path (lateral_movement | phishing)timestampalert creation time — anchors time-to-verdict calculationsourcewhere the alert originated (feed name / simulated SIEM source)
+
+Lateral-movement / infiltration raw_evidence
+
+Derived from CICIDS2017's CICFlowMeter output. Only fields that map to a real investigative question are included — not all 79 original columns.
+
+FieldInvestigative question it answerssource_ip, dest_ipwho's talking to whom (needed for SQL correlation against log history)source_port, dest_portwhat service was targetedprotocolwhat kind of trafficflow_durationhow long the connection lastedtotal_fwd_packets, total_bwd_packetsvolume + directionality (imbalance is a scan/exfiltration signal)syn_flag_count, fin_flag_countanomalous connection patterns (port-scan/brute-force signal)avg_packet_sizetraffic shape
+
+Note: standard "cleaned" CICIDS distributions strip source/dest IP (to prevent classifier shortcut-learning). That concern doesn't apply here — this project needs IPs for SQL correlation, not model training — so the IP-inclusive version of the dataset is used.
+
+Phishing raw_evidence
+
+No dataset to derive from — designed to match what a real email-security tool would emit, scoped to the two evidence sources the agent actually queries (link/sender reputation, click history).
+
+FieldEvidence source it feedssender_domain, sender_emaillink/sender reputation checkurllink/sender reputation checkuser_idclick historyclick_timestampclick history (null if no click)click_actionclick history — three states: viewed_only | clicked_link | entered_credentials. Granularity matters: severity differs sharply between these three, not just "clicked: yes/no."
+
+
+Validation Rules
+
+Reject at ingestion only for missing structural fields: alert_id, alert_type, timestamp, source. Without these the pipeline can't route the alert or measure time-to-verdict — these are structural failures, not evidence gaps.
+
+All other fields (the raw_evidence fields) may be null at ingestion. A missing evidence field is treated the same as a tool call that failed or came back empty — it flows through the confidence-penalty mechanism already defined in system design, not a separate ingestion-time rule. One mechanism handles both "the tool failed at runtime" and "the field was never populated to begin with."
