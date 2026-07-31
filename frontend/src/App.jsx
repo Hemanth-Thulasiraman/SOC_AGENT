@@ -1,61 +1,76 @@
-import { useEffect, useState } from "react";
 import { NavLink, Route, HashRouter as Router, Routes } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Alerts from "./pages/Alerts";
 import AlertDetail from "./pages/AlertDetail";
 
 const navLink = ({ isActive }) => ({
-  padding: "18px 0",
+  fontFamily: "var(--font-mono)",
+  fontSize: 13,
+  letterSpacing: "0.02em",
   textDecoration: "none",
-  fontSize: 14,
-  fontWeight: isActive ? 600 : 400,
-  color: isActive ? "var(--text-primary)" : "var(--text-muted)",
-  borderBottom: isActive ? "2px solid var(--text-primary)" : "2px solid transparent",
+  padding: "6px 2px",
+  color: isActive ? "var(--accent)" : "var(--text-muted)",
+  borderBottom: isActive ? "2px solid var(--accent)" : "2px solid transparent",
   transition: "color 120ms ease",
 });
 
-function ThemeToggle() {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "auto");
-
-  useEffect(() => {
-    if (theme === "auto") document.documentElement.removeAttribute("data-theme");
-    else document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const icon = theme === "dark" ? "🌙" : theme === "light" ? "☀️" : "◐";
-
+function Wordmark() {
   return (
-    <button
-      onClick={() => setTheme(theme === "dark" ? "light" : theme === "light" ? "auto" : "dark")}
+    <div style={{ display: "flex", alignItems: "baseline", gap: 1, fontFamily: "var(--font-mono)" }}>
+      <span style={{ color: "var(--text-muted)", fontSize: 15 }}>~/</span>
+      <strong style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)", letterSpacing: "0.01em" }}>
+        soc_agent
+      </strong>
+      <span className="caret" style={{ marginLeft: 3 }} />
+    </div>
+  );
+}
+
+// A live-looking status pill that's honest about what the site is: a static
+// snapshot of a real eval run, not a live-streaming console.
+function SnapshotPill() {
+  return (
+    <div
+      className="mono"
       style={{
-        border: "none",
-        background: "var(--surface-2)",
-        color: "var(--text-secondary)",
-        borderRadius: 20,
-        padding: "6px 14px",
-        fontSize: 12.5,
-        cursor: "pointer",
         display: "flex",
         alignItems: "center",
-        gap: 6,
+        gap: 8,
+        fontSize: 11.5,
+        letterSpacing: "0.08em",
+        textTransform: "uppercase",
+        color: "var(--text-secondary)",
+        background: "var(--surface-2)",
+        border: "1px solid var(--gridline)",
+        borderRadius: 20,
+        padding: "5px 12px",
       }}
     >
-      <span>{icon}</span> {theme}
-    </button>
+      <span
+        style={{
+          width: 7,
+          height: 7,
+          borderRadius: "50%",
+          background: "var(--accent)",
+          boxShadow: "var(--accent-glow)",
+        }}
+      />
+      eval snapshot
+    </div>
   );
 }
 
 export default function App() {
   return (
     <Router>
-      <div
+      <header
         style={{
           position: "sticky",
           top: 0,
           zIndex: 10,
-          background: "color-mix(in srgb, var(--page-plane) 88%, transparent)",
-          backdropFilter: "blur(10px)",
+          background: "color-mix(in srgb, var(--page-plane) 82%, transparent)",
+          backdropFilter: "blur(12px)",
+          borderBottom: "1px solid var(--gridline)",
         }}
       >
         <div
@@ -66,34 +81,23 @@ export default function App() {
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            height: 58,
+            height: 60,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 32 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span
-                style={{
-                  width: 7,
-                  height: 7,
-                  borderRadius: 2,
-                  background: "var(--series-2)",
-                  display: "inline-block",
-                }}
-              />
-              <strong style={{ fontSize: 14.5, letterSpacing: 0.1 }}>SOC Agent</strong>
-            </div>
-            <nav style={{ display: "flex", gap: 24 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 36 }}>
+            <Wordmark />
+            <nav style={{ display: "flex", gap: 22 }}>
               <NavLink to="/" end style={navLink}>
-                Dashboard
+                dashboard
               </NavLink>
               <NavLink to="/alerts" style={navLink}>
-                Alerts
+                alerts
               </NavLink>
             </nav>
           </div>
-          <ThemeToggle />
+          <SnapshotPill />
         </div>
-      </div>
+      </header>
 
       <Routes>
         <Route path="/" element={<Dashboard />} />

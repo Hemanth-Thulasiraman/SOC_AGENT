@@ -10,7 +10,7 @@ const STATUS_COLOR = {
 
 function VerdictBadge({ verdict }) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 6, fontSize: 13 }}>
+    <span className="mono" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13, color: STATUS_COLOR[verdict] || "var(--text-secondary)" }}>
       <span
         style={{ width: 7, height: 7, borderRadius: 2, background: STATUS_COLOR[verdict] || "var(--text-muted)" }}
       />
@@ -40,67 +40,73 @@ export default function Alerts() {
 
   return (
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "var(--space-7) 32px 64px" }}>
-      <h1 style={{ fontSize: 26, margin: "0 0 6px", letterSpacing: -0.5, fontWeight: 650 }}>Alerts</h1>
-      <div style={{ fontSize: 14, color: "var(--text-secondary)", marginBottom: "var(--space-5)" }}>
-        {data ? `${data.total} in this eval snapshot` : "loading…"}
+      <div className="mono" style={{ fontSize: 12.5, color: "var(--accent)", letterSpacing: "0.06em", marginBottom: 14 }}>
+        <span style={{ color: "var(--text-muted)" }}>~/soc_agent $ </span>
+        grep investigations
+      </div>
+      <h1 style={{ fontSize: 26, margin: "0 0 8px", letterSpacing: "-0.02em", fontWeight: 700 }}>Alert log</h1>
+      <div className="mono" style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: "var(--space-5)" }}>
+        {data ? `${data.total} investigations in this eval snapshot` : "loading…"}
       </div>
 
-      <div style={{ display: "flex", gap: 8, marginBottom: "var(--space-5)" }}>
+      <div style={{ display: "flex", gap: 8, marginBottom: "var(--space-5)", flexWrap: "wrap" }}>
         <select style={selectStyle} value={filters.alert_type} onChange={(e) => setFilters({ ...filters, alert_type: e.target.value })}>
-          <option value="">All alert types</option>
-          <option value="phishing">Phishing</option>
-          <option value="lateral_movement">Lateral movement</option>
+          <option value="">all alert types</option>
+          <option value="phishing">phishing</option>
+          <option value="lateral_movement">lateral_movement</option>
         </select>
         <select style={selectStyle} value={filters.verdict} onChange={(e) => setFilters({ ...filters, verdict: e.target.value })}>
-          <option value="">All verdicts</option>
-          <option value="malicious">Malicious</option>
-          <option value="benign">Benign</option>
-          <option value="inconclusive">Inconclusive</option>
+          <option value="">all verdicts</option>
+          <option value="malicious">malicious</option>
+          <option value="benign">benign</option>
+          <option value="inconclusive">inconclusive</option>
         </select>
         <select
           style={selectStyle}
           value={filters.escalation_flag}
           onChange={(e) => setFilters({ ...filters, escalation_flag: e.target.value })}
         >
-          <option value="">Escalated: any</option>
-          <option value="true">Escalated only</option>
-          <option value="false">Auto-resolved only</option>
+          <option value="">escalated: any</option>
+          <option value="true">escalated only</option>
+          <option value="false">auto-resolved only</option>
         </select>
       </div>
 
-      {error && <div style={{ color: "var(--status-critical)" }}>{error}</div>}
+      {error && <div className="mono" style={{ color: "var(--status-critical)" }}>{error}</div>}
 
       {data && (
-        <div style={{ overflowX: "auto", background: "var(--surface-1)", borderRadius: "var(--radius)" }}>
+        <div className="panel" style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13.5 }}>
             <thead>
-              <tr style={{ textAlign: "left", color: "var(--text-muted)" }}>
-                <th style={th}>Alert ID</th>
-                <th style={th}>Type</th>
-                <th style={th}>Verdict</th>
-                <th style={th}>Confidence</th>
-                <th style={th}>Escalated</th>
-                <th style={th}>True label</th>
-                <th style={th}>Summary</th>
+              <tr style={{ textAlign: "left", color: "var(--text-muted)", background: "var(--surface-2)" }}>
+                <th style={th}>alert_id</th>
+                <th style={th}>type</th>
+                <th style={th}>verdict</th>
+                <th style={th}>conf</th>
+                <th style={th}>esc</th>
+                <th style={th}>true_label</th>
+                <th style={th}>summary</th>
               </tr>
             </thead>
             <tbody>
               {data.alerts.map((a) => (
                 <tr key={a.alert_id} className="alert-row" style={{ borderTop: "1px solid var(--gridline)" }}>
                   <td style={td}>
-                    <Link to={`/alerts/${a.alert_id}`} style={{ color: "var(--series-1)", fontWeight: 500 }}>
+                    <Link to={`/alerts/${a.alert_id}`} className="mono" style={{ color: "var(--series-1)", fontWeight: 500 }}>
                       {a.alert_id}
                     </Link>
                   </td>
-                  <td style={{ ...td, color: "var(--text-secondary)" }}>{a.alert_type}</td>
+                  <td className="mono" style={{ ...td, color: "var(--text-secondary)" }}>{a.alert_type}</td>
                   <td style={td}>
                     <VerdictBadge verdict={a.verdict} />
                   </td>
-                  <td style={{ ...td, fontVariantNumeric: "tabular-nums", color: "var(--text-secondary)" }}>
+                  <td className="mono" style={{ ...td, color: "var(--text-secondary)" }}>
                     {a.confidence_score?.toFixed(2)}
                   </td>
-                  <td style={{ ...td, color: "var(--text-secondary)" }}>{a.escalation_flag ? "yes" : "no"}</td>
-                  <td style={{ ...td, color: "var(--text-secondary)" }}>{a.true_label}</td>
+                  <td className="mono" style={{ ...td, color: a.escalation_flag ? "var(--status-serious)" : "var(--text-muted)" }}>
+                    {a.escalation_flag ? "yes" : "no"}
+                  </td>
+                  <td className="mono" style={{ ...td, color: "var(--text-secondary)" }}>{a.true_label}</td>
                   <td style={{ ...td, color: "var(--text-muted)", maxWidth: 360 }}>{a.summary_text}</td>
                 </tr>
               ))}
@@ -110,11 +116,11 @@ export default function Alerts() {
       )}
 
       {data && data.total > 0 && (
-        <div style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 18, fontSize: 13, color: "var(--text-secondary)" }}>
+        <div className="mono" style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 18, fontSize: 13, color: "var(--text-secondary)" }}>
           <button style={pageBtn} disabled={page === 0} onClick={() => setPage((p) => p - 1)}>
             ← prev
           </button>
-          <span style={{ fontVariantNumeric: "tabular-nums" }}>
+          <span>
             {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, data.total)} of {data.total}
           </span>
           <button
@@ -130,22 +136,31 @@ export default function Alerts() {
   );
 }
 
-const th = { padding: "12px 16px", fontWeight: 500, fontSize: 12, textTransform: "uppercase", letterSpacing: 0.3 };
-const td = { padding: "11px 16px" };
+const th = {
+  padding: "12px 16px",
+  fontFamily: "var(--font-mono)",
+  fontWeight: 500,
+  fontSize: 11,
+  textTransform: "uppercase",
+  letterSpacing: "0.07em",
+};
+const td = { padding: "12px 16px" };
 const selectStyle = {
-  border: "none",
+  fontFamily: "var(--font-mono)",
+  border: "1px solid var(--gridline)",
   background: "var(--surface-2)",
   color: "var(--text-primary)",
-  borderRadius: 8,
-  padding: "7px 12px",
-  fontSize: 13,
+  borderRadius: 7,
+  padding: "8px 12px",
+  fontSize: 12.5,
 };
 const pageBtn = {
-  border: "none",
+  fontFamily: "var(--font-mono)",
+  border: "1px solid var(--gridline)",
   background: "var(--surface-2)",
   color: "var(--text-primary)",
-  borderRadius: 8,
-  padding: "6px 12px",
+  borderRadius: 7,
+  padding: "7px 13px",
   cursor: "pointer",
-  fontSize: 13,
+  fontSize: 12.5,
 };
