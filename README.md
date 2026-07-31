@@ -9,6 +9,14 @@ phase-by-phase design history and what's actually been verified (not just
 designed) is in [docs/00-project-recap.md](docs/00-project-recap.md) —
 start there.
 
+**Headline result (160-alert held-out eval, real OpenAI calls, ~$0.0055/alert):**
+phishing false-negative rate 0.501 → 0.000 (clean win, near-zero side effects).
+Lateral movement false-negative rate 0.218 → 0.000, but escalation rate on
+*benign* alerts rose from 3.9% → 81.3% — a real, root-caused trade-off, not
+a clean win. Full nuance and the confirmed underlying bug (`confidence.py`'s
+lateral-movement weighting) are in the recap doc's Phase 8 section — don't
+cite the false-negative number alone without it.
+
 ## Project layout
 
 ```
@@ -106,6 +114,7 @@ does not exist` connecting on 5432, that's this conflict — check
 
 ## Known gaps
 
+- **A confirmed, root-caused bug in `confidence.py`'s lateral-movement weighting** drives the 81.3% benign-escalation-rate finding above (two distinct issues: a `"suspicious"` signal wrongly mapped to malicious-leaning, and a structural confidence ceiling that keeps even a clean, correct reputation signal under the auto-resolve threshold). Not yet fixed. Full detail in docs/00-project-recap.md's Phase 8 section.
 - `tests/` is currently empty. Correctness throughout this project was
   established by direct verification against real data/DB/API at each
   step (see docs/00-project-recap.md for what was actually checked and

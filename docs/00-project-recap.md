@@ -1,6 +1,6 @@
 # Project Recap: Autonomous Alert Triage & Investigation Agent
 
-This document consolidates everything decided from Phase 1 through the current point in Phase 6, with the reasoning behind each decision, and a full worked example tracing one alert from ingestion to resolution. Read this top to bottom to re-orient; the individual `docs/0X-*.md` files remain the source of truth for detail.
+This document consolidates everything decided and verified from Phase 1 through Phase 8 (real eval results included, not just the design), with the reasoning behind each decision, and a full worked example tracing one alert from ingestion to resolution. Read this top to bottom to re-orient; the individual `docs/0X-*.md` files remain the source of truth for detail.
 
 ---
 
@@ -117,6 +117,54 @@ That's the whole system, once. Everything below is *why* it works this way.
 
 **Semantic-similarity search (`ORDER BY embedding <=> query_vector`) deliberately left unexercised.** `sql_correlation` was scoped to exact-match only because that's what's tested and what actually fixed the Phase 5 blind spot; nothing in the current design needs semantic search to function. Building a code path with no consumer yet would be speculative — it's recorded on the V2 list below instead.
 
+### Phase 8: Evaluation Against a Real, Held-Out Eval Set (done)
+
+**Eval set: 160 alerts, deliberately not "run everything."** 80 phishing (20 per scenario cell, stratified), 80 lateral movement (stratified across Phase 5's detection buckets, weighted toward `quiet_no_syn` since that's the actual hard case — 24/24/16/16 split). Fresh seed (101) and re-namespaced `alert_id`s (`eval_ph_*`/`eval_lm_*`), distinct from anything touched in Phase 6/7 demos, so held-out-ness doesn't depend on remembering which rows got manually cleaned up. 57/80 lateral-movement alerts belong to a repeat host-pair — confirmed before running anything, so `sql_correlation` had real intra-eval history to exercise, not an edge case.
+
+**Reset-before-run, not seeded history.** `investigations` is truncated before the eval so the measurement is comparable to Phase 5's from-scratch baseline numbers, rather than conflating "how good is the agent" with "how much does accumulated memory help." `sql_correlation` still gets a genuine test: later alerts in the run legitimately correlate against earlier ones the harness itself produced.
+
+**Ordering enforced, not just sorted.** The eval set is sorted by `timestamp` ascending across both alert types, then processed as a strict sequential loop — one alert's `graph.invoke()`, including its `feedback_memory_node` commit, fully completes before the next starts. This is the locked requirement from Phase 6b's `sql_correlation` design, actually enforced this time, not just documented.
+
+**Real cost measured, not estimated: ~$0.0055/investigation** (tracked via real OpenAI token usage on `OpenAILLMClient`, not the Phase 2 formula) — full 160-alert run cost **$0.88** total, comfortably inside the $0.10/investigation cap.
+
+**Results — escalation precision / false-negative rate, vs. the locked Phase 5 baseline:**
+
+| Alert type | Baseline (precision / FN rate) | Agent (precision / FN rate) |
+|---|---|---|
+| Phishing | 0.000 / 0.501 | **0.000 / 0.000** |
+| Lateral movement | 0.753 / 0.218 | **0.755 / 0.000** |
+
+Phishing is an unambiguous win: zero false negatives across 40 actual-malicious alerts, and only 1 escalation across all 80 alerts (vs. the baseline's 590 wrong escalations on the equivalent cell) — the agent chose `click_history_lookup` on its own on the exact `malicious_disagree` case the baseline missed 100% of the time.
+
+**Lateral movement's 0.000 false-negative rate needs a caveat the raw number hides: 28/64 (43.8%) of actual-malicious alerts got `verdict="inconclusive"`, not a confident `malicious` call.** All 28 were escalated (nothing silently dropped), but `false_negative_rate` as defined (matching the baseline's own formula: `verdict='benign'` on a malicious alert) only counts confident-wrong-benign misses — it has no way to represent "the agent honestly didn't know." 40/64 (62.5%) of malicious lateral-movement alerts reached a human via escalation, not via confident correct reasoning. This is real and defensible (the fail-safe behavior Phase 2 designed for), but "0.000 beats 0.218" alone overstates how much of that gap is genuine reasoning skill vs. calibrated uncertainty.
+
+**A second, more serious caveat, initially left as an unconfirmed hypothesis — since resolved:** escalation precision looked almost flat (0.753 → 0.755), which reads as "roughly the same behavior, just redistributed." Checking escalation rate *conditioned on ground truth* (the fair comparison across differently-composed eval populations — this eval set deliberately oversamples malicious cases, ~65%, against the baseline's realistic ~20%) tells a different story:
+
+| | Baseline | Agent |
+|---|---|---|
+| Escalation rate on malicious | 46.8% | 62.5% |
+| Escalation rate on benign | **3.9%** | **81.3%** |
+
+The agent escalates 4 out of 5 genuinely benign lateral-movement alerts. Flat precision was masking a large increase in false-alarm volume, not confirming a clean win — exactly the alert-fatigue problem this project's Phase 1 framing set out to fix, reappearing on the other end.
+
+**Root cause, confirmed against the actual 13 wrongly-escalated benign rows (not guessed):**
+- **8/13 (62%)** — `confidence.py`'s `_direction()` maps a `"suspicious"` reputation signal to `+0.5` (malicious-leaning) unconditionally. `"suspicious"` is supposed to mean *ambiguous*, not *lean malicious* — a real bug in the direction mapping, not just a threshold-tuning issue.
+- **5/13 (38%)** — worse, structurally: `"clean, established reputation"` (the *correct*, confident signal) combined with a neutral `sql_correlation` result (expected for any first-appearance host) caps at **confidence 0.4 every time**, because `ip_reputation_lookup` only carries weight 0.4 of 1.0. A single maximally-clean signal can never cross the 0.7 auto-resolve threshold on its own, regardless of how right it is — a calibration bug in the per-source weights, independent of the direction-mapping one above.
+
+Neither of these is a Phase 8 harness bug — both are real defects in Phase 6c's `confidence.py`, only surfaced because Phase 8 actually measured ground-truth-conditioned rates instead of trusting that flat precision meant flat behavior. Not yet fixed — recorded here as a confirmed, scoped finding rather than an open hypothesis, so the next person to touch `confidence.py`'s lateral-movement weights knows exactly what to fix and why.
+
+**What this does and doesn't support:** "the agent beats the baseline on lateral movement" is true for false-negative rate, true-but-caveated for escalation precision (the flat number hides a real false-alarm increase), and the mechanism is now root-caused rather than speculated about. Phishing's win is clean without qualification. Full detail, plus a live dashboard over these exact results: https://frontend-xi-navy-16.vercel.app.
+
+---
+
+## Known bug, confirmed and scoped (not a V2 idea — a fix)
+
+**`confidence.py`'s lateral-movement weighting has two confirmed defects**, both found by Phase 8's ground-truth-conditioned escalation-rate check (see above) and root-caused against the actual escalated rows, not guessed:
+1. `_direction()` maps a `"suspicious"` reputation signal to `+0.5` (malicious-leaning). It should map to `0` (ambiguous/neutral) — `"suspicious"` disagreeing with a benign truth is exactly the scenario-design case this signal is supposed to test, and the current mapping actively pushes genuinely benign hosts toward escalation instead of leaving the verdict to `sql_correlation`.
+2. `ip_reputation_lookup`'s weight (0.4 of 1.0) makes it structurally impossible for a single clean, confident reputation signal to cross the 0.7 auto-resolve threshold when `sql_correlation` is neutral (the normal case for a first-appearance host) — a calibration problem, not a direction problem. Either the weight split needs revisiting or the 0.7 threshold does.
+
+Fixing #1 alone would likely close most of the 62% chunk of the 81.3% benign-escalation-rate finding; #2 is the harder, more structural one. Neither is fixed yet — re-running Phase 8's eval after a fix is the way to confirm impact, not re-reasoning about it.
+
 ---
 
 ## V2 List (not required for the current scope, recorded so they aren't lost)
@@ -130,4 +178,8 @@ That's the whole system, once. Everything below is *why* it works this way.
 
 ## Part 3 — What's Left
 
-Phases 1–7 are locked, verified against real data, a real database, and a real model — not just reasoned about. Remaining: Phase 8 (turn the five metrics into a real eval harness — run systematically against both the agent and the Phase 5 baseline, not just the handful of hand-picked cases exercised so far; must process alerts in timestamp order per the locked requirement, since that's what makes `sql_correlation` meaningful at eval scale rather than just in a hand-seeded demo), Phase 9 (repo/code packaging), Phase 10 (API + deployment), Phase 11 (monitoring). Plus the closing deliverables: eval report, retrospective (the V2 list is already started above, not deferred to the end).
+Phases 1–8 are locked, verified against real data, a real database, a real model, and (Phase 8) a real 160-alert eval run with real numbers — not just reasoned about. Phase 8's actual results, including the confirmed-not-hypothesized escalation-rate finding, are in the Phase 8 section above; a live dashboard over the same results is deployed at https://frontend-xi-navy-16.vercel.app (static snapshot, see its own README for why).
+
+Also done, ahead of the original phase plan: a FastAPI read layer + React dashboard over `investigations` (originally scoped as part of Phase 10), and a Docker Compose stack for local reproducibility. Both documented in the repo README.
+
+Remaining, in original scope order: **the `confidence.py` bug fix above** (arguably higher priority than continuing to Phase 9, since it's the thing standing between "clean win" and "win with an asterisk" on lateral movement), Phase 9 (repo/code packaging — partially done via the README/Docker work above, not formally closed out), Phase 10 (a real API beyond the static snapshot, if a live dashboard is ever wanted — see README's known-gaps note that the static site and `docker-compose` live path use two unreconciled `api.js` data layers), Phase 11 (monitoring). Plus the closing deliverables: a standalone eval report (the Phase 8 section above is the substance of it, not yet extracted into its own document) and a retrospective (V2 list already started above, not deferred to the end).
