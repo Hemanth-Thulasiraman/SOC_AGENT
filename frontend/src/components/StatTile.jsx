@@ -4,20 +4,34 @@ export default function StatTile({ label, value, sub, status }) {
     <div style={{ padding: "var(--space-4) 0" }}>
       <div
         style={{
-          fontSize: 12.5,
+          fontFamily: "var(--font-mono)",
+          fontSize: 11,
           fontWeight: 500,
           color: "var(--text-muted)",
-          marginBottom: 10,
+          marginBottom: 12,
           textTransform: "uppercase",
-          letterSpacing: 0.4,
+          letterSpacing: "0.12em",
         }}
       >
         {label}
       </div>
-      <div style={{ fontSize: 32, fontWeight: 600, color: statusColor, lineHeight: 1.1, letterSpacing: -0.5 }}>
+      <div
+        className="mono"
+        style={{
+          fontSize: 30,
+          fontWeight: 600,
+          color: statusColor,
+          lineHeight: 1.05,
+          letterSpacing: "-0.02em",
+        }}
+      >
         {value}
       </div>
-      {sub && <div style={{ fontSize: 13, color: "var(--text-muted)", marginTop: 6 }}>{sub}</div>}
+      {sub && (
+        <div className="mono" style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 8 }}>
+          {sub}
+        </div>
+      )}
     </div>
   );
 }

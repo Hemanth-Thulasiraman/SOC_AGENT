@@ -1,33 +1,56 @@
-/* Design tokens -- dataviz skill reference palette. Light is default;
-   dark via prefers-color-scheme AND a manual data-theme="dark" override
-   on <html> (theme toggle) -- the explicit choice always wins over OS.
+/* ============================================================================
+   SOC Agent — "phosphor console" theme.
 
-   Minimal-flat approach: cards separate from the page by a subtle
-   background-color step, not a border or resting shadow -- shadow is
-   reserved for actual elevation (hover/interactive state only). */
+   The visual language is a security-operations terminal, not a generic SaaS
+   dashboard: a green-tinted near-black plane, a single phosphor-mint accent
+   that actually glows, amber/red carrying SIEM-style severity, and monospace
+   for every piece of machine data (alert IDs, metrics, verdicts, timestamps).
+   Panels sit on the plane by a subtle background step + a hairline gridline
+   border; a faint dot-grid gives the plane the texture of a console backdrop.
+
+   Dark is the only theme on purpose — a SOC runs in the dark. There is no
+   light mode and no toggle; committing to one point of view is the point.
+   ========================================================================== */
 :root {
-  color-scheme: light;
-  --page-plane: #f7f7f5;
-  --surface-1: #ffffff;
-  --surface-2: #f0efec;   /* one step further, for nested/quiet elements */
-  --text-primary: #16160f;
-  --text-secondary: #5c5b54;
-  --text-muted: #918f86;
-  --gridline: #e7e6e1;
-  --border: rgba(22, 22, 15, 0.08);
+  color-scheme: dark;
 
-  --series-1: #2a78d6; /* blue -- categorical slot 1 */
-  --series-2: #eb6834; /* orange -- categorical slot 2 */
-  --series-3: #1baf7a; /* aqua -- categorical slot 3 */
+  /* planes: deep, slightly green-shifted blacks */
+  --page-plane: #060a08;
+  --surface-1: #0b120e;   /* panel */
+  --surface-2: #101913;   /* nested / quiet elements, inputs */
+  --surface-3: #16241b;   /* hover, raised */
 
-  --status-good: #0ca30c;
-  --status-warning: #fab219;
-  --status-serious: #ec835a;
-  --status-critical: #d03b3b;
+  /* text: warm phosphor-white stepping down to muted green-grey */
+  --text-primary: #d9e8de;
+  --text-secondary: #8fa89a;
+  --text-muted: #5d7669;
 
-  --shadow-hover: 0 2px 6px rgba(22, 22, 15, 0.06), 0 8px 24px rgba(22, 22, 15, 0.06);
-  --radius: 14px;
-  --radius-sm: 8px;
+  --gridline: #17231b;
+  --border: rgba(120, 235, 175, 0.09);
+  --border-strong: rgba(120, 235, 175, 0.16);
+
+  /* the accent: phosphor mint. --accent-glow is its bloom, used sparingly. */
+  --accent: #3ddc84;
+  --accent-dim: #2ba367;
+  --accent-glow: 0 0 0.5px #3ddc84, 0 0 12px rgba(61, 220, 132, 0.35);
+
+  /* categorical series — kept in the green/teal/amber family, not rainbow */
+  --series-1: #37c7c1; /* teal — links, info */
+  --series-2: #d9a43c; /* amber — secondary */
+  --series-3: #3ddc84; /* phosphor — primary */
+
+  /* SIEM severity ramp */
+  --status-good: #3ddc84;     /* benign / clear */
+  --status-warning: #e3b341;  /* inconclusive */
+  --status-serious: #e8863f;  /* elevated */
+  --status-critical: #ff5865; /* malicious */
+
+  --shadow-hover: 0 0 0 1px var(--border-strong), 0 10px 30px rgba(0, 0, 0, 0.5);
+  --radius: 12px;
+  --radius-sm: 7px;
+
+  --font-mono: "JetBrains Mono", "SF Mono", "SFMono-Regular", ui-monospace, "Menlo", "Consolas", monospace;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --space-1: 4px;
   --space-2: 8px;
@@ -38,65 +61,82 @@
   --space-7: 48px;
 }
 
-@media (prefers-color-scheme: dark) {
-  html:not([data-theme="light"]) {
-    color-scheme: dark;
-    --page-plane: #0b0b0a;
-    --surface-1: #171715;
-    --surface-2: #1f1f1c;
-    --text-primary: #f7f7f5;
-    --text-secondary: #b6b4ab;
-    --text-muted: #7d7b73;
-    --gridline: #26261f;
-    --border: rgba(255, 255, 255, 0.08);
-
-    --series-1: #3987e5;
-    --series-2: #d95926;
-    --series-3: #199e70;
-
-    --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
-  }
-}
-
-html[data-theme="dark"] {
-  color-scheme: dark;
-  --page-plane: #0b0b0a;
-  --surface-1: #171715;
-  --surface-2: #1f1f1c;
-  --text-primary: #f7f7f5;
-  --text-secondary: #b6b4ab;
-  --text-muted: #7d7b73;
-  --gridline: #26261f;
-  --border: rgba(255, 255, 255, 0.08);
-
-  --series-1: #3987e5;
-  --series-2: #d95926;
-  --series-3: #199e70;
-
-  --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
-}
-
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
-  background: var(--page-plane);
   color: var(--text-primary);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  /* console backdrop: a faint dot-grid + a soft phosphor glow bleeding down
+     from the top, where the "screen" is brightest. */
+  background-color: var(--page-plane);
+  background-image:
+    radial-gradient(circle at 50% -10%, rgba(61, 220, 132, 0.06), transparent 55%),
+    radial-gradient(var(--gridline) 1px, transparent 1px);
+  background-size: 100% 100%, 22px 22px;
+  background-position: 0 0, 0 0;
+  background-attachment: fixed;
+}
+
+/* mono utility — applied to machine data throughout the app */
+.mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1; }
+
+/* the phosphor cursor block — the app's signature mark, used in the wordmark
+   and as a "live" indicator. Blinks like a terminal caret. */
+.caret {
+  display: inline-block;
+  width: 0.62em;
+  height: 1.05em;
+  background: var(--accent);
+  box-shadow: var(--accent-glow);
+  border-radius: 1px;
+  vertical-align: text-bottom;
+  animation: caret-blink 1.15s steps(1) infinite;
+}
+@keyframes caret-blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0.12; } }
+
+/* section headers: a small phosphor tick + uppercase tracked label — the
+   quiet, structural section marker of a production dashboard. */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+.section-label::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--accent);
+  box-shadow: var(--accent-glow);
 }
 
 a { color: var(--series-1); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
 
-::selection { background: color-mix(in srgb, var(--series-1) 30%, transparent); }
+::selection { background: rgba(61, 220, 132, 0.28); color: #fff; }
 
 ::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-thumb { background: var(--gridline); border-radius: 8px; }
+::-webkit-scrollbar-thumb { background: var(--gridline); border-radius: 8px; border: 2px solid var(--page-plane); }
+::-webkit-scrollbar-thumb:hover { background: var(--surface-3); }
 ::-webkit-scrollbar-track { background: transparent; }
 
-.alert-row { transition: background 100ms ease; }
+.panel {
+  background: var(--surface-1);
+  border: 1px solid var(--gridline);
+  border-radius: var(--radius);
+}
+
+.alert-row { transition: background 90ms ease; }
 .alert-row:hover { background: var(--surface-2); }
+.alert-row:hover td:first-child { box-shadow: inset 2px 0 0 var(--accent); }
 
+select, button, input { font-family: var(--font-sans); }
 select { cursor: pointer; }
-::-webkit-scrollbar-track { background: transparent; }

@@ -13,22 +13,38 @@ export default function VerdictBreakdown({ title, counts }) {
   const order = ["malicious", "inconclusive", "benign"];
 
   return (
-    <div style={{ background: "var(--surface-1)", borderRadius: "var(--radius)", padding: "var(--space-5)" }}>
-      <div style={{ fontSize: 13.5, fontWeight: 500, color: "var(--text-secondary)", marginBottom: 14 }}>{title}</div>
-      <div style={{ display: "flex", height: 8, borderRadius: 4, overflow: "hidden", gap: 2 }}>
+    <div className="panel" style={{ padding: "var(--space-5)" }}>
+      <div className="section-label" style={{ marginBottom: 16 }}>{title}</div>
+      <div
+        style={{
+          display: "flex",
+          height: 10,
+          borderRadius: 3,
+          overflow: "hidden",
+          gap: 2,
+          background: "var(--surface-2)",
+        }}
+      >
         {order.map((k) =>
           counts[k] ? (
-            <div key={k} style={{ background: STATUS[k].color, width: `${(counts[k] / total) * 100}%` }} />
+            <div
+              key={k}
+              style={{
+                background: STATUS[k].color,
+                width: `${(counts[k] / total) * 100}%`,
+                boxShadow: k === "benign" ? "0 0 10px rgba(61,220,132,0.4)" : "none",
+              }}
+            />
           ) : null
         )}
       </div>
-      <div style={{ display: "flex", gap: 20, marginTop: 14, flexWrap: "wrap" }}>
+      <div style={{ display: "flex", gap: 20, marginTop: 16, flexWrap: "wrap" }}>
         {order.map((k) => (
-          <div key={k} style={{ display: "flex", alignItems: "center", gap: 7, fontSize: 13 }}>
-            <span style={{ width: 7, height: 7, borderRadius: 2, background: STATUS[k].color, display: "inline-block" }} />
-            <span style={{ color: "var(--text-secondary)" }}>{STATUS[k].label}</span>
-            <span style={{ color: "var(--text-primary)", fontWeight: 500, fontVariantNumeric: "tabular-nums" }}>
-              {counts[k] || 0} ({(((counts[k] || 0) / total) * 100).toFixed(0)}%)
+          <div key={k} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13 }}>
+            <span style={{ width: 8, height: 8, borderRadius: 2, background: STATUS[k].color, display: "inline-block" }} />
+            <span className="mono" style={{ color: "var(--text-secondary)" }}>{STATUS[k].label}</span>
+            <span className="mono" style={{ color: "var(--text-primary)", fontWeight: 600 }}>
+              {counts[k] || 0} · {(((counts[k] || 0) / total) * 100).toFixed(0)}%
             </span>
           </div>
         ))}

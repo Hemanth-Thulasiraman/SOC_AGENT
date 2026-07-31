@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="7" fill="#0b0b0b"/>
-  <rect x="9" y="9" width="14" height="14" rx="3" fill="#eb6834"/>
+  <rect width="32" height="32" rx="7" fill="#060a08"/>
+  <rect x="0.5" y="0.5" width="31" height="31" rx="6.5" fill="none" stroke="#3ddc84" stroke-opacity="0.25"/>
+  <!-- terminal prompt: chevron + caret -->
+  <path d="M8 11l4 4-4 4" fill="none" stroke="#3ddc84" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="15.5" y="18.4" width="8.5" height="2.4" rx="1.2" fill="#3ddc84"/>
 </svg>
