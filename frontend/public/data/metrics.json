@@ -1,0 +1,62 @@
+{
+  "overall": {
+    "n_alerts": 160,
+    "time_to_verdict_median_s": 1.9622285000000002,
+    "time_to_verdict_p95_s": 7.033564349999998,
+    "throughput_alerts_per_hour": 1220.7859821147138,
+    "escalation_precision": 0.7407407407407407,
+    "n_escalations": 54,
+    "false_negative_rate": 0.0,
+    "n_false_negatives": 0,
+    "n_actual_malicious": 104,
+    "cost_per_investigation_usd": 0.0054755937499999996,
+    "n_inconclusive_on_malicious": 28,
+    "n_malicious_escalated": 40,
+    "escalation_rate_malicious": 0.38461538461538464,
+    "escalation_rate_benign": 0.25
+  },
+  "by_alert_type": {
+    "phishing": {
+      "n_alerts": 80,
+      "time_to_verdict_median_s": 1.7804985,
+      "time_to_verdict_p95_s": 3.7582981499999994,
+      "throughput_alerts_per_hour": 1824.3062237860104,
+      "escalation_precision": 0.0,
+      "n_escalations": 1,
+      "false_negative_rate": 0.0,
+      "n_false_negatives": 0,
+      "n_actual_malicious": 40,
+      "cost_per_investigation_usd": 0.0054755937499999996,
+      "n_inconclusive_on_malicious": 0,
+      "n_malicious_escalated": 0,
+      "escalation_rate_malicious": 0.0,
+      "escalation_rate_benign": 0.025,
+      "verdict_counts": {
+        "malicious": 41,
+        "benign": 39
+      }
+    },
+    "lateral_movement": {
+      "n_alerts": 80,
+      "time_to_verdict_median_s": 3.508371,
+      "time_to_verdict_p95_s": 7.7255973,
+      "throughput_alerts_per_hour": 917.3174017044478,
+      "escalation_precision": 0.7547169811320755,
+      "n_escalations": 53,
+      "false_negative_rate": 0.0,
+      "n_false_negatives": 0,
+      "n_actual_malicious": 64,
+      "cost_per_investigation_usd": 0.0054755937499999996,
+      "n_inconclusive_on_malicious": 28,
+      "n_malicious_escalated": 40,
+      "escalation_rate_malicious": 0.625,
+      "escalation_rate_benign": 0.8125,
+      "verdict_counts": {
+        "malicious": 44,
+        "inconclusive": 28,
+        "benign": 8
+      }
+    }
+  },
+  "generated_at": "2026-07-31T06:11:37.001704Z"
+}

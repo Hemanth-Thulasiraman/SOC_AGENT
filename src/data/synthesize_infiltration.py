@@ -5,6 +5,18 @@ within the observed ranges of the real CICIDS Infiltration rows.
 import pandas as pd
 import numpy as np
 
+# Mirrors synthesize_phishing.py's SCENARIO_MAP: ip_reputation_signal is a
+# mock fixture standing in for what a threat-intel tool would return for
+# dest_ip, deliberately decorrelated from true_label in the "disagree"
+# cells so ip_reputation_lookup has the same reasoning gap to expose that
+# reputation_lookup does for phishing.
+IP_REPUTATION_SCENARIO_MAP = {
+    ("malicious", "agree"): "known_malicious",
+    ("malicious", "disagree"): "unknown",   # freshly-stood-up infra, no history yet
+    ("benign", "agree"): "known_clean",
+    ("benign", "disagree"): "suspicious",   # legitimate but looks newly-provisioned
+}
+
 NUMERIC_FIELDS = [
     "flow_duration", "total_fwd_packets", "total_bwd_packets",
     "syn_flag_count", "fin_flag_count", "avg_packet_size",
@@ -20,6 +32,57 @@ COUNT_FIELDS = [
 STRUCTURAL_FIELDS = [
     "source_ip", "dest_ip", "source_port", "dest_port", "protocol",
 ]
+
+
+MIN_OCCURRENCE_GAP_DAYS = 1.0
+MAX_OCCURRENCE_GAP_DAYS = 14.0
+
+
+def _assign_synthetic_timestamps(
+    template_idxs: np.ndarray,
+    rng: np.random.Generator,
+    now: pd.Timestamp | None = None,
+) -> list[pd.Timestamp]:
+    """
+    Gives every synthetic row a timestamp, ordered so that repeated
+    occurrences of the same template land days apart rather than minutes
+    or hours apart.
+
+    This spacing is deliberate, not cosmetic: sql_correlation only has
+    something to find if an earlier occurrence of a host has already been
+    fully investigated -- verdict computed and written back to
+    `investigations` -- before the *next* occurrence of that same host is
+    even alerted. Day-scale gaps make that ordering safe regardless of how
+    slow the investigation is (Phase 2's own cap is 2 minutes); session-
+    scale gaps (same host, same hour) would make it a race the pipeline
+    could lose. This also incidentally rules out two occurrences of the
+    same template ever landing on the identical instant.
+
+    Returns timestamps in the same row order as template_idxs (position i
+    gets the timestamp for that row), ending at or before `now`.
+    """
+    now = now or pd.Timestamp.now()
+    n = len(template_idxs)
+    timestamps: list[pd.Timestamp | None] = [None] * n
+
+    positions_by_template: dict[int, list[int]] = {}
+    for i, tidx in enumerate(template_idxs):
+        positions_by_template.setdefault(int(tidx), []).append(i)
+
+    for positions in positions_by_template.values():
+        k = len(positions)
+        gaps_days = rng.uniform(MIN_OCCURRENCE_GAP_DAYS, MAX_OCCURRENCE_GAP_DAYS, size=k - 1)
+        offsets_days = np.concatenate([[0.0], np.cumsum(gaps_days)])
+
+        # Anchor the *last* occurrence a random buffer before `now`, so the
+        # whole increasing sequence still ends up in the past.
+        end_buffer_days = rng.uniform(0.0, MAX_OCCURRENCE_GAP_DAYS)
+        start = now - pd.Timedelta(days=float(offsets_days[-1]) + end_buffer_days)
+
+        for pos, offset in zip(positions, offsets_days, strict=True):
+            timestamps[pos] = start + pd.Timedelta(days=float(offset))
+
+    return timestamps  # type: ignore[return-value]
 
 
 def _jitter_last_octet(
@@ -96,6 +159,8 @@ def generate_synthetic_infiltration_rows(real_infiltration_df: pd.DataFrame,
     synthetic = templates.copy()
     assert synthetic[STRUCTURAL_FIELDS].equals(templates[STRUCTURAL_FIELDS])
 
+    synthetic["timestamp"] = _assign_synthetic_timestamps(template_idxs, rng)
+
     # IPs: assign one jittered source/dest per template index, then reuse it
     # whenever that template is sampled again. That lets SQL correlation see
     # a repeat-offender host (same compromised machine, multiple alerts).
@@ -162,3 +227,32 @@ def generate_synthetic_infiltration_rows(real_infiltration_df: pd.DataFrame,
     real["is_synthetic"] = False
 
     return pd.concat([real, synthetic], ignore_index=True)
+
+
+def assign_ip_reputation_signal(
+    df: pd.DataFrame, agree_rate: float = 0.5, seed: int | None = None
+) -> pd.DataFrame:
+    """
+    Assigns a mock ip_reputation_signal per row, the same way
+    synthesize_phishing.py assigns reputation_signal: drawn from
+    (true_label, agreement) via IP_REPUTATION_SCENARIO_MAP, so
+    ip_reputation_lookup has real disagreement cells to expose rather than
+    a signal that always matches the truth.
+
+    df must already carry a `true_label` column -- this runs on the
+    combined malicious + benign population (assigned by the caller once
+    both are concatenated), not on the malicious-only output of
+    generate_synthetic_infiltration_rows alone.
+    """
+    if "true_label" not in df.columns:
+        raise ValueError("df must already have a true_label column")
+
+    rng = np.random.default_rng(seed)
+    agreements = rng.choice(["agree", "disagree"], size=len(df), p=[agree_rate, 1 - agree_rate])
+
+    out = df.copy()
+    out["ip_reputation_signal"] = [
+        IP_REPUTATION_SCENARIO_MAP[(label, agreement)]
+        for label, agreement in zip(out["true_label"], agreements, strict=True)
+    ]
+    return out

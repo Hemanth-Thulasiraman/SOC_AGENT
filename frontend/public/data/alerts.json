@@ -1,0 +1,5304 @@
+[
+  {
+    "investigation_id": "58eff372-dbd3-49f7-9060-b47a8d4b8836",
+    "alert_id": "eval_ph_00001",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "3e0cdda5-60c9-4570-b3cc-71b4d2503686",
+    "sender_domain": "wilson-chen.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:04:12.710319+00:00",
+    "verdict_timestamp": "2026-07-31T05:04:14.720242+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:04:13.522442+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:04:15.530185+00:00"
+  },
+  {
+    "investigation_id": "f83508c4-4e42-4d30-be8a-7055e94035e8",
+    "alert_id": "eval_lm_00044",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.40",
+    "dest_ip": "205.174.165.65",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:04:07.072822+00:00",
+    "verdict_timestamp": "2026-07-31T05:04:11.617562+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:04:08.331529+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.65"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:04:10.279345+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:04:10.276793+00:00"
+  },
+  {
+    "investigation_id": "37415a85-900b-4607-a5b0-94c10f3bbaf2",
+    "alert_id": "eval_ph_00028",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "8e79c492-5747-42b9-b03f-eb7c73672f17",
+    "sender_domain": "king.info",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:04:04.247079+00:00",
+    "verdict_timestamp": "2026-07-31T05:04:06.110364+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:04:05.056871+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:04:07.063325+00:00"
+  },
+  {
+    "investigation_id": "df75875b-2805-4a78-b208-7ce54f283c7d",
+    "alert_id": "eval_lm_00038",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.139",
+    "dest_ip": "205.174.165.111",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:03:56.587934+00:00",
+    "verdict_timestamp": "2026-07-31T05:04:03.108567+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:57.463811+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:59.012411+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.111"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:03:57.461555+00:00"
+  },
+  {
+    "investigation_id": "4319c378-b505-4fea-a41b-88bea8476f3b",
+    "alert_id": "eval_lm_00001",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.233",
+    "dest_ip": "205.174.165.118",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:03:52.162940+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:55.555143+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:52.972588+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.118"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:54.584753+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:03:54.582731+00:00"
+  },
+  {
+    "investigation_id": "66203380-b585-4a9e-a7b0-d10f4fead0a5",
+    "alert_id": "eval_lm_00019",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.133",
+    "dest_ip": "205.174.165.145",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:03:45.620292+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:50.921233+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:46.315851+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.145 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:49.241264+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:49.237864+00:00"
+  },
+  {
+    "investigation_id": "66017027-52bd-4c10-985d-ab5f22d4559e",
+    "alert_id": "eval_ph_00033",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "259e0aa4-422d-4b74-843e-9395755da12e",
+    "sender_domain": "jones.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:43.004715+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:44.777083+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:43.729602+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:03:45.611375+00:00"
+  },
+  {
+    "investigation_id": "a965bf84-7cb8-4a44-b9d8-cd62c76d3ad4",
+    "alert_id": "eval_ph_00077",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "031f2b2a-74ee-493c-b04c-d1229076b0a7",
+    "sender_domain": "romero.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:40.087344+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:41.910612+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:40.888025+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-23 04:47:55.948744"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-23 04:47:55.948744, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:42.994816+00:00"
+  },
+  {
+    "investigation_id": "bba1d127-7000-4f4f-8b9d-3645fabbf798",
+    "alert_id": "eval_lm_00016",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.112",
+    "dest_ip": "205.174.165.162",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:36.851056+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:39.146108+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:37.510925+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.162"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no reputation history found for dest_ip 205.174.165.162, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:03:40.079621+00:00"
+  },
+  {
+    "investigation_id": "25a065f2-14c9-4670-ad1c-1b4c64d1a473",
+    "alert_id": "eval_lm_00039",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.195",
+    "dest_ip": "205.174.165.4",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:33.862243+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:35.829740+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:34.642805+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.4 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.4 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:36.843378+00:00"
+  },
+  {
+    "investigation_id": "2e83c25a-1917-425a-999c-4ff947c6690b",
+    "alert_id": "eval_ph_00017",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "78ca9ad6-e3d6-41a4-b483-79053bfa0cc1",
+    "sender_domain": "ross-shields.net",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:31.245467+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:33.001252+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:31.982002+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:03:33.852880+00:00"
+  },
+  {
+    "investigation_id": "16ace418-33de-4a05-a951-85ab6a35b9f6",
+    "alert_id": "eval_ph_00057",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "017249b4-adb4-46cc-8184-58df20ab4036",
+    "sender_domain": "torres.net",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:28.297700+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:30.031907+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:29.008589+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-20 23:04:19.752741"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-20 23:04:19.752741, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:31.233412+00:00"
+  },
+  {
+    "investigation_id": "9e82524f-5333-40c5-b5ee-7f8a72a7db34",
+    "alert_id": "eval_ph_00061",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "18494ad2-e3d2-4f01-97be-67c9f7acc5af",
+    "sender_domain": "jordan-wells.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:25.453002+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:27.270880+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:26.083107+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-20 08:35:51.835728"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-20 08:35:51.835728, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:28.281364+00:00"
+  },
+  {
+    "investigation_id": "c2181f9c-8e2d-47aa-adfc-053e37ef3b84",
+    "alert_id": "eval_lm_00048",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.147",
+    "dest_ip": "205.174.165.98",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:22.740475+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:24.604559+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:23.549366+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.98 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.98 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:25.441185+00:00"
+  },
+  {
+    "investigation_id": "504bc286-d818-4534-974b-d30d749299da",
+    "alert_id": "eval_lm_00004",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.112",
+    "dest_ip": "205.174.165.162",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:03:14.833817+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:21.531644+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:15.595989+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.162 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:18.160763+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:18.156693+00:00"
+  },
+  {
+    "investigation_id": "6bbdf6c9-9cee-498e-ba13-1cced73e12ca",
+    "alert_id": "eval_lm_00027",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.146",
+    "dest_ip": "205.174.165.114",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:03:10.142053+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:13.666992+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:10.985708+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.114"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:12.729571+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:03:12.724796+00:00"
+  },
+  {
+    "investigation_id": "889d991a-80ae-4a66-9481-0a6533254386",
+    "alert_id": "eval_ph_00026",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "89e04d4f-27e1-42c4-b1d2-5c42918a8e67",
+    "sender_domain": "martin.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:06.782367+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:09.078493+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:07.820044+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:03:10.131404+00:00"
+  },
+  {
+    "investigation_id": "84ac9350-9504-4996-b915-6082562a2f34",
+    "alert_id": "eval_ph_00044",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "7ce2baef-e35d-4587-9789-dd20c35a5620",
+    "sender_domain": "wolf.info",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:03.543123+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:05.494967+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:04.338935+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-16 11:31:51.826504"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-16 11:31:51.826504, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:06.768423+00:00"
+  },
+  {
+    "investigation_id": "3dac61ae-d285-42a6-95e0-65cf45e8d2bb",
+    "alert_id": "eval_lm_00046",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.139",
+    "dest_ip": "205.174.165.111",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:03:00.821045+00:00",
+    "verdict_timestamp": "2026-07-31T05:03:02.686322+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:03:01.669317+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.111 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.111 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:03.534785+00:00"
+  },
+  {
+    "investigation_id": "a155c910-933c-44b6-a56a-a3897a12d2d7",
+    "alert_id": "eval_ph_00074",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "ed03e603-de28-4906-a5c4-3dfb1dcfe93b",
+    "sender_domain": "pennington.info",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:57.623445+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:59.619710+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:58.606106+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-14 23:20:19.098772"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-14 23:20:19.098772, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:03:00.809716+00:00"
+  },
+  {
+    "investigation_id": "fde5694e-cdde-4e9d-ad13-846acd4f96c9",
+    "alert_id": "eval_ph_00008",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "af3e3c9d-6a91-4cdc-aa66-bb06ca79d717",
+    "sender_domain": "french.org",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:54.714747+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:56.650091+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:55.626536+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:02:57.613103+00:00"
+  },
+  {
+    "investigation_id": "03bf8c6e-72bb-4c4a-9678-850b49aab954",
+    "alert_id": "eval_ph_00051",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "4c84c520-15e5-48a4-b2ed-c9ea96016857",
+    "sender_domain": "navarro-collins.org",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:52.091870+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:53.781657+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:52.861984+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-14 16:29:45.990941"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-14 16:29:45.990941, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:02:54.709563+00:00"
+  },
+  {
+    "investigation_id": "4e074fcb-b4a5-4ac7-beb5-9b9646169ce9",
+    "alert_id": "eval_ph_00078",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "ef612c56-428c-4dbf-b5da-a8d0e560c34f",
+    "sender_domain": "flores.biz",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:47.931885+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:51.119045+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:48.758897+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-14 01:08:01.598232"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-14 01:08:01.598232, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:02:52.083660+00:00"
+  },
+  {
+    "investigation_id": "871822f9-6608-4461-a253-46f15c3e6ef8",
+    "alert_id": "eval_ph_00037",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "44b200da-acdd-4985-8ed7-8109d43a825b",
+    "sender_domain": "weber.info",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:45.286135+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:47.124009+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:46.106933+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:02:47.922070+00:00"
+  },
+  {
+    "investigation_id": "f6376079-a50c-4703-94d8-79e42b6cf00c",
+    "alert_id": "eval_ph_00000",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "5dc6d350-a45f-4bc4-8671-eb5f6d1b66ff",
+    "sender_domain": "smith-johnson.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:41.974635+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:43.820089+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:42.972208+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:02:45.275702+00:00"
+  },
+  {
+    "investigation_id": "ab4e833e-b3e6-4d01-824b-f2d742b631ce",
+    "alert_id": "eval_ph_00013",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "df4a1e75-3c29-4862-a903-4c861fe7df08",
+    "sender_domain": "walls.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:39.148405+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:41.083815+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:39.840251+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "domain walls.com has clean, established reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, domain walls.com has clean, established reputation, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:02:41.962413+00:00"
+  },
+  {
+    "investigation_id": "eb9bb634-7466-4ca5-bc01-c99ce95c8aa0",
+    "alert_id": "eval_ph_00031",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "1792a190-de51-4f48-895f-17a505153c5b",
+    "sender_domain": "miller-miller.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:36.414387+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:38.217889+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:37.092393+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:02:39.136609+00:00"
+  },
+  {
+    "investigation_id": "966160b5-9115-48ce-a162-7a50010973d6",
+    "alert_id": "eval_ph_00048",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "408c2af5-fe2a-46f5-b63f-393aded80880",
+    "sender_domain": "hale.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:33.596909+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:35.347238+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:34.264574+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-11 00:36:00.825595"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-11 00:36:00.825595, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:02:36.406022+00:00"
+  },
+  {
+    "investigation_id": "2ddf7cfd-da93-4bb1-9041-4af155e3cccc",
+    "alert_id": "eval_lm_00037",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.153",
+    "dest_ip": "205.174.165.158",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:02:27.784964+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:31.766111+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:28.570996+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.158"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:30.641767+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:02:30.639914+00:00"
+  },
+  {
+    "investigation_id": "45799d06-eb49-4947-be15-6d5e9b4a3d5b",
+    "alert_id": "eval_ph_00002",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "489ce510-8a61-4cff-a53f-9e84bdb21a0b",
+    "sender_domain": "jackson-fitzpatrick.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:25.183803+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:26.954727+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:25.874637+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:02:27.778476+00:00"
+  },
+  {
+    "investigation_id": "26ee4a74-ce84-4fde-8418-eb6cdb3ee7c5",
+    "alert_id": "eval_ph_00016",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "30b82617-0be6-403d-a77f-877e6a352406",
+    "sender_domain": "davis.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:22.231178+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:24.188138+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:23.124569+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:02:25.176901+00:00"
+  },
+  {
+    "investigation_id": "37607fc3-7672-4c4e-b436-05ae018325ab",
+    "alert_id": "eval_lm_00058",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.147",
+    "dest_ip": "205.174.165.98",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:02:16.438477+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:20.912379+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:17.325964+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.98"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:19.116681+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:02:19.114084+00:00"
+  },
+  {
+    "investigation_id": "a69c54a1-c533-4f83-a453-1fe709af23a3",
+    "alert_id": "eval_ph_00015",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "4a5acf46-0a34-4292-82dd-ec27b3d6314c",
+    "sender_domain": "barker.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:13.692149+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:15.584958+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:14.563159+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:02:16.432560+00:00"
+  },
+  {
+    "investigation_id": "85d52256-558a-4c03-8348-4badc31262a2",
+    "alert_id": "eval_ph_00054",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "d992051d-0038-423e-a749-781aceba58ae",
+    "sender_domain": "jackson.biz",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:10.723238+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:12.769614+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:11.393376+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-08 03:00:29.073738"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-08 03:00:29.073738, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:02:13.680374+00:00"
+  },
+  {
+    "investigation_id": "f003386d-2085-4298-a4ee-e33b92ea5a79",
+    "alert_id": "eval_lm_00028",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.173",
+    "dest_ip": "205.174.165.161",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:02:07.407826+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:09.647930+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:08.112076+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.161"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no reputation history found for dest_ip 205.174.165.161, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:02:10.716282+00:00"
+  },
+  {
+    "investigation_id": "18f49194-213e-438b-8a06-e4ffb3002c70",
+    "alert_id": "eval_lm_00061",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.29",
+    "dest_ip": "205.174.165.232",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:02:00.716390+00:00",
+    "verdict_timestamp": "2026-07-31T05:02:05.958208+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:01.494840+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.232"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:02:04.632845+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:02:04.629878+00:00"
+  },
+  {
+    "investigation_id": "64767e7b-d56e-4db8-a933-ac9e98a31744",
+    "alert_id": "eval_ph_00027",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "b1262169-8436-4902-8863-3b981f4563c4",
+    "sender_domain": "collins.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:01:57.904961+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:59.712879+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:58.691122+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:02:00.706185+00:00"
+  },
+  {
+    "investigation_id": "8748590f-4e08-4e37-bf19-c3dbd463c09f",
+    "alert_id": "eval_ph_00063",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "3dded83c-7461-4862-bcd4-ed42415bacb6",
+    "sender_domain": "alvarado.net",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:01:55.025757+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:56.855834+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:55.818743+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-05 16:55:01.086570"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "\"Phishing alert, user entered credentials at 2026-07-05 16:55:01.086570, auto-resolved, agent assessed malicious.\"",
+    "created_at": "2026-07-31T05:01:57.893294+00:00"
+  },
+  {
+    "investigation_id": "1e20edae-656b-4a28-926a-c76b398b19ec",
+    "alert_id": "eval_lm_00032",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.62",
+    "dest_ip": "205.174.165.208",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:01:48.989178+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:53.605457+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:49.701864+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.208 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:52.547627+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T05:01:52.545296+00:00"
+  },
+  {
+    "investigation_id": "8e88cfc6-ad20-4e76-ab86-064b06d81731",
+    "alert_id": "eval_lm_00040",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.40",
+    "dest_ip": "205.174.165.65",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:01:46.080667+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:48.123802+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:46.916756+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.65 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.65 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:01:48.981979+00:00"
+  },
+  {
+    "investigation_id": "e9e40f1e-993d-4d9e-849d-6aec537f6e2a",
+    "alert_id": "eval_ph_00014",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "5c344342-35d2-41ee-9640-deeb41da802e",
+    "sender_domain": "ford.net",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:01:43.673563+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:45.274405+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:44.353325+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:01:46.071804+00:00"
+  },
+  {
+    "investigation_id": "fb6b05a7-cd75-45a1-9ff9-ed091f55ca90",
+    "alert_id": "eval_ph_00011",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "6051f7c4-94c2-411e-b04c-f86e50591278",
+    "sender_domain": "shepherd-ford.org",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:01:39.002678+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:42.904250+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:39.894122+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "domain shepherd-ford.org has clean, established reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:41.621157+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:01:43.664220+00:00"
+  },
+  {
+    "investigation_id": "d3483187-cbc9-498a-8ccb-f1db819c0bfd",
+    "alert_id": "eval_lm_00010",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.112",
+    "dest_ip": "205.174.165.162",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:01:29.568268+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:37.901490+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:30.324269+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.162"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:32.682180+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:01:32.678671+00:00"
+  },
+  {
+    "investigation_id": "c7cbe21b-3f53-4797-9385-23473157579c",
+    "alert_id": "eval_lm_00063",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.29",
+    "dest_ip": "205.174.165.232",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:01:26.375675+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:28.582701+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:27.254763+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.232 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.232 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:01:29.557274+00:00"
+  },
+  {
+    "investigation_id": "96f0fbbe-6aae-49f9-8d5d-8b7651134329",
+    "alert_id": "eval_ph_00066",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "0ed26738-fd46-4c59-80f7-04f5bee44a12",
+    "sender_domain": "sanders.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:01:23.079725+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:25.205264+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:24.080751+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-01 17:30:23.046965"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-07-01 17:30:23.046965, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:01:26.365160+00:00"
+  },
+  {
+    "investigation_id": "a17c3b6b-2745-462d-853f-bc0a551d4a44",
+    "alert_id": "eval_ph_00058",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "0d9aac3a-2bee-4787-a328-fd6bda795d09",
+    "sender_domain": "finley.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:01:16.719146+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:21.516880+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:17.527215+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-07-01 14:19:40.105193"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:20.395658+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "domain finley.com has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "\"Phishing alert, user entered credentials at 2026-07-01 14:19:40.105193, auto-resolved, agent assessed malicious.\"",
+    "created_at": "2026-07-31T05:01:23.067496+00:00"
+  },
+  {
+    "investigation_id": "1039164d-f5a6-4189-8f6b-89ed105ebd6e",
+    "alert_id": "eval_lm_00020",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.48",
+    "dest_ip": "205.174.165.86",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:01:13.555423+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:15.785352+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:14.466811+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.86 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.86 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:01:16.708002+00:00"
+  },
+  {
+    "investigation_id": "9fc981b2-f6d3-4497-878c-d2cf3407b915",
+    "alert_id": "eval_lm_00011",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.140",
+    "dest_ip": "205.174.165.31",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:01:10.280965+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:12.506369+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:11.100218+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.31 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "\"Lateral movement alert, dest_ip 205.174.165.31 has known-malicious reputation, auto-resolved, agent assessed malicious.\"",
+    "created_at": "2026-07-31T05:01:13.546883+00:00"
+  },
+  {
+    "investigation_id": "c5334224-821c-43bc-8f7a-1062aafcefa1",
+    "alert_id": "eval_lm_00055",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.32",
+    "dest_ip": "205.174.165.93",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:01:06.957175+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:08.817901+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:07.823544+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.93 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.93 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:01:10.263263+00:00"
+  },
+  {
+    "investigation_id": "5a858b86-1d41-40ff-a24c-1134aa35fe58",
+    "alert_id": "eval_lm_00059",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.197",
+    "dest_ip": "205.174.165.25",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:00:58.637668+00:00",
+    "verdict_timestamp": "2026-07-31T05:01:06.058253+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:59.504184+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.25"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:01:01.553222+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:01:01.550622+00:00"
+  },
+  {
+    "investigation_id": "844ea1cf-71f0-42cd-b32c-722c0d697e58",
+    "alert_id": "eval_lm_00005",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.140",
+    "dest_ip": "205.174.165.31",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:00:50.146764+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:57.352333+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:51.007048+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.31"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:53.155103+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:00:53.151832+00:00"
+  },
+  {
+    "investigation_id": "f7d05712-af75-4ad7-bc40-fc7aa496016a",
+    "alert_id": "eval_lm_00007",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.11",
+    "dest_ip": "205.174.165.218",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:00:44.697163+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:48.883698+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:45.370282+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.218"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:47.675987+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:00:47.674378+00:00"
+  },
+  {
+    "investigation_id": "c411e2d0-1aed-422d-bf79-9cee098d63e6",
+    "alert_id": "eval_lm_00030",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.144",
+    "dest_ip": "205.174.165.183",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:00:37.687849+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:43.547749+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:38.510925+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.183 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:42.066709+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T05:00:42.063947+00:00"
+  },
+  {
+    "investigation_id": "cf42be13-5fcb-49f3-99bd-1bab74bcfd18",
+    "alert_id": "eval_lm_00022",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.11",
+    "dest_ip": "205.174.165.218",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:00:34.789286+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:36.824612+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:35.503199+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.218 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.218 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:00:37.677808+00:00"
+  },
+  {
+    "investigation_id": "b8b83184-9592-421f-b820-d0c687b32b31",
+    "alert_id": "eval_ph_00036",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "87a94f9e-b39e-48f9-b92f-c75d8ccbed6c",
+    "sender_domain": "kerr.info",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:00:32.117491+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:33.967832+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:32.782313+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:00:34.778278+00:00"
+  },
+  {
+    "investigation_id": "d1c6b6ab-9c54-42ea-b837-c6bc48010fa0",
+    "alert_id": "eval_lm_00045",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.40",
+    "dest_ip": "205.174.165.65",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:00:28.235149+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:31.135985+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:29.398222+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.65 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.65 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:00:32.105320+00:00"
+  },
+  {
+    "investigation_id": "aa786983-e4b0-4907-b3a1-ef3d73f56889",
+    "alert_id": "eval_lm_00002",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.96",
+    "dest_ip": "205.174.165.194",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:00:24.668287+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:26.972403+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:25.508245+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.194 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.194 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:00:28.224092+00:00"
+  },
+  {
+    "investigation_id": "6fac0f1f-2d4a-43f1-a09a-677a183371f4",
+    "alert_id": "eval_lm_00024",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.14",
+    "dest_ip": "205.174.165.59",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:00:15.393417+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:23.531374+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:16.077791+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.59"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:18.609671+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T05:00:18.604528+00:00"
+  },
+  {
+    "investigation_id": "f3e1828f-97c8-42f2-95ae-408f5af75b03",
+    "alert_id": "eval_ph_00004",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "28c9c99e-2eea-4832-9ad3-ef8eea168fb2",
+    "sender_domain": "arnold-kennedy.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:00:12.257733+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:14.407934+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:12.988808+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:00:15.380300+00:00"
+  },
+  {
+    "investigation_id": "d4042105-52d9-4915-8eb5-2a523fbce678",
+    "alert_id": "eval_ph_00023",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "4eb2b8a0-f963-4cee-b82e-a8689c55b743",
+    "sender_domain": "barnes.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:00:09.088267+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:11.141644+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:09.915432+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:00:12.242964+00:00"
+  },
+  {
+    "investigation_id": "a31c037e-fb2e-41d5-97a6-9bd5d7aef496",
+    "alert_id": "eval_ph_00079",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "948a5a1a-8915-432b-8aec-c8913f1d520d",
+    "sender_domain": "clark-aguilar.com",
+    "verdict": "malicious",
+    "confidence_score": 0.7,
+    "escalation_flag": false,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T05:00:03.810064+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:08.200084+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:04.929592+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "no reputation history found for domain clark-aguilar.com"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:07.112437+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-21 20:33:53.522055"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-21 20:33:53.522055, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:00:09.077617+00:00"
+  },
+  {
+    "investigation_id": "d722a5bb-a1d9-4e72-8590-a85c2ebc1015",
+    "alert_id": "eval_ph_00034",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "4a30fdd0-212c-4dd1-969d-8e580f4193d6",
+    "sender_domain": "moss.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T05:00:00.725216+00:00",
+    "verdict_timestamp": "2026-07-31T05:00:02.564948+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 05:00:01.545934+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T05:00:03.802782+00:00"
+  },
+  {
+    "investigation_id": "09551238-6b82-4b8f-a1d2-c54608feeeba",
+    "alert_id": "eval_lm_00026",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.31",
+    "dest_ip": "205.174.165.254",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:59:57.881287+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:59.854137+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:58.789861+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.254 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.254 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T05:00:00.717857+00:00"
+  },
+  {
+    "investigation_id": "1a5a94ad-61ec-4d90-ad60-c9ebc0a4287d",
+    "alert_id": "eval_ph_00025",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "1a2ac678-bfcc-4e6d-a966-e4b8d5a90ca2",
+    "sender_domain": "murphy-french.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:59:55.243977+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:57.165543+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:56.109281+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:59:57.868108+00:00"
+  },
+  {
+    "investigation_id": "d939404a-18f6-4822-ac34-c002ed7e597b",
+    "alert_id": "eval_ph_00039",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "459080d3-9bec-45d2-9458-e8c0f97aef44",
+    "sender_domain": "brooks.net",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:59:52.792058+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:54.371821+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:53.451809+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:59:55.230853+00:00"
+  },
+  {
+    "investigation_id": "59132190-126d-4962-8004-8cff0fac2111",
+    "alert_id": "eval_ph_00021",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "1659773e-8235-496e-9373-9c427641f5f1",
+    "sender_domain": "roberts.net",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:59:50.192932+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:51.800689+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:50.811557+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "\"Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.\"",
+    "created_at": "2026-07-31T04:59:52.780086+00:00"
+  },
+  {
+    "investigation_id": "9ff3950f-cbf3-4ed8-ac24-f576bb8a68e3",
+    "alert_id": "eval_lm_00050",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.147",
+    "dest_ip": "205.174.165.98",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:59:45.011370+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:49.168339+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:46.342358+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.98"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:48.070446+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:59:48.068192+00:00"
+  },
+  {
+    "investigation_id": "3b704e7c-25e8-457d-88fb-f786f0a4c0a4",
+    "alert_id": "eval_lm_00041",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.223",
+    "dest_ip": "205.174.165.17",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:59:39.686532+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:43.873311+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:40.305392+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.17"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:42.393424+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:59:42.391048+00:00"
+  },
+  {
+    "investigation_id": "5e6f3bf3-6772-48f1-88d5-eea65e581905",
+    "alert_id": "eval_ph_00007",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "4e03c022-f802-452e-872f-2fca25c268db",
+    "sender_domain": "black.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:59:37.361723+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:38.864399+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:38.105210+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:59:39.677276+00:00"
+  },
+  {
+    "investigation_id": "9b20a63f-9282-48e0-ae47-3a7eb005feca",
+    "alert_id": "eval_ph_00003",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "0a938bc8-a3c3-48c2-896a-6e25838cdc37",
+    "sender_domain": "wagner.info",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:59:33.913909+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:35.500002+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:34.557819+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:59:37.353680+00:00"
+  },
+  {
+    "investigation_id": "d6c8aae3-0663-45d8-b7ec-c93b304175b0",
+    "alert_id": "eval_lm_00006",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.233",
+    "dest_ip": "205.174.165.118",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:59:27.108314+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:32.902281+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:27.683161+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.118"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:29.389784+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:59:29.387768+00:00"
+  },
+  {
+    "investigation_id": "d803108d-f972-4fa9-95ee-e718d5aab920",
+    "alert_id": "eval_lm_00042",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.173",
+    "dest_ip": "205.174.165.161",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:59:19.614717+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:26.121561+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:20.384133+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:22.185605+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.161"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:59:20.375305+00:00"
+  },
+  {
+    "investigation_id": "ea8cc181-089f-4069-859f-43827531f027",
+    "alert_id": "eval_lm_00051",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.236",
+    "dest_ip": "205.174.165.117",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:59:17.352942+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:18.709890+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:17.942495+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.117 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "\"Lateral movement alert, dest_ip 205.174.165.117 has known-malicious reputation, auto-resolved, agent assessed malicious.\"",
+    "created_at": "2026-07-31T04:59:19.605838+00:00"
+  },
+  {
+    "investigation_id": "905ae49c-1f52-4d1f-b6af-13cc35b6b07e",
+    "alert_id": "eval_lm_00052",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.96",
+    "dest_ip": "205.174.165.194",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:59:09.456220+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:16.485436+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:10.318086+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.194 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:12.992438+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:59:12.990425+00:00"
+  },
+  {
+    "investigation_id": "f22c22c6-3fbc-4cd8-a5e6-1926c8bccf85",
+    "alert_id": "eval_lm_00003",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.11",
+    "dest_ip": "205.174.165.218",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:59:06.656158+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:08.494488+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:07.316962+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.218 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.218 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:59:09.445913+00:00"
+  },
+  {
+    "investigation_id": "abbef50a-0ce9-40bc-be37-bbfafa2516df",
+    "alert_id": "eval_ph_00040",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "3b1322c4-e71e-47c6-9cc5-2853adc665bf",
+    "sender_domain": "phillips-jensen.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:59:01.779752+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:05.599157+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:02.624739+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-16 22:20:20.730669"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:59:04.796477+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "domain phillips-jensen.com has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-16 22:20:20.730669, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:59:06.646591+00:00"
+  },
+  {
+    "investigation_id": "17f5c602-2b4d-47fd-a0f1-e48503e3e482",
+    "alert_id": "eval_ph_00068",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "9201ada4-22fc-4ec8-aa21-d5a023a9c52a",
+    "sender_domain": "greene.org",
+    "verdict": "malicious",
+    "confidence_score": 0.7,
+    "escalation_flag": false,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:58:57.823763+00:00",
+    "verdict_timestamp": "2026-07-31T04:59:00.877578+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:58.506975+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-16 12:49:23.580992"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:59.891698+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "no reputation history found for domain greene.org"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-16 12:49:23.580992, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:59:01.771179+00:00"
+  },
+  {
+    "investigation_id": "efa2aaf1-dadd-43d0-b4aa-530dedac892e",
+    "alert_id": "eval_lm_00034",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.223",
+    "dest_ip": "205.174.165.17",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:58:51.634852+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:55.694890+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:52.201621+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.17 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:54.609585+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:54.607227+00:00"
+  },
+  {
+    "investigation_id": "fcfbef5d-97a2-4779-bfe8-8fd8462c752f",
+    "alert_id": "eval_ph_00043",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "7e0bc543-b231-4304-abd2-c82bd394d8ea",
+    "sender_domain": "banks.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:49.122037+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:50.728362+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:49.881337+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-15 10:43:29.217677"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-15 10:43:29.217677, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:51.627675+00:00"
+  },
+  {
+    "investigation_id": "5c0d3158-0ee3-44ba-ad99-4ce6a39316e8",
+    "alert_id": "eval_lm_00029",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.31",
+    "dest_ip": "205.174.165.254",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:58:43.799324+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:47.963256+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:44.464918+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.254 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:47.020404+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:47.016501+00:00"
+  },
+  {
+    "investigation_id": "07f54f74-8acb-4c33-a8a1-4f5a1a0efe22",
+    "alert_id": "eval_ph_00053",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "a5ee4276-9c55-4178-82c1-47768d5329c9",
+    "sender_domain": "hayes.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:41.252425+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:42.778851+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:41.906492+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-10 07:01:05.710017"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-10 07:01:05.710017, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:43.788582+00:00"
+  },
+  {
+    "investigation_id": "88020ac2-453b-41dc-9eff-73b59ef681e3",
+    "alert_id": "eval_lm_00057",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.29",
+    "dest_ip": "205.174.165.232",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:38.719181+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:40.236805+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:39.390749+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.232 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.232 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:41.244767+00:00"
+  },
+  {
+    "investigation_id": "e02a7730-a474-4e20-b3ac-4f4d6c9175b5",
+    "alert_id": "eval_lm_00015",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.233",
+    "dest_ip": "205.174.165.118",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:36.279042+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:37.813863+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:36.906889+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.118 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.118 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:38.709796+00:00"
+  },
+  {
+    "investigation_id": "2765b34e-9719-408b-b71b-ed84deed5448",
+    "alert_id": "eval_ph_00045",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "ec44ec91-e9a6-45d9-9ae2-7fa49d26c20a",
+    "sender_domain": "dominguez-hansen.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:33.937198+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:35.541833+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:34.712771+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-09 00:03:37.790547"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-09 00:03:37.790547, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:36.267429+00:00"
+  },
+  {
+    "investigation_id": "2ad272c7-b36b-483c-9b2e-b40d16b4c8db",
+    "alert_id": "eval_lm_00043",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.234",
+    "dest_ip": "205.174.165.106",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:58:29.317650+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:32.966653+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:29.997469+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.106"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:31.765748+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:58:31.763392+00:00"
+  },
+  {
+    "investigation_id": "72b758f5-cf79-4d02-88d7-1d39252b839e",
+    "alert_id": "eval_lm_00049",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.28",
+    "dest_ip": "205.174.165.96",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:58:22.873514+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:28.409606+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:23.748679+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.96"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:25.087658+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:58:25.082212+00:00"
+  },
+  {
+    "investigation_id": "acdf42b5-7708-4c36-b616-b1be0bc8e678",
+    "alert_id": "eval_ph_00075",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "aa47058e-c217-417a-b2ef-a828955451f9",
+    "sender_domain": "carson.com",
+    "verdict": "malicious",
+    "confidence_score": 0.7,
+    "escalation_flag": false,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:58:18.657004+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:21.993878+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:19.346909+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "no reputation history found for domain carson.com"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:20.884166+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-07 04:39:21.115245"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-07 04:39:21.115245, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:22.865606+00:00"
+  },
+  {
+    "investigation_id": "92a2ea8b-7619-4687-b0c9-966c0ed01c5f",
+    "alert_id": "eval_ph_00056",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "5a2e0303-8444-4100-990c-9448a0c898cc",
+    "sender_domain": "mercado.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:15.278555+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:16.886698+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:15.970198+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-06 21:21:32.673783"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-06 21:21:32.673783, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:18.644553+00:00"
+  },
+  {
+    "investigation_id": "5d99426d-c57a-4ccd-9c02-5444571371c4",
+    "alert_id": "eval_ph_00020",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "afcc5b19-55ee-480c-bd5a-3420a30eca50",
+    "sender_domain": "pierce.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:12.513352+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:14.310061+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:13.243475+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:58:15.267191+00:00"
+  },
+  {
+    "investigation_id": "fb1d2d47-ff54-4460-9d9f-89c25195d3f0",
+    "alert_id": "eval_ph_00076",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "01242867-bb6e-4e04-b33d-62b0a9561b44",
+    "sender_domain": "cox.biz",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:09.891987+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:11.597958+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:10.649114+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-05 06:07:00.827211"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-05 06:07:00.827211, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:58:12.501888+00:00"
+  },
+  {
+    "investigation_id": "a415578b-ea7b-4414-b972-aebb91198ab1",
+    "alert_id": "eval_lm_00062",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.111",
+    "dest_ip": "205.174.165.52",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:58:05.105751+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:08.597554+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:05.847640+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.52"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:07.468726+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:58:07.466346+00:00"
+  },
+  {
+    "investigation_id": "01b3fcbb-010e-40d3-8606-446eadc835e1",
+    "alert_id": "eval_ph_00024",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "de7f9f12-b83f-4542-8665-2f2227ad775f",
+    "sender_domain": "harrell.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:02.693281+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:04.259145+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:03.357006+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:58:05.096326+00:00"
+  },
+  {
+    "investigation_id": "582027a6-8783-4429-9917-e6dee627867f",
+    "alert_id": "eval_ph_00032",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "a86c9a90-b4e1-47ac-ab60-89e6d1a76f97",
+    "sender_domain": "ramirez.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:58:00.246543+00:00",
+    "verdict_timestamp": "2026-07-31T04:58:01.872691+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:58:00.883329+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:58:02.684740+00:00"
+  },
+  {
+    "investigation_id": "ca0c494d-77f5-4b83-ba70-70fabe72da32",
+    "alert_id": "eval_lm_00012",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.11",
+    "dest_ip": "205.174.165.218",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:57:55.896683+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:59.275029+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:56.615640+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.218"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:58.213757+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:57:58.209533+00:00"
+  },
+  {
+    "investigation_id": "db5cdfaf-4126-4c83-b3d6-f616cea59210",
+    "alert_id": "eval_ph_00041",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "17abfb2d-d937-4dcc-838d-cc9c8aa9910f",
+    "sender_domain": "meyer-garcia.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:53.259516+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:54.882323+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:53.898762+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-03 18:20:40.951356"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-03 18:20:40.951356, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:55.886160+00:00"
+  },
+  {
+    "investigation_id": "3712e6cb-e922-4531-9df4-1afd92e29d0c",
+    "alert_id": "eval_lm_00023",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.133",
+    "dest_ip": "205.174.165.145",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:50.662640+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:52.525829+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:51.293449+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.145 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.145 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:53.247358+00:00"
+  },
+  {
+    "investigation_id": "74e3116b-557f-4bcf-87c2-2ba1d26511e2",
+    "alert_id": "eval_lm_00060",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.28",
+    "dest_ip": "205.174.165.96",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:48.253043+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:49.899186+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:48.934278+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.96 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.96 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:50.652615+00:00"
+  },
+  {
+    "investigation_id": "e5bdd96e-50d3-4443-85b6-dbf6997eb49b",
+    "alert_id": "eval_lm_00035",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.62",
+    "dest_ip": "205.174.165.208",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:57:41.001173+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:47.328962+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:41.718061+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.208"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:43.488346+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:57:43.486152+00:00"
+  },
+  {
+    "investigation_id": "244d708f-4e31-4687-aa6e-fba30925494d",
+    "alert_id": "eval_ph_00064",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "a03522c4-3d3f-402d-8ed7-74cd2058f251",
+    "sender_domain": "phelps.info",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:38.383194+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:40.227682+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:39.111858+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-02 08:42:31.913402"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-02 08:42:31.913402, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:40.990993+00:00"
+  },
+  {
+    "investigation_id": "819a00ca-8ae7-4c3e-bd3c-bd6e2c2a8dbc",
+    "alert_id": "eval_ph_00030",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "abacc94f-799e-4797-b5d1-60596e1c721c",
+    "sender_domain": "gomez.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:35.797897+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:37.565559+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:36.753578+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:57:38.373128+00:00"
+  },
+  {
+    "investigation_id": "53f214b2-d4ae-4abe-9325-8a98589918fc",
+    "alert_id": "eval_ph_00073",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "09cf4b2e-5633-40b9-a8c6-67bc308a7690",
+    "sender_domain": "jimenez-rivera.org",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:33.049958+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:34.457686+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:33.658567+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-06-01 07:36:36.937155"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-06-01 07:36:36.937155, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:35.785096+00:00"
+  },
+  {
+    "investigation_id": "446ade8c-fdc2-42e8-9311-ca9e15467c93",
+    "alert_id": "eval_lm_00047",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.223",
+    "dest_ip": "205.174.165.17",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:57:28.881214+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:32.139317+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:29.680919+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.17 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:31.230867+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:31.228219+00:00"
+  },
+  {
+    "investigation_id": "b45ac8f8-4de0-4c8e-a4d8-a517cd883132",
+    "alert_id": "eval_ph_00062",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "a9a26f74-e111-40a6-993d-0452f9dfad93",
+    "sender_domain": "carter.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:25.992888+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:27.746464+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:26.712971+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-31 00:20:53.422510"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-31 00:20:53.422510, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:28.869963+00:00"
+  },
+  {
+    "investigation_id": "a0201e00-de5c-418e-b4f9-c377ad4deb68",
+    "alert_id": "eval_lm_00056",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.197",
+    "dest_ip": "205.174.165.25",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:23.378519+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:24.952135+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:23.981837+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.25 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.25 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:25.984811+00:00"
+  },
+  {
+    "investigation_id": "28992c52-cc60-41c4-9ed7-151994fd10ed",
+    "alert_id": "eval_ph_00012",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "dce1ce8b-fc96-421b-b927-896f2a48c240",
+    "sender_domain": "best-gilmore.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:20.845181+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:22.520620+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:21.608532+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:57:23.366798+00:00"
+  },
+  {
+    "investigation_id": "08eeca84-2700-43c6-b6ab-050f069aea14",
+    "alert_id": "eval_ph_00070",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "7d9a263e-aba3-40c4-9856-9939bc79250f",
+    "sender_domain": "clayton.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:18.012703+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:19.727659+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:18.725608+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-26 23:34:53.261172"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-26 23:34:53.261172, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:20.832898+00:00"
+  },
+  {
+    "investigation_id": "ae08fc59-f8b3-401f-b333-9c45a96965b6",
+    "alert_id": "eval_ph_00006",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "58b74594-f210-4f7a-8b2c-3aedcf66eea3",
+    "sender_domain": "gonzales-branch.info",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:15.383823+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:17.085173+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:16.127314+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:57:17.999361+00:00"
+  },
+  {
+    "investigation_id": "d4008247-dfc7-4710-bdb1-6c5365b80621",
+    "alert_id": "eval_lm_00031",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.31",
+    "dest_ip": "205.174.165.254",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:12.985848+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:14.526113+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:13.627194+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.254 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.254 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:15.370715+00:00"
+  },
+  {
+    "investigation_id": "6f46a411-3054-47eb-afb6-9fe2e2bb13fb",
+    "alert_id": "eval_ph_00038",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "e077ea12-0b2a-40e9-b5e9-0bb042ea1266",
+    "sender_domain": "deleon.com",
+    "verdict": "malicious",
+    "confidence_score": 0.5,
+    "escalation_flag": true,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:10.323307+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:11.967470+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:10.970018+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "domain deleon.com has suspicious reputation signals"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, domain deleon.com has suspicious reputation signals, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:12.977128+00:00"
+  },
+  {
+    "investigation_id": "772ae7ff-d0fc-4f1a-98f1-738ffe1728bb",
+    "alert_id": "eval_ph_00065",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "725bd16b-0c69-4d6e-9500-4263d483a45d",
+    "sender_domain": "fisher.info",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:07.142100+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:09.231841+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:08.177586+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-24 08:25:01.058692"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-24 08:25:01.058692, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:10.303808+00:00"
+  },
+  {
+    "investigation_id": "c7b5c65f-7729-4da1-8892-73a7945ded87",
+    "alert_id": "eval_ph_00052",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "d6e44340-1f49-4a11-8c7e-04ce5dcc404f",
+    "sender_domain": "avila-wells.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:04.768131+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:06.264313+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:05.369753+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-24 03:46:29.503588"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-24 03:46:29.503588, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:57:07.133612+00:00"
+  },
+  {
+    "investigation_id": "f74f5077-5c4b-44b3-a8de-d2161471288d",
+    "alert_id": "eval_ph_00035",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "3ab8a4a6-86d3-4863-b455-e07e9cabadbb",
+    "sender_domain": "rhodes.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:57:01.414017+00:00",
+    "verdict_timestamp": "2026-07-31T04:57:03.816409+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:57:02.963516+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:57:04.758936+00:00"
+  },
+  {
+    "investigation_id": "16c42dfc-0605-4559-bdb5-6b37a4c3e0fe",
+    "alert_id": "eval_lm_00008",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.233",
+    "dest_ip": "205.174.165.118",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:56:54.130829+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:58.196199+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:54.736638+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.118 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:57.201565+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:57.196616+00:00"
+  },
+  {
+    "investigation_id": "8d700e40-c10f-4f34-bfee-0efe364d62b5",
+    "alert_id": "eval_lm_00053",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.224",
+    "dest_ip": "205.174.165.85",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:56:49.817648+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:52.954431+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:50.465733+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.85 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:51.944356+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:51.942037+00:00"
+  },
+  {
+    "investigation_id": "9415b4b6-07cf-4380-9102-05dae7f78cc3",
+    "alert_id": "eval_ph_00067",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "288073a1-17dc-4c5d-b918-7b5fe746325e",
+    "sender_domain": "cannon.biz",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:47.442565+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:48.932101+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:48.107551+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-21 03:45:02.144150"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-21 03:45:02.144150, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:49.807773+00:00"
+  },
+  {
+    "investigation_id": "dc5ce2fe-c7eb-4984-bc8f-bdcdec152436",
+    "alert_id": "eval_lm_00036",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.139",
+    "dest_ip": "205.174.165.111",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:56:41.200349+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:46.421809+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:41.947249+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.111"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:43.595285+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:56:43.592911+00:00"
+  },
+  {
+    "investigation_id": "d72c05fc-03ff-4a4c-b5d2-d62e9c07506c",
+    "alert_id": "eval_ph_00047",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "2a77e9b7-b1b1-45f5-be1c-dac32a95e267",
+    "sender_domain": "johnson-white.biz",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:39.033807+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:40.370320+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:39.613220+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "domain johnson-white.biz has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, domain johnson-white.biz has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:41.189975+00:00"
+  },
+  {
+    "investigation_id": "e7d8af41-9e5f-48c0-90f4-5c95c00f1a00",
+    "alert_id": "eval_ph_00071",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "64aab975-91dc-4c11-ae43-d59dc7d886b0",
+    "sender_domain": "larsen.net",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:36.016054+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:37.615073+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:36.702970+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-18 13:20:32.133794"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-18 13:20:32.133794, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:39.022570+00:00"
+  },
+  {
+    "investigation_id": "3dfe65c1-e062-4d8b-86a4-b27a9593a45e",
+    "alert_id": "eval_ph_00059",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "1739cedc-5c4d-4360-a231-4de12a4860cd",
+    "sender_domain": "stokes-williams.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:33.568340+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:35.242447+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:34.176491+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-15 21:58:57.284346"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-15 21:58:57.284346, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:36.005056+00:00"
+  },
+  {
+    "investigation_id": "8e439b44-b85c-4ac4-8690-4abefa2f67cf",
+    "alert_id": "eval_ph_00049",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "44f8e24f-a68c-4824-8e43-e6ac98da7df9",
+    "sender_domain": "shaw-hess.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:30.942586+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:32.691061+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:31.578105+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-14 15:11:36.267420"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-14 15:11:36.267420, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:33.559964+00:00"
+  },
+  {
+    "investigation_id": "e9b1b4d2-c82e-4866-83fe-152b6edb6f9f",
+    "alert_id": "eval_ph_00009",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "5f620ab2-4446-4015-9dda-fe1970127b1a",
+    "sender_domain": "wood.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:28.223757+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:30.166729+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:29.012649+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:56:30.934314+00:00"
+  },
+  {
+    "investigation_id": "df68525c-34b9-4676-855e-3481a123755e",
+    "alert_id": "eval_ph_00050",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "a273d41b-64e0-422b-9fc9-142709c3f0ad",
+    "sender_domain": "bradley.net",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:26.134397+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:27.392501+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:26.779129+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-12 01:15:59.481652"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-12 01:15:59.481652, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:28.213005+00:00"
+  },
+  {
+    "investigation_id": "8128e2e9-c42f-46f7-b3b7-02f6f39e0721",
+    "alert_id": "eval_ph_00022",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "88b9e42e-f029-4aef-8823-e90ccbf57ae6",
+    "sender_domain": "saunders.org",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:23.328263+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:25.325124+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:24.140931+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:56:26.125365+00:00"
+  },
+  {
+    "investigation_id": "8ef9da2a-0372-4960-9f29-45c641ebbf94",
+    "alert_id": "eval_ph_00029",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "f39e9ffc-ecc5-4a32-a5dd-f5df8349f1c3",
+    "sender_domain": "garrett-hudson.info",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:20.365683+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:22.023015+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:21.014573+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:56:23.319648+00:00"
+  },
+  {
+    "investigation_id": "09b12977-90d8-45f8-b821-2b030264c6a1",
+    "alert_id": "eval_ph_00060",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "2565f29e-7e64-46b7-8be7-10f1c71c673b",
+    "sender_domain": "allen.info",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:17.898739+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:19.419961+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:18.715861+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-08 17:26:36.243006"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-08 17:26:36.243006, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:20.357245+00:00"
+  },
+  {
+    "investigation_id": "1ed099c5-87a2-46e7-b7fc-f08ceb6d1cd7",
+    "alert_id": "eval_ph_00018",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "e0888572-1c57-41d6-990f-b9cba54e40c4",
+    "sender_domain": "cunningham.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:56:13.282750+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:17.037832+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:13.916219+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "domain cunningham.com has clean, established reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:16.254654+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:56:17.888504+00:00"
+  },
+  {
+    "investigation_id": "b99e934a-e040-48e4-94c5-066f39d8e070",
+    "alert_id": "eval_ph_00069",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "2694ac43-d66b-4594-be0f-27e316623a71",
+    "sender_domain": "white-choi.biz",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:10.737004+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:12.309528+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:11.549821+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-08 00:18:33.524915"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-08 00:18:33.524915, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:13.271673+00:00"
+  },
+  {
+    "investigation_id": "15b02f8a-be22-4153-9ab1-661fff21d8a7",
+    "alert_id": "eval_ph_00010",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "e506b70d-1300-4dea-88e2-f72ea7b68605",
+    "sender_domain": "mercado.com",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:08.216073+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:09.963043+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:08.972898+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:56:10.728873+00:00"
+  },
+  {
+    "investigation_id": "4c90f9cb-604e-4751-a62e-fafa4418ad63",
+    "alert_id": "eval_ph_00046",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "091d949d-0d16-4dd6-88a8-67964a071f50",
+    "sender_domain": "farrell.biz",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:05.425699+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:06.998484+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:06.003111+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-05 15:50:12.046210"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-05 15:50:12.046210, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:08.196676+00:00"
+  },
+  {
+    "investigation_id": "59639c8d-3f74-43cb-be61-8c4c2fd67c17",
+    "alert_id": "eval_ph_00005",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "f9206360-02f6-4fe1-a5e3-9ce06e090bc0",
+    "sender_domain": "pierce-higgins.biz",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:56:02.628871+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:04.417500+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:03.517153+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:56:05.406939+00:00"
+  },
+  {
+    "investigation_id": "59720b1e-52d7-4dee-b862-b11f8a34107f",
+    "alert_id": "eval_ph_00042",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "3d681a4b-d6b6-422d-a90c-e641cee860e5",
+    "sender_domain": "jimenez-lewis.com",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:55:59.849948+00:00",
+    "verdict_timestamp": "2026-07-31T04:56:01.716189+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:56:00.593065+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-05 05:23:16.254800"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-05 05:23:16.254800, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:56:02.621036+00:00"
+  },
+  {
+    "investigation_id": "f7108f5c-bb49-44e4-83b5-94161c57b460",
+    "alert_id": "eval_ph_00055",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "175b8154-30b6-4bb2-a627-38d8442f5a4c",
+    "sender_domain": "stephens-barton.info",
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:55:57.440728+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:58.824192+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:58.067646+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-03 22:38:42.930446"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-03 22:38:42.930446, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:55:59.841245+00:00"
+  },
+  {
+    "investigation_id": "4994ba08-4282-4a01-8240-03f5032b2e83",
+    "alert_id": "eval_ph_00072",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "53c67ff4-7b78-4c0f-9a4b-a5eac292cc38",
+    "sender_domain": "lee-jackson.org",
+    "verdict": "malicious",
+    "confidence_score": 0.7,
+    "escalation_flag": false,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:55:53.788421+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:56.527056+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:54.392878+00:00",
+        "tool_name": "reputation_lookup",
+        "result_summary": "no reputation history found for domain lee-jackson.org"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:55.806292+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user entered credentials at 2026-05-03 11:18:55.155965"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Phishing alert, user entered credentials at 2026-05-03 11:18:55.155965, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:55:57.430248+00:00"
+  },
+  {
+    "investigation_id": "a646ac34-44dd-4bdc-b30b-7225e57e2675",
+    "alert_id": "eval_ph_00019",
+    "alert_type": "phishing",
+    "source": "phase8_eval_phishing",
+    "source_ip": null,
+    "dest_ip": null,
+    "user_id": "19554eca-7d12-41e4-9eae-152b0a43d7da",
+    "sender_domain": "robinson-welch.info",
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:55:51.389657+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:53.020534+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:52.138495+00:00",
+        "tool_name": "click_history_lookup",
+        "result_summary": "user viewed only, did not click"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "benign",
+    "summary_text": "Phishing alert, user viewed only, did not click, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:55:53.778785+00:00"
+  },
+  {
+    "investigation_id": "cb166c0f-2f3e-4e86-99b4-b645ac6bde1b",
+    "alert_id": "eval_lm_00009",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.133",
+    "dest_ip": "205.174.165.145",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:55:44.805983+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:50.256592+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:45.535241+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.145"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:47.415286+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:55:47.413342+00:00"
+  },
+  {
+    "investigation_id": "487dc4c8-1279-4219-a535-79a572922111",
+    "alert_id": "eval_lm_00018",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.133",
+    "dest_ip": "205.174.165.145",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:55:42.421824+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:43.812782+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:43.043538+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.145 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.145 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:55:44.796874+00:00"
+  },
+  {
+    "investigation_id": "872d75b3-2cac-4218-8613-bf126c1be517",
+    "alert_id": "eval_lm_00021",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.133",
+    "dest_ip": "205.174.165.145",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:55:38.297797+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:41.484765+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:38.932786+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.145 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:40.605241+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": true,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:55:40.603278+00:00"
+  },
+  {
+    "investigation_id": "29781c69-6a47-42c0-874c-8594b93e868a",
+    "alert_id": "eval_lm_00071",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.5",
+    "dest_ip": "192.168.10.3",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "benign",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:55:33.526665+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:36.934773+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:34.142438+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.3 has clean, established reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:35.915697+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed benign.",
+    "created_at": "2026-07-31T04:55:35.913697+00:00"
+  },
+  {
+    "investigation_id": "6b7ac208-d7c5-4747-89d3-2ce6c7268e4e",
+    "alert_id": "eval_lm_00072",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.3",
+    "dest_ip": "192.168.10.1",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "benign",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:55:29.103162+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:32.569351+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:29.874085+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.1 has clean, established reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:31.424299+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed benign.",
+    "created_at": "2026-07-31T04:55:31.421087+00:00"
+  },
+  {
+    "investigation_id": "055cb16e-ff61-4b1a-8e79-6b004ee268f1",
+    "alert_id": "eval_lm_00077",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "178.255.83.1",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:55:26.204891+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:28.130170+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:27.113907+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 178.255.83.1 has clean, established reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "\"Lateral movement alert, dest_ip 178.255.83.1 has clean, established reputation, auto-resolved, agent assessed benign.\"",
+    "created_at": "2026-07-31T04:55:29.086445+00:00"
+  },
+  {
+    "investigation_id": "7fd8adea-733c-4a5e-bfc3-b4ae4351ecd6",
+    "alert_id": "eval_lm_00000",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "205.174.165.73",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:55:21.218072+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:25.159418+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:22.088906+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:55:22.085585+00:00"
+  },
+  {
+    "investigation_id": "c5f90d81-44aa-40e2-9f45-fb4fa4c01fd5",
+    "alert_id": "eval_lm_00025",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "205.174.165.73",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:55:18.639802+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:20.168338+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:19.281443+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.73 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.73 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:55:21.207386+00:00"
+  },
+  {
+    "investigation_id": "6098473c-a4f6-45e6-ad07-fad793e5a980",
+    "alert_id": "eval_lm_00069",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.16",
+    "dest_ip": "192.168.10.3",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.2,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:55:13.044569+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:17.583634+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:13.641641+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.3 has suspicious reputation signals"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:16.253855+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:55:16.249340+00:00"
+  },
+  {
+    "investigation_id": "2b6ca2fb-f708-4316-9e97-9de4dbb017e3",
+    "alert_id": "eval_lm_00067",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "192.168.10.14",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.2,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:55:04.219758+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:12.053566+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:04.787292+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.14 has suspicious reputation signals"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:55:07.579138+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "\"Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.\"",
+    "created_at": "2026-07-31T04:55:07.575881+00:00"
+  },
+  {
+    "investigation_id": "28d15ab8-0b48-45fe-a626-9447a2da3600",
+    "alert_id": "eval_lm_00064",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "192.168.10.19",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "benign",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:54:57.663667+00:00",
+    "verdict_timestamp": "2026-07-31T04:55:03.143614+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:58.265794+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:59.766887+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.19 has clean, established reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed benign.",
+    "created_at": "2026-07-31T04:54:58.262553+00:00"
+  },
+  {
+    "investigation_id": "492e7c28-e2d5-4b96-b1ff-de458ea8e3ad",
+    "alert_id": "eval_lm_00033",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "205.174.165.73",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:54:55.013200+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:56.797652+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:55.674939+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.73 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.73 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:54:57.653201+00:00"
+  },
+  {
+    "investigation_id": "0c8e5f09-ee63-4f83-b4ac-11b84f053a19",
+    "alert_id": "eval_lm_00066",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "104.154.127.47",
+    "dest_ip": "192.168.10.25",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:54:52.185731+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:54.106046+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:52.904772+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.25 has clean, established reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, dest_ip 192.168.10.25 has clean, established reputation, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:54:55.002897+00:00"
+  },
+  {
+    "investigation_id": "c904ddfe-e8b5-4ee3-a120-96b28b9351b4",
+    "alert_id": "eval_lm_00073",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.25",
+    "dest_ip": "142.0.160.53",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.2,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:54:44.746425+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:50.927292+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:45.432967+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 142.0.160.53 has suspicious reputation signals"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:47.480942+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:54:47.476610+00:00"
+  },
+  {
+    "investigation_id": "fe42c685-6b60-45da-b449-399a9540155b",
+    "alert_id": "eval_lm_00079",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.5",
+    "dest_ip": "192.168.10.3",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "benign",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:54:39.506625+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:43.673622+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:40.180733+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.3 has clean, established reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:41.884097+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed benign.",
+    "created_at": "2026-07-31T04:54:41.881454+00:00"
+  },
+  {
+    "investigation_id": "d4e97bbd-a9c6-4d76-8ed3-856a60948e87",
+    "alert_id": "eval_lm_00014",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "205.174.165.73",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:54:35.325315+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:38.599810+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:36.209671+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.73"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:37.852143+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:54:37.849666+00:00"
+  },
+  {
+    "investigation_id": "760e3110-12e1-449a-be22-03497135cfa1",
+    "alert_id": "eval_lm_00013",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "205.174.165.73",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "inconclusive",
+    "confidence_score": 0.0,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:54:29.059160+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:34.291489+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:29.660201+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "no reputation history found for dest_ip 205.174.165.73"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:31.400645+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed inconclusive.",
+    "created_at": "2026-07-31T04:54:31.398214+00:00"
+  },
+  {
+    "investigation_id": "6157cf73-2579-4008-8fb3-ade56f26c8ef",
+    "alert_id": "eval_lm_00054",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "205.174.165.73",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:54:20.641200+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:27.757383+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:21.304137+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.73 has known-malicious reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:23.949622+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:54:23.942028+00:00"
+  },
+  {
+    "investigation_id": "6cc450b0-5b82-42d4-8e5a-29a28f41e6d2",
+    "alert_id": "eval_lm_00078",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "23.60.139.27",
+    "dest_ip": "192.168.10.8",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "benign",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:54:16.403176+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:17.803517+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:16.998067+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.8 has clean, established reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, dest_ip 192.168.10.8 has clean, established reputation, auto-resolved, agent assessed benign.",
+    "created_at": "2026-07-31T04:54:20.630948+00:00"
+  },
+  {
+    "investigation_id": "e6f0535e-584b-4f7d-9231-376d7ddd9a20",
+    "alert_id": "eval_lm_00017",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.8",
+    "dest_ip": "205.174.165.73",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 1.0,
+    "escalation_flag": false,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:54:13.793612+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:15.492267+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:14.525848+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 205.174.165.73 has known-malicious reputation"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "malicious",
+    "summary_text": "Lateral movement alert, dest_ip 205.174.165.73 has known-malicious reputation, auto-resolved, agent assessed malicious.",
+    "created_at": "2026-07-31T04:54:16.392753+00:00"
+  },
+  {
+    "investigation_id": "42c441ba-76d7-44af-8d52-9cc0a605937c",
+    "alert_id": "eval_lm_00068",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.15",
+    "dest_ip": "192.168.10.3",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.2,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:54:06.146402+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:12.196319+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:06.814461+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.3 has suspicious reputation signals"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:08.375938+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:54:08.372520+00:00"
+  },
+  {
+    "investigation_id": "8449862d-97c2-4059-a527-2ef4ff33c070",
+    "alert_id": "eval_lm_00075",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.17",
+    "dest_ip": "192.168.10.3",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.2,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:53:59.287693+00:00",
+    "verdict_timestamp": "2026-07-31T04:54:05.280685+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:53:59.943293+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.3 has suspicious reputation signals"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:54:02.196842+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:54:02.193394+00:00"
+  },
+  {
+    "investigation_id": "4ba0e7fd-bbb9-40e4-a384-f865c56a29e3",
+    "alert_id": "eval_lm_00076",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.16",
+    "dest_ip": "52.51.12.132",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.5,
+    "escalation_flag": true,
+    "planning_count": 1,
+    "tool_call_count": 1,
+    "start_timestamp": "2026-07-31T04:53:56.992357+00:00",
+    "verdict_timestamp": "2026-07-31T04:53:58.441099+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:53:57.675511+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 52.51.12.132 has suspicious reputation signals"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, dest_ip 52.51.12.132 has suspicious reputation signals, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:53:59.274538+00:00"
+  },
+  {
+    "investigation_id": "06aef85e-9370-494c-b551-823a07557f68",
+    "alert_id": "eval_lm_00070",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.17",
+    "dest_ip": "193.243.130.87",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "benign",
+    "confidence_score": 0.4,
+    "escalation_flag": true,
+    "planning_count": 2,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:53:52.405173+00:00",
+    "verdict_timestamp": "2026-07-31T04:53:55.770255+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:53:53.207980+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 193.243.130.87 has clean, established reputation"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:53:54.774503+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed benign.",
+    "created_at": "2026-07-31T04:53:54.764476+00:00"
+  },
+  {
+    "investigation_id": "7c126f08-ebc1-4854-be27-5062d107018e",
+    "alert_id": "eval_lm_00074",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.5",
+    "dest_ip": "192.168.10.3",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.2,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:53:43.241366+00:00",
+    "verdict_timestamp": "2026-07-31T04:53:51.415236+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:53:43.847505+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.3 has suspicious reputation signals"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:53:45.833984+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:53:45.832164+00:00"
+  },
+  {
+    "investigation_id": "63b49412-3a27-4feb-93d7-5a833b4fa624",
+    "alert_id": "eval_lm_00065",
+    "alert_type": "lateral_movement",
+    "source": "phase8_eval_lateral_movement",
+    "source_ip": "192.168.10.5",
+    "dest_ip": "192.168.10.3",
+    "user_id": null,
+    "sender_domain": null,
+    "verdict": "malicious",
+    "confidence_score": 0.2,
+    "escalation_flag": true,
+    "planning_count": 3,
+    "tool_call_count": 2,
+    "start_timestamp": "2026-07-31T04:53:34.396166+00:00",
+    "verdict_timestamp": "2026-07-31T04:53:42.116068+00:00",
+    "evidence": [
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:53:35.603103+00:00",
+        "tool_name": "ip_reputation_lookup",
+        "result_summary": "dest_ip 192.168.10.3 has suspicious reputation signals"
+      },
+      {
+        "status": "success",
+        "timestamp": "2026-07-31 04:53:37.594737+00:00",
+        "tool_name": "sql_correlation",
+        "result_summary": "no prior investigations found for this host within the last 28 days"
+      }
+    ],
+    "human_verdict": null,
+    "human_decided_at": null,
+    "is_synthetic": false,
+    "true_label": "benign",
+    "summary_text": "Lateral movement alert, no prior investigations found for this host within the last 28 days, escalated to analyst, agent assessed malicious.",
+    "created_at": "2026-07-31T04:53:37.585687+00:00"
+  }
+]

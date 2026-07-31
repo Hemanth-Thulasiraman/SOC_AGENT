@@ -1,0 +1,48 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_PASSWORD: devpassword
+      POSTGRES_DB: soc_agent
+    ports:
+      - "5433:5432"  # host 5432 is commonly already taken (see README) -- see .env.example
+    volumes:
+      - soc_agent_pgdata:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d  # runs 001_create_investigations.sql on first init
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d soc_agent"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432  # in-network port, not the host-mapped 5433
+      DB_NAME: soc_agent
+      DB_USER: postgres
+      DB_PASSWORD: devpassword
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports:
+      - "8010:8010"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE: http://localhost:8010
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+volumes:
+  soc_agent_pgdata:

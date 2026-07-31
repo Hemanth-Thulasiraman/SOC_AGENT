@@ -1,0 +1,16 @@
+{
+  "alert_ids": [
+    "eval_lm_00066",
+    "eval_ph_00019",
+    "eval_ph_00072",
+    "eval_lm_00012",
+    "eval_lm_00003"
+  ],
+  "n_alerts": 5,
+  "elapsed_s": 20.399554417002946,
+  "usage": {
+    "input_tokens": 7132,
+    "output_tokens": 777
+  },
+  "estimated_cost_usd": 0.0256
+}

@@ -1,0 +1,102 @@
+/* Design tokens -- dataviz skill reference palette. Light is default;
+   dark via prefers-color-scheme AND a manual data-theme="dark" override
+   on <html> (theme toggle) -- the explicit choice always wins over OS.
+
+   Minimal-flat approach: cards separate from the page by a subtle
+   background-color step, not a border or resting shadow -- shadow is
+   reserved for actual elevation (hover/interactive state only). */
+:root {
+  color-scheme: light;
+  --page-plane: #f7f7f5;
+  --surface-1: #ffffff;
+  --surface-2: #f0efec;   /* one step further, for nested/quiet elements */
+  --text-primary: #16160f;
+  --text-secondary: #5c5b54;
+  --text-muted: #918f86;
+  --gridline: #e7e6e1;
+  --border: rgba(22, 22, 15, 0.08);
+
+  --series-1: #2a78d6; /* blue -- categorical slot 1 */
+  --series-2: #eb6834; /* orange -- categorical slot 2 */
+  --series-3: #1baf7a; /* aqua -- categorical slot 3 */
+
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+
+  --shadow-hover: 0 2px 6px rgba(22, 22, 15, 0.06), 0 8px 24px rgba(22, 22, 15, 0.06);
+  --radius: 14px;
+  --radius-sm: 8px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme="light"]) {
+    color-scheme: dark;
+    --page-plane: #0b0b0a;
+    --surface-1: #171715;
+    --surface-2: #1f1f1c;
+    --text-primary: #f7f7f5;
+    --text-secondary: #b6b4ab;
+    --text-muted: #7d7b73;
+    --gridline: #26261f;
+    --border: rgba(255, 255, 255, 0.08);
+
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+
+    --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --page-plane: #0b0b0a;
+  --surface-1: #171715;
+  --surface-2: #1f1f1c;
+  --text-primary: #f7f7f5;
+  --text-secondary: #b6b4ab;
+  --text-muted: #7d7b73;
+  --gridline: #26261f;
+  --border: rgba(255, 255, 255, 0.08);
+
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+
+  --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--page-plane);
+  color: var(--text-primary);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--series-1); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+::selection { background: color-mix(in srgb, var(--series-1) 30%, transparent); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--gridline); border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+.alert-row { transition: background 100ms ease; }
+.alert-row:hover { background: var(--surface-2); }
+
+select { cursor: pointer; }
+::-webkit-scrollbar-track { background: transparent; }
