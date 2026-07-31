@@ -24,8 +24,8 @@ export default function AlertDetail() {
 
   return (
     <div style={{ maxWidth: 820, margin: "0 auto", padding: "var(--space-7) 32px 64px" }}>
-      <Link to="/alerts" className="mono" style={{ color: "var(--text-muted)", fontSize: 13 }}>
-        ← back to alert log
+      <Link to="/alerts" style={{ color: "var(--text-muted)", fontSize: 13.5 }}>
+        ← Back to investigations
       </Link>
       <h1 className="mono" style={{ fontSize: 24, margin: "18px 0 6px", letterSpacing: "-0.01em", fontWeight: 600, color: "var(--text-primary)" }}>
         {alert.alert_id}
@@ -36,29 +36,29 @@ export default function AlertDetail() {
 
       <div className="panel" style={{ padding: "var(--space-5)", marginBottom: "var(--space-5)" }}>
         <div style={{ display: "flex", gap: 32, marginBottom: 22, flexWrap: "wrap" }}>
-          <Field label="verdict">
+          <Field label="Verdict">
             <span className="mono" style={{ color: STATUS_COLOR[alert.verdict], fontWeight: 700 }}>{alert.verdict}</span>
           </Field>
-          <Field label="confidence">{alert.confidence_score?.toFixed(3)}</Field>
-          <Field label="escalated">
+          <Field label="Confidence">{alert.confidence_score?.toFixed(3)}</Field>
+          <Field label="Escalated">
             <span style={{ color: alert.escalation_flag ? "var(--status-serious)" : "var(--text-primary)" }}>
-              {alert.escalation_flag ? "yes" : "no"}
+              {alert.escalation_flag ? "Yes" : "No"}
             </span>
           </Field>
-          <Field label="true_label (eval only)">{alert.true_label ?? "—"}</Field>
-          <Field label="human_verdict">{alert.human_verdict ?? "not reviewed"}</Field>
+          <Field label="Ground truth (eval only)">{alert.true_label ?? "—"}</Field>
+          <Field label="Analyst verdict">{alert.human_verdict ?? "Not reviewed"}</Field>
         </div>
         <div style={{ display: "flex", gap: 32, flexWrap: "wrap", paddingTop: 20, borderTop: "1px solid var(--gridline)" }}>
-          <Field label="planning cycles">{alert.planning_count}</Field>
-          <Field label="tool calls">{alert.tool_call_count}</Field>
-          <Field label="started">{new Date(alert.start_timestamp).toLocaleString()}</Field>
-          <Field label="verdict at">
+          <Field label="Planning cycles">{alert.planning_count}</Field>
+          <Field label="Tool calls">{alert.tool_call_count}</Field>
+          <Field label="Started">{new Date(alert.start_timestamp).toLocaleString()}</Field>
+          <Field label="Verdict at">
             {alert.verdict_timestamp ? new Date(alert.verdict_timestamp).toLocaleString() : "—"}
           </Field>
         </div>
       </div>
 
-      <div className="section-label" style={{ marginBottom: 12 }}>summary</div>
+      <div className="section-label" style={{ marginBottom: 12 }}>Summary</div>
       <div
         className="panel"
         style={{
@@ -72,7 +72,7 @@ export default function AlertDetail() {
         {alert.summary_text || "—"}
       </div>
 
-      <div className="section-label" style={{ marginBottom: 12 }}>evidence trail</div>
+      <div className="section-label" style={{ marginBottom: 12 }}>Evidence trail</div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         {(alert.evidence || []).map((e, i) => {
           const last = i === alert.evidence.length - 1;

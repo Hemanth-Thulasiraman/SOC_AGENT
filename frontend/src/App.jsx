@@ -4,46 +4,51 @@ import Alerts from "./pages/Alerts";
 import AlertDetail from "./pages/AlertDetail";
 
 const navLink = ({ isActive }) => ({
-  fontFamily: "var(--font-mono)",
-  fontSize: 13,
-  letterSpacing: "0.02em",
+  fontFamily: "var(--font-sans)",
+  fontSize: 14,
+  fontWeight: isActive ? 600 : 500,
+  letterSpacing: "0.01em",
   textDecoration: "none",
   padding: "6px 2px",
-  color: isActive ? "var(--accent)" : "var(--text-muted)",
+  color: isActive ? "var(--text-primary)" : "var(--text-muted)",
   borderBottom: isActive ? "2px solid var(--accent)" : "2px solid transparent",
   transition: "color 120ms ease",
 });
 
 function Wordmark() {
   return (
-    <div style={{ display: "flex", alignItems: "baseline", gap: 1, fontFamily: "var(--font-mono)" }}>
-      <span style={{ color: "var(--text-muted)", fontSize: 15 }}>~/</span>
-      <strong style={{ fontSize: 15, fontWeight: 600, color: "var(--text-primary)", letterSpacing: "0.01em" }}>
-        soc_agent
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <span
+        style={{
+          width: 10,
+          height: 10,
+          borderRadius: 3,
+          background: "var(--accent)",
+          boxShadow: "var(--accent-glow)",
+        }}
+      />
+      <strong style={{ fontSize: 15.5, fontWeight: 700, letterSpacing: "-0.01em", color: "var(--text-primary)" }}>
+        SOC&nbsp;Agent
       </strong>
-      <span className="caret" style={{ marginLeft: 3 }} />
     </div>
   );
 }
 
-// A live-looking status pill that's honest about what the site is: a static
-// snapshot of a real eval run, not a live-streaming console.
-function SnapshotPill() {
+// Environment badge — honest about what this is (a read-only snapshot of a
+// real eval run), presented like the env pill on a production dashboard.
+function EnvBadge() {
   return (
     <div
-      className="mono"
       style={{
         display: "flex",
         alignItems: "center",
         gap: 8,
-        fontSize: 11.5,
-        letterSpacing: "0.08em",
-        textTransform: "uppercase",
+        fontSize: 12,
         color: "var(--text-secondary)",
         background: "var(--surface-2)",
         border: "1px solid var(--gridline)",
         borderRadius: 20,
-        padding: "5px 12px",
+        padding: "5px 13px",
       }}
     >
       <span
@@ -55,7 +60,9 @@ function SnapshotPill() {
           boxShadow: "var(--accent-glow)",
         }}
       />
-      eval snapshot
+      <span style={{ fontWeight: 500, color: "var(--text-primary)" }}>Production</span>
+      <span style={{ color: "var(--text-muted)" }}>·</span>
+      <span style={{ color: "var(--text-muted)" }}>read-only</span>
     </div>
   );
 }
@@ -86,16 +93,16 @@ export default function App() {
         >
           <div style={{ display: "flex", alignItems: "center", gap: 36 }}>
             <Wordmark />
-            <nav style={{ display: "flex", gap: 22 }}>
+            <nav style={{ display: "flex", gap: 24 }}>
               <NavLink to="/" end style={navLink}>
-                dashboard
+                Overview
               </NavLink>
               <NavLink to="/alerts" style={navLink}>
-                alerts
+                Investigations
               </NavLink>
             </nav>
           </div>
-          <SnapshotPill />
+          <EnvBadge />
         </div>
       </header>
 

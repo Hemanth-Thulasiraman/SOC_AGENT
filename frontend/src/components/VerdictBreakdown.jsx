@@ -1,7 +1,7 @@
 const STATUS = {
-  malicious: { color: "var(--status-critical)", label: "malicious" },
-  benign: { color: "var(--status-good)", label: "benign" },
-  inconclusive: { color: "var(--status-warning)", label: "inconclusive" },
+  malicious: { color: "var(--status-critical)", label: "Malicious" },
+  benign: { color: "var(--status-good)", label: "Benign" },
+  inconclusive: { color: "var(--status-warning)", label: "Inconclusive" },
 };
 
 // Status colors never carry meaning alone -- every segment ships with a

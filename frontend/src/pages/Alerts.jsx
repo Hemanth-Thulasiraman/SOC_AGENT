@@ -40,35 +40,34 @@ export default function Alerts() {
 
   return (
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "var(--space-7) 32px 64px" }}>
-      <div className="mono" style={{ fontSize: 12.5, color: "var(--accent)", letterSpacing: "0.06em", marginBottom: 14 }}>
-        <span style={{ color: "var(--text-muted)" }}>~/soc_agent $ </span>
-        grep investigations
-      </div>
-      <h1 style={{ fontSize: 26, margin: "0 0 8px", letterSpacing: "-0.02em", fontWeight: 700 }}>Alert log</h1>
-      <div className="mono" style={{ fontSize: 13, color: "var(--text-secondary)", marginBottom: "var(--space-5)" }}>
-        {data ? `${data.total} investigations in this eval snapshot` : "loading…"}
+      <div className="section-label" style={{ marginBottom: 18 }}>Alert triage</div>
+      <h1 style={{ fontSize: 26, margin: "0 0 8px", letterSpacing: "-0.02em", fontWeight: 700 }}>Investigations</h1>
+      <div style={{ fontSize: 14.5, color: "var(--text-secondary)", marginBottom: "var(--space-5)", lineHeight: 1.6 }}>
+        {data
+          ? <>Every alert the agent triaged in this evaluation snapshot — <span className="mono" style={{ color: "var(--text-primary)" }}>{data.total}</span> in total. Filter by type, verdict, or escalation, and open any row for the full evidence trail.</>
+          : "Loading…"}
       </div>
 
       <div style={{ display: "flex", gap: 8, marginBottom: "var(--space-5)", flexWrap: "wrap" }}>
         <select style={selectStyle} value={filters.alert_type} onChange={(e) => setFilters({ ...filters, alert_type: e.target.value })}>
-          <option value="">all alert types</option>
-          <option value="phishing">phishing</option>
-          <option value="lateral_movement">lateral_movement</option>
+          <option value="">All alert types</option>
+          <option value="phishing">Phishing</option>
+          <option value="lateral_movement">Lateral movement</option>
         </select>
         <select style={selectStyle} value={filters.verdict} onChange={(e) => setFilters({ ...filters, verdict: e.target.value })}>
-          <option value="">all verdicts</option>
-          <option value="malicious">malicious</option>
-          <option value="benign">benign</option>
-          <option value="inconclusive">inconclusive</option>
+          <option value="">All verdicts</option>
+          <option value="malicious">Malicious</option>
+          <option value="benign">Benign</option>
+          <option value="inconclusive">Inconclusive</option>
         </select>
         <select
           style={selectStyle}
           value={filters.escalation_flag}
           onChange={(e) => setFilters({ ...filters, escalation_flag: e.target.value })}
         >
-          <option value="">escalated: any</option>
-          <option value="true">escalated only</option>
-          <option value="false">auto-resolved only</option>
+          <option value="">Escalation: any</option>
+          <option value="true">Escalated only</option>
+          <option value="false">Auto-resolved only</option>
         </select>
       </div>
 
@@ -79,13 +78,13 @@ export default function Alerts() {
           <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13.5 }}>
             <thead>
               <tr style={{ textAlign: "left", color: "var(--text-muted)", background: "var(--surface-2)" }}>
-                <th style={th}>alert_id</th>
-                <th style={th}>type</th>
-                <th style={th}>verdict</th>
-                <th style={th}>conf</th>
-                <th style={th}>esc</th>
-                <th style={th}>true_label</th>
-                <th style={th}>summary</th>
+                <th style={th}>Alert ID</th>
+                <th style={th}>Type</th>
+                <th style={th}>Verdict</th>
+                <th style={th}>Confidence</th>
+                <th style={th}>Escalated</th>
+                <th style={th}>Ground truth</th>
+                <th style={th}>Summary</th>
               </tr>
             </thead>
             <tbody>
