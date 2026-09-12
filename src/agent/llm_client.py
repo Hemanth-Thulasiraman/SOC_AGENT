@@ -161,6 +161,17 @@ class OpenAILLMClient:
         self._track(response)
         return response.choices[0].message.content.strip()
 
+    def call_classifier(self, system: str, user: str) -> str:
+        response = self._client.chat.completions.create(
+            model=self._model,
+            max_tokens=16,  # just one of three words
+            messages=[
+                {"role": "system", "content": system},
+                {"role": "user", "content": user},
+            ],
+        )
+        return response.choices[0].message.content.strip()
+
 
 class StubLLMClient:
     """
@@ -193,3 +204,17 @@ class StubLLMClient:
 
     def summarize(self, prompt: str) -> str:
         return "Stub summary (no LLM call made)."
+
+    def call_classifier(self, system: str, user: str) -> str:
+        if "alert type if known: phishing" in user.lower():
+            return "phishing"
+        if "alert type if known: lateral_movement" in user.lower():
+            return "lateral_movement"
+        if "alert type if known: insider_threat" in user.lower():
+            return "insider_threat"
+        # fallback: infer from field names
+        if "sender_domain" in user or "click" in user:
+            return "phishing"
+        if "source_ip" in user or "dest_ip" in user:
+            return "lateral_movement"
+        return "insider_threat"

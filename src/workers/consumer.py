@@ -13,37 +13,34 @@ def run_consumer(worker, stream: str, consumer_name: str) -> None:
     worker: an instance of BaseWorker subclass
     stream: the Redis stream to consume from
     consumer_name: unique name for this consumer instance
-                   (matters if you run multiple instances of the same worker)
     """
     r = worker._redis
     print(f"[{consumer_name}] listening on {stream}")
 
     while True:
         try:
-            # Block for up to 2 seconds waiting for a new message
             messages = r.xreadgroup(
                 groupname=CONSUMER_GROUP,
                 consumername=consumer_name,
                 streams={stream: ">"},
                 count=1,
-                block=2000,  # ms
+                block=2000,
             )
 
             if not messages:
-                continue  # nothing arrived, loop and wait again
+                continue
 
-            # messages shape: [(stream_name, [(msg_id, msg_dict), ...])]
             for stream_name, entries in messages:
                 for msg_id, msg_dict in entries:
                     print(f"[{consumer_name}] received {msg_dict.get('alert_id')}")
                     try:
-                        worker.handle(msg_dict)
-                        # Acknowledge — tells Redis this message was processed
+                        result = worker.handle(msg_dict)
                         r.xack(stream_name, CONSUMER_GROUP, msg_id)
-                        print(f"[{consumer_name}] done {msg_dict.get('alert_id')}")
+                        if result != "rejected":
+                            print(f"[{consumer_name}] done {msg_dict.get('alert_id')}")
+                        else:
+                            print(f"[{consumer_name}] rejected {msg_dict.get('alert_id')} → sent to rejections stream")
                     except Exception as e:
-                        # Don't acknowledge on failure — Redis will
-                        # redeliver to another consumer after timeout
                         print(f"[{consumer_name}] error: {e}")
 
         except KeyboardInterrupt:
@@ -51,4 +48,4 @@ def run_consumer(worker, stream: str, consumer_name: str) -> None:
             break
         except Exception as e:
             print(f"[{consumer_name}] consumer error: {e}")
-            time.sleep(1)  # brief pause before retrying
+            time.sleep(1)

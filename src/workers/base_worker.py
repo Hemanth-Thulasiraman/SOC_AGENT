@@ -30,23 +30,17 @@ class BaseWorker:
             llm_client, registry, data_sources, conn, true_label_lookup
         )
 
-    def handle(self, message: dict) -> None:
-        """
-        Called by the consumer loop with one Redis message payload.
-        Validates domain match before investigating.
-        """
+    def handle(self, message: dict) -> str:
         alert = json.loads(message["payload"])
         alert_type = alert.get("alert_type")
 
-        # Domain validation — reject if this alert doesn't belong here
         if alert_type != self.expected_alert_type:
             self._reject(message, alert, reason=(
                 f"alert_type={alert_type} does not match "
                 f"worker domain={self.expected_alert_type}"
             ))
-            return
+            return "rejected"
 
-        # Run the investigation graph
         state = new_investigation_state(
             alert_id=alert["alert_id"],
             alert_type=alert_type,
@@ -54,6 +48,7 @@ class BaseWorker:
             is_synthetic=alert.get("is_synthetic", False),
         )
         self._graph.invoke(state)
+        return "done"
 
     def _reject(self, message: dict, alert: dict, reason: str) -> None:
         self._redis.xadd(STREAM_REJECTIONS, {
