@@ -60,4 +60,19 @@ def build_tool_kwargs(tool_name: str, state: dict, data_sources: dict) -> dict:
             "conn": data_sources["conn"],
         }
 
+    if tool_name == "user_behavior_lookup":
+        return {
+            "alert_id": alert_id,
+            "user_id": alert.get("user_id"),
+            "behavior_records": data_sources["behavior_records"],
+        }
+
+    if tool_name == "data_access_logs":
+        return {
+            "alert_id": alert_id,
+            "user_id": alert.get("user_id"),
+            "resource_id": alert.get("resource_id"),
+            "access_records": data_sources["access_records"],
+        }
+
     raise ValueError(f"unknown tool_name: {tool_name!r}")

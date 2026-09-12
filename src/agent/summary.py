@@ -10,7 +10,11 @@ from __future__ import annotations
 
 from src.agent.confidence import EVIDENCE_WEIGHTS
 
-ALERT_TYPE_LABEL = {"phishing": "Phishing", "lateral_movement": "Lateral movement"}
+ALERT_TYPE_LABEL = {
+    "phishing": "Phishing",
+    "lateral_movement": "Lateral movement",
+    "insider_threat": "Insider threat",
+}
 
 SUMMARY_PROMPT_TEMPLATE = """You write one-line investigation summaries for episodic memory retrieval.
 
@@ -18,7 +22,7 @@ Rules:
 - Output exactly one sentence, under 30 words.
 - Use this structure, filling brackets from the investigation record:
   "[alert_type] alert, [key_signal], [outcome], [verdict_label]."
-- alert_type: "Lateral movement" or "Phishing"
+- alert_type: "Lateral movement" or "Phishing" or "Insider threat"
 - key_signal: copy {key_evidence} as-is (already selected; do not re-rank evidence)
 - outcome: "auto-resolved" if escalation_flag is false; "escalated to analyst" if true
 - verdict_label: from agent verdict only --

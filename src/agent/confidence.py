@@ -23,18 +23,24 @@ EVIDENCE_WEIGHTS = {
         "sql_correlation": 0.6,
         "ip_reputation_lookup": 0.4,
     },
+    "insider_threat": {
+        "user_behavior_lookup": 0.6,
+        "data_access_logs": 0.4,
+    },
 }
 
 MALICIOUS_MARKERS = [
     "entered credentials",
     "known-malicious",
-    "verdicts:",  # sql_correlation prior-verdict summaries; direction resolved below
+    "verdicts:",
+    "anomalous",          # user_behavior_lookup returns this for anomalous behavior
+    "never previously accessed",  # data_access_logs first-time access
 ]
 BENIGN_MARKERS = [
     "viewed only",
     "clean, established",
+    "fits normal baseline",  # user_behavior_lookup normal behavior
 ]
-
 
 def _direction(tool_name: str, result_summary: str | None) -> float:
     """Returns +1 (malicious-leaning), -1 (benign-leaning), or 0 (neutral/uninformative)."""

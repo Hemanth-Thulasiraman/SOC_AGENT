@@ -19,18 +19,26 @@ from typing import Any, TypedDict
 # a convention that can silently lapse; the boundary itself enforcing it
 # is not.
 ALLOWED_RAW_EVIDENCE_FIELDS = {
-    "phishing": {"alert_id", "alert_type", "timestamp", "source", "sender_domain", "sender_email", "url", "user_id"},
+    "phishing": {
+        "alert_id", "alert_type", "timestamp", "source",
+        "sender_domain", "sender_email", "url", "user_id"
+    },
     "lateral_movement": {
-        "alert_id", "alert_type", "timestamp", "source", "source_ip", "dest_ip", "source_port", "dest_port",
+        "alert_id", "alert_type", "timestamp", "source",
+        "source_ip", "dest_ip", "source_port", "dest_port",
         "protocol", "flow_duration", "total_fwd_packets", "total_bwd_packets",
         "syn_flag_count", "fin_flag_count", "avg_packet_size",
+    },
+    "insider_threat": {
+        "alert_id", "alert_type", "timestamp", "source",
+        "user_id", "event_type", "action", "bytes_transferred", "resource_id",
     },
 }
 
 
 class InvestigationState(TypedDict):
     alert_id: str
-    alert_type: str  # "phishing" | "lateral_movement"
+    alert_type: str  # "phishing" | "lateral_movement" | "insider_threat"
     raw_evidence: dict
     is_synthetic: bool
 

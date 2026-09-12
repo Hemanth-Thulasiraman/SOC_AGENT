@@ -1,9 +1,8 @@
 """
-Phase 6c: tool schemas exposed to the Anthropic API for the `planner`
-node. No argument fields -- every tool's real arguments are facts already
-in state (alert_id, sender_domain, dest_ip, ...), bound deterministically
-by build_tool_kwargs, never supplied by the model. The model's only
-decision is which tool (if any) to call.
+Phase 6c: tool schemas exposed to the API for the `planner` node.
+No argument fields -- every tool's real arguments are facts already
+in state, bound deterministically by build_tool_kwargs, never supplied
+by the model. The model's only decision is which tool (if any) to call.
 """
 
 TOOL_SCHEMAS = [
@@ -27,15 +26,28 @@ TOOL_SCHEMAS = [
         "description": "Check whether this source/destination IP pair has appeared in prior investigations, and what those prior investigations concluded. This is the only source of historical/repeat-behavior evidence. Use for lateral-movement alerts, especially when the flow's own raw stats look unremarkable on their own.",
         "input_schema": {"type": "object", "properties": {}},
     },
+    {
+        "name": "user_behavior_lookup",
+        "description": "Check whether this user's action fits their normal behavior baseline -- hours, data volume, typical patterns. Use for insider threat alerts when user behavior hasn't been checked yet.",
+        "input_schema": {"type": "object", "properties": {}},
+    },
+    {
+        "name": "data_access_logs",
+        "description": "Check whether this user normally accesses this specific resource. First-time access to sensitive resources is a strong signal. Use for insider threat alerts when resource access history hasn't been checked yet.",
+        "input_schema": {"type": "object", "properties": {}},
+    },
 ]
 
 TOOLS_BY_ALERT_TYPE = {
     "phishing": ["click_history_lookup", "reputation_lookup"],
     "lateral_movement": ["ip_reputation_lookup", "sql_correlation"],
+    "insider_threat": ["user_behavior_lookup", "data_access_logs"],
 }
 
 
 def tool_schemas_for_alert_type(alert_type: str) -> list[dict]:
     """Only offer the model tools that are actually relevant to this alert type."""
+    if alert_type not in TOOLS_BY_ALERT_TYPE:
+        raise ValueError(f"unknown alert_type: {alert_type!r}")
     allowed = set(TOOLS_BY_ALERT_TYPE[alert_type])
     return [schema for schema in TOOL_SCHEMAS if schema["name"] in allowed]
