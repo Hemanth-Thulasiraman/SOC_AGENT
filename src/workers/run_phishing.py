@@ -1,20 +1,21 @@
 import redis
 import psycopg
-import pandas as pd
 from src.workers.phishing_worker import PhishingWorker
 from src.workers.consumer import run_consumer
 from src.agent.llm_client import StubLLMClient
 from src.streams.config import STREAM_PHISHING
 from src.tools.phishing_tools import click_history_lookup, reputation_lookup
 from src.tools.registry import ToolRegistry
+from src.data.build_fixtures import build_fixtures
 
 
 def main():
     r = redis.Redis(host="localhost", port=6379, decode_responses=True)
-
     conn = psycopg.connect(
         "postgresql://postgres:devpassword@localhost:5433/soc_agent"
     )
+
+    fixtures = build_fixtures("src/data/combined_alerts.json")
 
     registry = ToolRegistry({
         "click_history_lookup": lambda **kw: click_history_lookup(**kw),
@@ -22,8 +23,8 @@ def main():
     })
 
     data_sources = {
-        "click_history": pd.DataFrame(),
-        "reputation_records": pd.DataFrame(),
+        "click_history": fixtures["click_history"],
+        "reputation_records": fixtures["reputation_records"],
     }
 
     worker = PhishingWorker(
