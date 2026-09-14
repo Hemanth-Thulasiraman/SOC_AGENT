@@ -75,9 +75,12 @@ services:
       - key: OPENAI_API_KEY
         sync: false
 
+  # Redis
+  - type: redis
+    name: soc-agent-redis
+    plan: free
+    maxmemoryPolicy: noeviction
+
 databases:
   - name: soc-agent-db
-    plan: free
-
-  - name: soc-agent-redis
     plan: free
