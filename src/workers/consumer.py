@@ -3,6 +3,7 @@ Consumer loop: reads from one Redis stream and dispatches
 to the worker. Runs as a blocking loop in its own process.
 """
 from __future__ import annotations
+import traceback
 import time
 import redis
 from src.streams.config import CONSUMER_GROUP
@@ -41,11 +42,13 @@ def run_consumer(worker, stream: str, consumer_name: str) -> None:
                         else:
                             print(f"[{consumer_name}] rejected {msg_dict.get('alert_id')} → sent to rejections stream")
                     except Exception as e:
+                        traceback.print_exc()
                         print(f"[{consumer_name}] error: {e}")
 
         except KeyboardInterrupt:
             print(f"[{consumer_name}] shutting down")
             break
         except Exception as e:
+            traceback.print_exc()
             print(f"[{consumer_name}] consumer error: {e}")
             time.sleep(1)

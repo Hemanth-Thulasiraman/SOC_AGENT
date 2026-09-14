@@ -20,8 +20,9 @@ EVIDENCE_WEIGHTS = {
         "reputation_lookup": 0.3,
     },
     "lateral_movement": {
-        "sql_correlation": 0.6,
-        "ip_reputation_lookup": 0.4,
+        "sql_correlation": 0.4,        # was 0.6 — redistributed to make room
+        "ip_reputation_lookup": 0.2,   # was 0.4
+        "flow_analysis": 0.4,          # new
     },
     "insider_threat": {
         "user_behavior_lookup": 0.6,
@@ -33,37 +34,51 @@ MALICIOUS_MARKERS = [
     "entered credentials",
     "known-malicious",
     "verdicts:",
-    "anomalous",          # user_behavior_lookup returns this for anomalous behavior
-    "never previously accessed",  # data_access_logs first-time access
+    "anomalous",
+    "never previously accessed",
+    "port scan or brute-force",     # flow_analysis
+    "data staging or exfiltration", # flow_analysis
+    "warrants review",              # flow_analysis ambiguous-but-suspicious
 ]
 BENIGN_MARKERS = [
     "viewed only",
     "clean, established",
-    "fits normal baseline",  # user_behavior_lookup normal behavior
+    "fits normal baseline",    
 ]
 
 def _direction(tool_name: str, result_summary: str | None) -> float:
-    """Returns +1 (malicious-leaning), -1 (benign-leaning), or 0 (neutral/uninformative)."""
     if not result_summary:
         return 0.0
     text = result_summary.lower()
 
     if tool_name == "sql_correlation":
         if "verdicts:" not in text:
-            return 0.0  # "no prior investigations found"
+            return 0.0
         malicious_n = _count_verdict(text, "malicious")
         benign_n = _count_verdict(text, "benign")
         if malicious_n == benign_n:
             return 0.0
         return 1.0 if malicious_n > benign_n else -1.0
 
+    if tool_name == "flow_analysis":
+        if "legitimate internal traffic" in text:
+            return -1.0
+        if "port scan or brute-force" in text:
+            return 1.0
+        if "data staging or exfiltration" in text:
+            return 1.0
+        if "warrants review" in text:
+            return 0.5
+        # "unremarkable flow" and "insufficient flow data" → neutral
+        return 0.0
+
     if any(marker in text for marker in MALICIOUS_MARKERS):
         return 1.0
     if any(marker in text for marker in BENIGN_MARKERS):
         return -1.0
     if "suspicious" in text:
-        return 0.5
-    return 0.0  # "no history found" / "no reputation history" -- expected, uninformative
+        return 0.0
+    return 0.0
 
 
 def _count_verdict(text: str, label: str) -> int:

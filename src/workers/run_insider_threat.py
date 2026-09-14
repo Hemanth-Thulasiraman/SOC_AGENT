@@ -2,7 +2,7 @@ import redis
 import psycopg
 from src.workers.insider_threat_worker import InsiderThreatWorker
 from src.workers.consumer import run_consumer
-from src.agent.llm_client import StubLLMClient
+from src.agent.llm_client import OpenAILLMClient
 from src.streams.config import STREAM_INSIDER_THREAT
 from src.tools.insider_threat_tools import user_behavior_lookup, data_access_logs
 from src.tools.registry import ToolRegistry
@@ -11,7 +11,11 @@ from src.data.build_fixtures import build_fixtures
 
 def main():
     r = redis.Redis(host="localhost", port=6379, decode_responses=True)
-    conn = psycopg.connect(
+
+    query_conn = psycopg.connect(
+        "postgresql://postgres:devpassword@localhost:5433/soc_agent"
+    )
+    write_conn = psycopg.connect(
         "postgresql://postgres:devpassword@localhost:5433/soc_agent"
     )
 
@@ -28,15 +32,14 @@ def main():
     }
 
     worker = InsiderThreatWorker(
-        llm_client=StubLLMClient(),
+        llm_client=OpenAILLMClient(),
         redis_client=r,
         registry=registry,
         data_sources=data_sources,
-        conn=conn,
+        conn=write_conn,
     )
 
     run_consumer(worker, STREAM_INSIDER_THREAT, "insider-threat-worker-1")
-
 
 if __name__ == "__main__":
     main()

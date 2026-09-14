@@ -6,6 +6,7 @@ from __future__ import annotations
 import json
 import redis
 from src.streams.config import ALERT_TYPE_TO_STREAM, STREAM_REJECTIONS
+import time
 
 SUPERVISOR_PROMPT = """You are a security alert classifier.
 Given an alert, output the alert_type as exactly one of:
@@ -90,11 +91,22 @@ class SupervisorAgent:
             f"Alert type if known: {alert.get('alert_type', 'unknown')}\n"
             f"Exclude these types (already tried): {exclude_types}"
         )
-        response = self._llm.call_classifier(
-            system=SUPERVISOR_PROMPT,
-            user=user_content,
-        )
-        return response.strip().lower()
+
+        for attempt in range(3):  # retry up to 3 times
+            try:
+                response = self._llm.call_classifier(
+                    system=SUPERVISOR_PROMPT,
+                    user=user_content,
+                )
+                return response.strip().lower()
+            except Exception as e:
+                if "rate_limit" in str(e).lower() or "429" in str(e):
+                    wait = 2 ** attempt  # exponential backoff: 1s, 2s, 4s
+                    print(f"[supervisor] rate limit, retrying in {wait}s...")
+                    time.sleep(wait)
+                else:
+                    raise
+        return "phishing"  # safe fallback after 3 failed attempts
 
     def _publish_to_human(self, alert: dict, reason: str) -> None:
         self._redis.xadd(STREAM_REJECTIONS, {

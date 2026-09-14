@@ -13,6 +13,7 @@ from src.agent.tool_schemas import tool_schemas_for_alert_type
 from src.tools.registry import ToolRegistry
 
 AUTO_RESOLVE_THRESHOLD = 0.7
+LATERAL_MOVEMENT_THRESHOLD = 0.4
 
 
 def planner_node(state: dict, llm_client: LLMClient) -> dict:
@@ -64,12 +65,12 @@ def verdict_node(state: dict) -> dict:
 
 
 def route_after_verdict(state: dict) -> Literal["escalate", "auto_resolve"]:
-    """
-    The deterministic gate (Phase 2): one mechanism, escalation_flag
-    already forced True (cap breach / no tools left) OR confidence below
-    threshold both route the same way. No separate override path.
-    """
-    if state["escalation_flag"] or state["confidence_score"] < AUTO_RESOLVE_THRESHOLD:
+    threshold = (
+        LATERAL_MOVEMENT_THRESHOLD
+        if state["alert_type"] == "lateral_movement"
+        else AUTO_RESOLVE_THRESHOLD
+    )
+    if state["escalation_flag"] or state["confidence_score"] < threshold:
         return "escalate"
     return "auto_resolve"
 
@@ -97,27 +98,8 @@ INSERT_INVESTIGATION_SQL = """
 """
 
 
-def feedback_memory_node(
-    state: dict,
-    conn,
-    llm_client: LLMClient,
-    true_label_lookup: dict[str, str] | None = None,
-) -> dict:
-    """
-    Phase 7: real write-back. Generates the fixed-template summary
-    (Phase 4), embeds it (always OpenAI -- Claude has no embeddings
-    endpoint regardless of which provider drove the reasoning), and
-    inserts one row into the real `investigations` table.
-
-    true_label_lookup is a side channel, not agent-visible state --
-    eval-only ground truth is never part of `state`/`raw_evidence` (Phase
-    3), but still needs to land in the DB's eval-only column for later
-    false-negative-rate / escalation-precision computation. Supplied by
-    whatever harness constructed the alert (demo script, Phase 8 eval
-    runner), never by anything the agent itself touched.
-    """
+def feedback_memory_node(state, conn, llm_client, true_label_lookup=None):
     from pgvector.psycopg import register_vector
-
     register_vector(conn)
 
     key_evidence = select_key_evidence(state["alert_type"], state["evidence"])
@@ -130,10 +112,9 @@ def feedback_memory_node(
     alert = state["raw_evidence"]
     true_label = (true_label_lookup or {}).get(state["alert_id"])
 
-    with conn.cursor() as cur:
-        cur.execute(
-            INSERT_INVESTIGATION_SQL,
-            {
+    try:
+        with conn.cursor() as cur:
+            cur.execute(INSERT_INVESTIGATION_SQL, {
                 "alert_id": state["alert_id"],
                 "alert_type": state["alert_type"],
                 "source": alert.get("source", "unknown"),
@@ -153,8 +134,9 @@ def feedback_memory_node(
                 "true_label": true_label,
                 "summary_text": summary_text,
                 "embedding": embedding,
-            },
-        )
-    conn.commit()
-
+            })
+        conn.commit()
+    except Exception as e:
+        conn.rollback()  # critical — clears the aborted transaction state
+        raise  # re-raise so the consumer loop sees the failure
     return {}

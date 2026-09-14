@@ -56,7 +56,7 @@ def build_tool_kwargs(tool_name: str, state: dict, data_sources: dict) -> dict:
             "alert_id": alert_id,
             "source_ip": alert.get("source_ip"),
             "dest_ip": alert.get("dest_ip"),
-            "alert_timestamp": alert.get("timestamp"),
+            "alert_timestamp": state.get("start_timestamp"),
             "conn": data_sources["conn"],
         }
 
@@ -73,6 +73,17 @@ def build_tool_kwargs(tool_name: str, state: dict, data_sources: dict) -> dict:
             "user_id": alert.get("user_id"),
             "resource_id": alert.get("resource_id"),
             "access_records": data_sources["access_records"],
+        }
+
+    if tool_name == "flow_analysis":
+        return {
+            "alert_id": alert_id,
+            "total_fwd_packets": alert.get("total_fwd_packets"),
+            "total_bwd_packets": alert.get("total_bwd_packets"),
+            "syn_flag_count": alert.get("syn_flag_count"),
+            "fin_flag_count": alert.get("fin_flag_count"),
+            "avg_packet_size": alert.get("avg_packet_size"),
+            "dest_port": alert.get("dest_port"),
         }
 
     raise ValueError(f"unknown tool_name: {tool_name!r}")

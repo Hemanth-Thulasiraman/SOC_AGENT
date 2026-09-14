@@ -36,12 +36,18 @@ TOOL_SCHEMAS = [
         "description": "Check whether this user normally accesses this specific resource. First-time access to sensitive resources is a strong signal. Use for insider threat alerts when resource access history hasn't been checked yet.",
         "input_schema": {"type": "object", "properties": {}},
     },
+    {
+        "name": "flow_analysis",
+        "description": "Assess the raw network flow stats — packet counts, SYN/FIN flags, port — to determine if the traffic pattern looks like a port scan, data exfiltration, or normal internal traffic. Use for lateral-movement alerts when reputation and correlation haven't produced a clear signal.",
+        "input_schema": {"type": "object", "properties": {}},
+    },
 ]
 
 TOOLS_BY_ALERT_TYPE = {
     "phishing": ["click_history_lookup", "reputation_lookup"],
     "lateral_movement": ["ip_reputation_lookup", "sql_correlation"],
     "insider_threat": ["user_behavior_lookup", "data_access_logs"],
+    "lateral_movement": ["ip_reputation_lookup", "sql_correlation", "flow_analysis"],
 }
 
 
