@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 
 const STATUS_COLOR = {
@@ -8,158 +8,146 @@ const STATUS_COLOR = {
   inconclusive: "var(--status-warning)",
 };
 
+const REFRESH_MS = 10000;
+
 function VerdictBadge({ verdict }) {
+  const color = STATUS_COLOR[verdict] || "var(--text-secondary)";
   return (
-    <span className="mono" style={{ display: "inline-flex", alignItems: "center", gap: 7, fontSize: 13, color: STATUS_COLOR[verdict] || "var(--text-secondary)" }}>
-      <span
-        style={{ width: 7, height: 7, borderRadius: 2, background: STATUS_COLOR[verdict] || "var(--text-muted)" }}
-      />
-      {verdict}
+    <span className="badge" style={{ color }}>
+      <span className="badge-dot" style={{ background: color }} />
+      {verdict || "—"}
     </span>
   );
 }
 
-const PAGE_SIZE = 25;
+function ttv(a) {
+  if (!a.start_timestamp || !a.verdict_timestamp) return null;
+  return (new Date(a.verdict_timestamp) - new Date(a.start_timestamp)) / 1000;
+}
 
 export default function Alerts() {
+  const navigate = useNavigate();
   const [data, setData] = useState(null);
   const [filters, setFilters] = useState({ alert_type: "", verdict: "", escalation_flag: "" });
-  const [page, setPage] = useState(0);
   const [error, setError] = useState(null);
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const filtersRef = useRef(filters);
+  filtersRef.current = filters;
 
-  useEffect(() => {
-    setPage(0);
-  }, [filters]);
+  const load = useCallback(async () => {
+    try {
+      const res = await api.alerts({ ...filtersRef.current, limit: 500 });
+      setData(res);
+      setLastUpdated(new Date());
+      setError(null);
+    } catch (e) {
+      setError(e.message);
+    }
+  }, []);
 
+  // reload immediately when filters change, then poll on an interval
   useEffect(() => {
-    api
-      .alerts({ ...filters, limit: PAGE_SIZE, offset: page * PAGE_SIZE })
-      .then(setData)
-      .catch((e) => setError(e.message));
-  }, [filters, page]);
+    load();
+    const id = setInterval(load, REFRESH_MS);
+    return () => clearInterval(id);
+  }, [load, filters]);
 
   return (
-    <div style={{ maxWidth: 1100, margin: "0 auto", padding: "var(--space-7) 32px 64px" }}>
+    <div className="page">
       <div className="section-label" style={{ marginBottom: 18 }}>Alert triage</div>
-      <h1 style={{ fontSize: 26, margin: "0 0 8px", letterSpacing: "-0.02em", fontWeight: 700 }}>Investigations</h1>
+      <h1 style={{ fontSize: "clamp(22px, 5vw, 26px)", margin: "0 0 8px", letterSpacing: "-0.02em", fontWeight: 700 }}>
+        Investigations
+      </h1>
       <div style={{ fontSize: 14.5, color: "var(--text-secondary)", marginBottom: "var(--space-5)", lineHeight: 1.6 }}>
         {data
-          ? <>Every alert the agent triaged in this evaluation snapshot — <span className="mono" style={{ color: "var(--text-primary)" }}>{data.total}</span> in total. Filter by type, verdict, or escalation, and open any row for the full evidence trail.</>
+          ? <>Live view of every alert the agent has triaged — <span className="mono" style={{ color: "var(--text-primary)" }}>{data.total}</span> in total. Filter by type, verdict, or escalation, and open any row for the full evidence trail.</>
           : "Loading…"}
       </div>
 
-      <div style={{ display: "flex", gap: 8, marginBottom: "var(--space-5)", flexWrap: "wrap" }}>
-        <select style={selectStyle} value={filters.alert_type} onChange={(e) => setFilters({ ...filters, alert_type: e.target.value })}>
+      <div className="toolbar" style={{ marginBottom: "var(--space-5)" }}>
+        <select className="filter-select" value={filters.alert_type} onChange={(e) => setFilters({ ...filters, alert_type: e.target.value })}>
           <option value="">All alert types</option>
           <option value="phishing">Phishing</option>
           <option value="lateral_movement">Lateral movement</option>
+          <option value="insider_threat">Insider threat</option>
         </select>
-        <select style={selectStyle} value={filters.verdict} onChange={(e) => setFilters({ ...filters, verdict: e.target.value })}>
+        <select className="filter-select" value={filters.verdict} onChange={(e) => setFilters({ ...filters, verdict: e.target.value })}>
           <option value="">All verdicts</option>
           <option value="malicious">Malicious</option>
           <option value="benign">Benign</option>
           <option value="inconclusive">Inconclusive</option>
         </select>
         <select
-          style={selectStyle}
+          className="filter-select"
           value={filters.escalation_flag}
           onChange={(e) => setFilters({ ...filters, escalation_flag: e.target.value })}
         >
           <option value="">Escalation: any</option>
           <option value="true">Escalated only</option>
-          <option value="false">Auto-resolved only</option>
         </select>
+        <div style={{ flex: 1 }} />
+        <div className="mono" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11.5, color: "var(--text-muted)" }}>
+          <span className="live-dot" />
+          {lastUpdated ? `updated ${lastUpdated.toLocaleTimeString()}` : "…"}
+        </div>
       </div>
 
-      {error && <div className="mono" style={{ color: "var(--status-critical)" }}>{error}</div>}
+      {error && <div className="mono" style={{ color: "var(--status-critical)", marginBottom: 12 }}>{error}</div>}
 
       {data && (
-        <div className="panel" style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13.5 }}>
+        <div className="panel table-scroll">
+          <table className="data-table">
             <thead>
-              <tr style={{ textAlign: "left", color: "var(--text-muted)", background: "var(--surface-2)" }}>
-                <th style={th}>Alert ID</th>
-                <th style={th}>Type</th>
-                <th style={th}>Verdict</th>
-                <th style={th}>Confidence</th>
-                <th style={th}>Escalated</th>
-                <th style={th}>Ground truth</th>
-                <th style={th}>Summary</th>
+              <tr>
+                <th>Alert ID</th>
+                <th>Type</th>
+                <th>Verdict</th>
+                <th>Confidence</th>
+                <th>Escalated</th>
+                <th>Time to verdict</th>
+                <th className="hide-sm">Started</th>
               </tr>
             </thead>
             <tbody>
-              {data.alerts.map((a) => (
-                <tr key={a.alert_id} className="alert-row" style={{ borderTop: "1px solid var(--gridline)" }}>
-                  <td style={td}>
-                    <Link to={`/alerts/${a.alert_id}`} className="mono" style={{ color: "var(--series-1)", fontWeight: 500 }}>
-                      {a.alert_id}
-                    </Link>
+              {data.alerts.map((a) => {
+                const t = ttv(a);
+                return (
+                  <tr
+                    key={a.alert_id}
+                    className="alert-row click-row"
+                    onClick={() => navigate(`/alerts/${a.alert_id}`)}
+                  >
+                    <td>
+                      <span className="mono" style={{ color: "var(--series-1)", fontWeight: 500 }}>{a.alert_id}</span>
+                    </td>
+                    <td className="mono" style={{ color: "var(--text-secondary)" }}>{a.alert_type}</td>
+                    <td><VerdictBadge verdict={a.verdict} /></td>
+                    <td className="mono" style={{ color: "var(--text-secondary)" }}>
+                      {a.confidence_score != null ? a.confidence_score.toFixed(2) : "—"}
+                    </td>
+                    <td className="mono" style={{ color: a.escalation_flag ? "var(--status-serious)" : "var(--text-muted)" }}>
+                      {a.escalation_flag ? "yes" : "no"}
+                    </td>
+                    <td className="mono" style={{ color: "var(--text-secondary)" }}>
+                      {t != null ? `${t.toFixed(1)}s` : "—"}
+                    </td>
+                    <td className="mono hide-sm" style={{ color: "var(--text-muted)", whiteSpace: "nowrap" }}>
+                      {a.start_timestamp ? new Date(a.start_timestamp).toLocaleString() : "—"}
+                    </td>
+                  </tr>
+                );
+              })}
+              {data.alerts.length === 0 && (
+                <tr>
+                  <td colSpan={7} className="mono" style={{ color: "var(--text-muted)", padding: 24, textAlign: "center" }}>
+                    No investigations match these filters yet.
                   </td>
-                  <td className="mono" style={{ ...td, color: "var(--text-secondary)" }}>{a.alert_type}</td>
-                  <td style={td}>
-                    <VerdictBadge verdict={a.verdict} />
-                  </td>
-                  <td className="mono" style={{ ...td, color: "var(--text-secondary)" }}>
-                    {a.confidence_score?.toFixed(2)}
-                  </td>
-                  <td className="mono" style={{ ...td, color: a.escalation_flag ? "var(--status-serious)" : "var(--text-muted)" }}>
-                    {a.escalation_flag ? "yes" : "no"}
-                  </td>
-                  <td className="mono" style={{ ...td, color: "var(--text-secondary)" }}>{a.true_label}</td>
-                  <td style={{ ...td, color: "var(--text-muted)", maxWidth: 360 }}>{a.summary_text}</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
-        </div>
-      )}
-
-      {data && data.total > 0 && (
-        <div className="mono" style={{ display: "flex", alignItems: "center", gap: 14, marginTop: 18, fontSize: 13, color: "var(--text-secondary)" }}>
-          <button style={pageBtn} disabled={page === 0} onClick={() => setPage((p) => p - 1)}>
-            ← prev
-          </button>
-          <span>
-            {page * PAGE_SIZE + 1}–{Math.min((page + 1) * PAGE_SIZE, data.total)} of {data.total}
-          </span>
-          <button
-            style={pageBtn}
-            disabled={(page + 1) * PAGE_SIZE >= data.total}
-            onClick={() => setPage((p) => p + 1)}
-          >
-            next →
-          </button>
         </div>
       )}
     </div>
   );
 }
-
-const th = {
-  padding: "12px 16px",
-  fontFamily: "var(--font-mono)",
-  fontWeight: 500,
-  fontSize: 11,
-  textTransform: "uppercase",
-  letterSpacing: "0.07em",
-};
-const td = { padding: "12px 16px" };
-const selectStyle = {
-  fontFamily: "var(--font-mono)",
-  border: "1px solid var(--gridline)",
-  background: "var(--surface-2)",
-  color: "var(--text-primary)",
-  borderRadius: 7,
-  padding: "8px 12px",
-  fontSize: 12.5,
-};
-const pageBtn = {
-  fontFamily: "var(--font-mono)",
-  border: "1px solid var(--gridline)",
-  background: "var(--surface-2)",
-  color: "var(--text-primary)",
-  borderRadius: 7,
-  padding: "7px 13px",
-  cursor: "pointer",
-  fontSize: 12.5,
-};

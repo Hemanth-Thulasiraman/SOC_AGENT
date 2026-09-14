@@ -1,192 +1,328 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { api } from "../api";
 import StatTile from "../components/StatTile";
 import VerdictBreakdown from "../components/VerdictBreakdown";
 
-const ALERT_TYPE_LABEL = { phishing: "Phishing", lateral_movement: "Lateral movement" };
+const ALERT_TYPES = ["phishing", "lateral_movement", "insider_threat"];
+const ALERT_TYPE_LABEL = {
+  phishing: "Phishing",
+  lateral_movement: "Lateral movement",
+  insider_threat: "Insider threat",
+};
+
+const REFRESH_MS = 10000;
+
+// Sensible starting evidence per alert type so the Run modal is usable without
+// the operator having to remember the shape the agent expects.
+const EVIDENCE_TEMPLATES = {
+  phishing: {
+    sender_domain: "secure-login-update.com",
+    sender_email: "it-help@secure-login-update.com",
+    url: "http://secure-login-update.com/reset?id=8842",
+    user_id: "u_014",
+    reputation_signal: "unknown",
+  },
+  lateral_movement: {
+    source_ip: "10.4.12.9",
+    dest_ip: "10.4.12.40",
+    dest_port: 3389,
+    total_fwd_packets: 420,
+    total_bwd_packets: 380,
+    ip_reputation_signal: "suspicious",
+  },
+  insider_threat: {
+    user_id: "u_207",
+    event_type: "large_download",
+    resource_id: "res_source_code",
+    resource_sensitivity: "restricted",
+    bytes_transferred: 4200000000,
+    prior_access_count: 1,
+  },
+};
+
+function emptyCounts() {
+  return { malicious: 0, benign: 0, inconclusive: 0 };
+}
 
 export default function Dashboard() {
   const [metrics, setMetrics] = useState(null);
-  const [baseline, setBaseline] = useState(null);
+  const [distribution, setDistribution] = useState(null);
   const [error, setError] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [simRunning, setSimRunning] = useState(false);
+  const [simBusy, setSimBusy] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
-  useEffect(() => {
-    Promise.all([api.metrics(), api.baseline()])
-      .then(([m, b]) => {
-        setMetrics(m);
-        setBaseline(b);
-      })
-      .catch((e) => setError(e.message));
+  const load = useCallback(async () => {
+    try {
+      const [m, list] = await Promise.all([api.metrics(), api.alerts({ limit: 1000 })]);
+      const dist = {};
+      for (const t of ALERT_TYPES) dist[t] = emptyCounts();
+      for (const a of list.alerts) {
+        if (!dist[a.alert_type]) dist[a.alert_type] = emptyCounts();
+        const v = a.verdict in dist[a.alert_type] ? a.verdict : "inconclusive";
+        dist[a.alert_type][v] += 1;
+      }
+      setMetrics(m);
+      setDistribution(dist);
+      setLastUpdated(new Date());
+      setError(null);
+    } catch (e) {
+      setError(e.message);
+    }
   }, []);
 
-  if (error) return <div className="mono" style={{ padding: 32, color: "var(--status-critical)" }}>Error: {error}</div>;
-  if (!metrics) return <div className="mono" style={{ padding: 32, color: "var(--text-secondary)" }}>Loading…</div>;
-  if (!metrics.overall) return <div className="mono" style={{ padding: 32 }}>No evaluation data yet — run the eval harness first.</div>;
+  useEffect(() => {
+    load();
+    const id = setInterval(load, REFRESH_MS);
+    return () => clearInterval(id);
+  }, [load]);
 
-  const o = metrics.overall;
+  const toggleSimulation = async () => {
+    setSimBusy(true);
+    try {
+      if (simRunning) {
+        await api.stopSimulation();
+        setSimRunning(false);
+      } else {
+        await api.startSimulation(2.0);
+        setSimRunning(true);
+      }
+    } catch (e) {
+      setError(e.message);
+    } finally {
+      setSimBusy(false);
+    }
+  };
+
+  if (error && !metrics)
+    return <div className="mono" style={{ padding: 32, color: "var(--status-critical)" }}>Error: {error}</div>;
+  if (!metrics)
+    return <div className="mono" style={{ padding: 32, color: "var(--text-secondary)" }}>Loading live metrics…</div>;
+
+  const fnr = metrics.false_negative_rate ?? 0;
+  const tiles = [
+    <StatTile key="n" label="Investigations" value={metrics.total_alerts ?? 0} />,
+    <StatTile
+      key="fn"
+      label="False-negative rate"
+      value={fnr.toFixed(3)}
+      status={fnr === 0 ? "good" : "critical"}
+    />,
+    <StatTile
+      key="ep"
+      label="Escalation precision"
+      value={metrics.escalation_precision != null ? metrics.escalation_precision.toFixed(3) : "—"}
+    />,
+    <StatTile
+      key="med"
+      label="Median time to verdict"
+      value={`${(metrics.median_time_to_verdict ?? 0).toFixed(1)}s`}
+    />,
+    <StatTile
+      key="p95"
+      label="p95 time to verdict"
+      value={`${(metrics.p95_time_to_verdict ?? 0).toFixed(1)}s`}
+    />,
+  ];
 
   return (
-    <div style={{ maxWidth: 1100, margin: "0 auto", padding: "var(--space-7) 32px 64px" }}>
+    <div className="page">
       <div style={{ marginBottom: "var(--space-7)" }}>
-        <div className="section-label" style={{ marginBottom: 18 }}>Evaluation overview</div>
-        <h1 style={{ fontSize: 30, margin: "0 0 14px", letterSpacing: "-0.02em", fontWeight: 700, lineHeight: 1.15 }}>
+        <div className="section-label" style={{ marginBottom: 18 }}>Operations overview</div>
+        <h1 style={{ fontSize: "clamp(24px, 5vw, 30px)", margin: "0 0 14px", letterSpacing: "-0.02em", fontWeight: 700, lineHeight: 1.15 }}>
           Autonomous SOC Triage Agent
         </h1>
         <p style={{ fontSize: 15.5, color: "var(--text-secondary)", margin: 0, maxWidth: 660, lineHeight: 1.65 }}>
-          A LangGraph agent that investigates phishing and lateral-movement alerts — gathering evidence
-          through tool calls, reasoning to a verdict, and escalating what it isn't confident about.
-          Performance below is measured against{" "}
-          <span className="mono" style={{ color: "var(--text-primary)" }}>{o.n_alerts}</span> real, held-out
-          alerts and benchmarked against a rule-based baseline.
+          A LangGraph agent that investigates phishing, lateral-movement, and insider-threat alerts —
+          gathering evidence through tool calls, reasoning to a verdict, and escalating what it isn't
+          confident about. Metrics below are computed live from the investigation store.
         </p>
-        {metrics.generated_at && (
-          <div className="mono" style={{ fontSize: 12, color: "var(--text-muted)", marginTop: 18 }}>
-            Last updated {new Date(metrics.generated_at).toLocaleString()}
-          </div>
-        )}
+      </div>
+
+      {/* controls */}
+      <div className="toolbar" style={{ marginBottom: "var(--space-6)" }}>
+        <button className="btn btn-accent" onClick={() => setModalOpen(true)}>
+          <span style={{ fontSize: 15, lineHeight: 0 }}>▶</span> Run investigation
+        </button>
+        <button
+          className={`btn ${simRunning ? "btn-danger" : ""}`}
+          onClick={toggleSimulation}
+          disabled={simBusy}
+        >
+          {simRunning ? (
+            <><span className="live-dot" style={{ background: "var(--status-critical)", boxShadow: "none" }} /> Stop simulation</>
+          ) : (
+            <>Start simulation</>
+          )}
+        </button>
+        <div style={{ flex: 1 }} />
+        <div className="mono" style={{ display: "inline-flex", alignItems: "center", gap: 8, fontSize: 11.5, color: "var(--text-muted)" }}>
+          <span className="live-dot" />
+          {lastUpdated ? `updated ${lastUpdated.toLocaleTimeString()}` : "…"}
+        </div>
       </div>
 
       <div className="section-label" style={{ marginBottom: 14 }}>Key metrics</div>
-      <div
-        className="panel"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(5, 1fr)",
-          marginBottom: "var(--space-6)",
-          overflow: "hidden",
-        }}
-      >
-        {[
-          <StatTile key="n" label="Alerts evaluated" value={o.n_alerts} />,
-          <StatTile
-            key="fn"
-            label="False-negative rate"
-            value={o.false_negative_rate.toFixed(3)}
-            status={o.false_negative_rate === 0 ? "good" : "critical"}
-            sub={`${o.n_false_negatives} / ${o.n_actual_malicious} missed`}
-          />,
-          <StatTile
-            key="ep"
-            label="Escalation precision"
-            value={o.escalation_precision?.toFixed(3) ?? "—"}
-            sub={`${o.n_escalations} escalations`}
-          />,
-          <StatTile
-            key="tv"
-            label="Median time to verdict"
-            value={`${o.time_to_verdict_median_s.toFixed(1)}s`}
-            sub={`p95 · ${o.time_to_verdict_p95_s.toFixed(1)}s`}
-          />,
-          <StatTile
-            key="cost"
-            label="Cost per investigation"
-            value={o.cost_per_investigation_usd != null ? `$${o.cost_per_investigation_usd.toFixed(4)}` : "—"}
-          />,
-        ].map((tile, i) => (
-          <div key={i} style={{ padding: "var(--space-5)", borderLeft: i === 0 ? "none" : "1px solid var(--gridline)" }}>
-            {tile}
-          </div>
+      <div className="panel metrics-grid" style={{ marginBottom: "var(--space-6)" }}>
+        {tiles.map((tile, i) => (
+          <div key={i} className="metrics-cell">{tile}</div>
         ))}
       </div>
 
-      {o.n_inconclusive_on_malicious > 0 && (
-        <div
-          style={{
-            background: "var(--surface-1)",
-            border: "1px solid var(--gridline)",
-            borderLeft: "3px solid var(--status-warning)",
-            borderRadius: "var(--radius)",
-            padding: "16px 20px",
-            fontSize: 13.5,
-            color: "var(--text-secondary)",
-            marginBottom: "var(--space-6)",
-            lineHeight: 1.6,
-          }}
-        >
-          <strong className="mono" style={{ color: "var(--status-warning)", fontSize: 11.5, letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            Caveat&nbsp;&nbsp;
-          </strong>
-          <span className="mono" style={{ color: "var(--text-primary)" }}>{o.n_inconclusive_on_malicious}/{o.n_actual_malicious}</span>{" "}
-          actual-malicious alerts returned a verdict of{" "}
-          <span className="mono" style={{ color: "var(--status-warning)" }}>inconclusive</span>{" "}
-          — escalated rather than missed, but not a confident correct call either. The baseline has no such
-          third option; see the evaluation report for the full picture.
-        </div>
-      )}
-
-      <div className="section-label" style={{ marginBottom: 14 }}>Verdict distribution</div>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "var(--space-4)", marginBottom: "var(--space-6)" }}>
-        {Object.entries(metrics.by_alert_type).map(([alertType, m]) => (
+      <div className="section-label" style={{ marginBottom: 14 }}>Verdict distribution by alert type</div>
+      <div className="dist-grid" style={{ marginBottom: "var(--space-6)" }}>
+        {ALERT_TYPES.map((t) => (
           <VerdictBreakdown
-            key={alertType}
-            title={ALERT_TYPE_LABEL[alertType] ?? alertType}
-            counts={m.verdict_counts}
+            key={t}
+            title={ALERT_TYPE_LABEL[t]}
+            counts={(distribution && distribution[t]) || emptyCounts()}
           />
         ))}
       </div>
 
-      {baseline && (
-        <div>
-          <div className="section-label" style={{ marginBottom: 14 }}>Escalation rate vs. baseline</div>
-          <div className="panel" style={{ overflow: "hidden" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13.5 }}>
-              <thead>
-                <tr style={{ textAlign: "left", color: "var(--text-muted)", background: "var(--surface-2)" }}>
-                  <th style={th}>Alert type</th>
-                  <th style={th}>Malicious — baseline</th>
-                  <th style={th}>Malicious — agent</th>
-                  <th style={th}>Benign — baseline</th>
-                  <th style={th}>Benign — agent</th>
-                </tr>
-              </thead>
-              <tbody>
-                {Object.entries(metrics.by_alert_type).map(([alertType, m]) => {
-                  const b = baseline[alertType];
-                  const flagged = m.escalation_rate_benign - b.escalation_rate_benign > 0.1;
-                  return (
-                    <tr key={alertType} style={{ borderTop: "1px solid var(--gridline)" }}>
-                      <td className="mono" style={{ ...td, fontWeight: 500, color: "var(--text-primary)" }}>
-                        {ALERT_TYPE_LABEL[alertType] ?? alertType}
-                      </td>
-                      <td className="mono" style={td}>{(b.escalation_rate_malicious * 100).toFixed(1)}%</td>
-                      <td className="mono" style={td}>{(m.escalation_rate_malicious * 100).toFixed(1)}%</td>
-                      <td className="mono" style={td}>{(b.escalation_rate_benign * 100).toFixed(1)}%</td>
-                      <td
-                        className="mono"
-                        style={{
-                          ...td,
-                          color: flagged ? "var(--status-serious)" : "var(--text-primary)",
-                          fontWeight: flagged ? 700 : 400,
-                        }}
-                      >
-                        {(m.escalation_rate_benign * 100).toFixed(1)}%
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          {Object.entries(metrics.by_alert_type).some(
-            ([alertType, m]) => m.escalation_rate_benign - baseline[alertType].escalation_rate_benign > 0.1
-          ) && (
-            <div className="mono" style={{ fontSize: 12, color: "var(--status-serious)", marginTop: 12, lineHeight: 1.55 }}>
-              ▲ Escalation rate on benign alerts rose sharply for at least one alert type. Flat escalation
-              precision can mask a real increase in false-alarm volume, not a clean win — see the evaluation report.
-            </div>
-          )}
+      {error && (
+        <div className="mono" style={{ fontSize: 12, color: "var(--status-serious)" }}>
+          ▲ {error}
         </div>
+      )}
+
+      {modalOpen && (
+        <RunInvestigationModal
+          onClose={() => setModalOpen(false)}
+          onDone={load}
+        />
       )}
     </div>
   );
 }
 
-const th = {
-  padding: "13px 18px",
-  fontFamily: "var(--font-mono)",
-  fontWeight: 500,
-  fontSize: 11,
-  textTransform: "uppercase",
-  letterSpacing: "0.08em",
-};
-const td = { padding: "13px 18px", color: "var(--text-secondary)" };
+function RunInvestigationModal({ onClose, onDone }) {
+  const navigate = useNavigate();
+  const [alertType, setAlertType] = useState("phishing");
+  const [source, setSource] = useState("manual");
+  const [rawEvidence, setRawEvidence] = useState(
+    JSON.stringify(EVIDENCE_TEMPLATES.phishing, null, 2)
+  );
+  const [submitting, setSubmitting] = useState(false);
+  const [err, setErr] = useState(null);
+  const [result, setResult] = useState(null);
+  const touched = useRef(false);
+
+  // Swap the evidence template when the alert type changes, unless the analyst
+  // has already edited the textarea (don't clobber their work).
+  const onTypeChange = (t) => {
+    setAlertType(t);
+    if (!touched.current) {
+      setRawEvidence(JSON.stringify(EVIDENCE_TEMPLATES[t], null, 2));
+    }
+  };
+
+  const submit = async () => {
+    setErr(null);
+    let parsed;
+    try {
+      parsed = JSON.parse(rawEvidence);
+    } catch {
+      setErr("raw_evidence is not valid JSON.");
+      return;
+    }
+    if (typeof parsed !== "object" || Array.isArray(parsed) || parsed === null) {
+      setErr("raw_evidence must be a JSON object.");
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const res = await api.runAlert({ alert_type: alertType, source, raw_evidence: parsed });
+      setResult(res);
+      onDone?.();
+    } catch (e) {
+      setErr(e.message || "Request failed.");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const resultId = result && (result.alert_id || result.id);
+
+  return (
+    <div className="modal-backdrop" onMouseDown={onClose}>
+      <div className="modal" onMouseDown={(e) => e.stopPropagation()}>
+        <div style={{ padding: "18px 22px", borderBottom: "1px solid var(--gridline)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <div className="section-label">Run investigation</div>
+          <button className="btn" style={{ padding: "5px 10px" }} onClick={onClose}>✕</button>
+        </div>
+
+        {result ? (
+          <div style={{ padding: 22 }}>
+            <div className="badge" style={{ color: "var(--status-good)", marginBottom: 12 }}>
+              <span className="badge-dot" style={{ background: "var(--status-good)" }} /> Investigation {result.status || "queued"}
+            </div>
+            <div className="mono" style={{ fontSize: 13, color: "var(--text-secondary)", lineHeight: 1.7, wordBreak: "break-all" }}>
+              {resultId ? (
+                <>alert_id: <span style={{ color: "var(--text-primary)" }}>{resultId}</span>{result.routed_to ? <> · routed to <span style={{ color: "var(--text-primary)" }}>{result.routed_to}</span></> : null}</>
+              ) : (
+                <pre style={{ margin: 0, whiteSpace: "pre-wrap" }}>{JSON.stringify(result, null, 2)}</pre>
+              )}
+            </div>
+            <div style={{ fontSize: 12.5, color: "var(--text-muted)", marginTop: 10, lineHeight: 1.6 }}>
+              The agent processes runs asynchronously — the verdict and evidence
+              appear once it finishes. Open the investigation to watch for it.
+            </div>
+            <div className="toolbar" style={{ marginTop: 20 }}>
+              {resultId && (
+                <button className="btn btn-accent" onClick={() => navigate(`/alerts/${resultId}`)}>
+                  View investigation →
+                </button>
+              )}
+              <button className="btn" onClick={onClose}>Close</button>
+            </div>
+          </div>
+        ) : (
+          <div style={{ padding: 22 }}>
+            <div style={{ marginBottom: 16 }}>
+              <label className="field-label">Alert type</label>
+              <select className="field-select" value={alertType} onChange={(e) => onTypeChange(e.target.value)}>
+                {ALERT_TYPES.map((t) => (
+                  <option key={t} value={t}>{ALERT_TYPE_LABEL[t]}</option>
+                ))}
+              </select>
+            </div>
+            <div style={{ marginBottom: 16 }}>
+              <label className="field-label">Source</label>
+              <input
+                className="field-input"
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
+                placeholder="e.g. edr, email_gateway, manual"
+              />
+            </div>
+            <div style={{ marginBottom: 4 }}>
+              <label className="field-label">Raw evidence (JSON)</label>
+              <textarea
+                className="field-textarea mono"
+                value={rawEvidence}
+                onChange={(e) => { touched.current = true; setRawEvidence(e.target.value); }}
+                spellCheck={false}
+              />
+            </div>
+
+            {err && (
+              <div className="mono" style={{ color: "var(--status-critical)", fontSize: 12.5, marginTop: 10 }}>
+                ✕ {err}
+              </div>
+            )}
+
+            <div className="toolbar" style={{ marginTop: 20 }}>
+              <button className="btn btn-accent" onClick={submit} disabled={submitting}>
+                {submitting ? "Running…" : "Run investigation"}
+              </button>
+              <button className="btn" onClick={onClose} disabled={submitting}>Cancel</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

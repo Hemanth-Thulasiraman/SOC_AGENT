@@ -34,8 +34,8 @@ function Wordmark() {
   );
 }
 
-// Environment badge — honest about what this is (a read-only snapshot of a
-// real eval run), presented like the env pill on a production dashboard.
+// Environment badge — live connection to the Railway backend, presented like
+// the env pill on a production dashboard. The pulsing dot signals "live".
 function EnvBadge() {
   return (
     <div
@@ -51,18 +51,10 @@ function EnvBadge() {
         padding: "5px 13px",
       }}
     >
-      <span
-        style={{
-          width: 7,
-          height: 7,
-          borderRadius: "50%",
-          background: "var(--accent)",
-          boxShadow: "var(--accent-glow)",
-        }}
-      />
-      <span style={{ fontWeight: 500, color: "var(--text-primary)" }}>Production</span>
-      <span style={{ color: "var(--text-muted)" }}>·</span>
-      <span style={{ color: "var(--text-muted)" }}>read-only</span>
+      <span className="live-dot" />
+      <span style={{ fontWeight: 500, color: "var(--text-primary)" }}>Live</span>
+      <span className="hide-sm" style={{ color: "var(--text-muted)" }}>·</span>
+      <span className="hide-sm mono" style={{ color: "var(--text-muted)", fontSize: 11 }}>Railway API</span>
     </div>
   );
 }
@@ -84,14 +76,15 @@ export default function App() {
           style={{
             maxWidth: 1100,
             margin: "0 auto",
-            padding: "0 32px",
+            padding: "0 clamp(16px, 4vw, 32px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            gap: 16,
             height: 60,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: 36 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "clamp(16px, 3vw, 36px)" }}>
             <Wordmark />
             <nav style={{ display: "flex", gap: 24 }}>
               <NavLink to="/" end style={navLink}>
