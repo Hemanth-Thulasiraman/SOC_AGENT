@@ -1,19 +1,22 @@
 """
-V2 evaluation harness — runs all Fable alerts through the full
-supervisor → Redis → worker → Postgres pipeline and computes metrics.
+V2 evaluation harness — publishes Fable alerts to Railway API
+using original alert_ids, workers on Railway process them,
+results go to Neon, metrics computed from Neon.
+Usage: python -m src.eval.run_eval_v2 [batch_start]
+Example: python -m src.eval.run_eval_v2 0   (alerts 0-99)
+         python -m src.eval.run_eval_v2 100  (alerts 100-199)
 """
 from __future__ import annotations
 import json
+import sys
 import time
-import redis as redis_lib
+import requests
 import psycopg
 from psycopg.rows import dict_row
-from src.config import DATABASE_URL, REDIS_URL
-from src.supervisor.supervisor import SupervisorAgent
-from src.agent.llm_client import StubLLMClient
 
-DB_URL = DATABASE_URL
 DATASET_PATH = "src/data/combined_alerts.json"
+RAILWAY_URL = "https://soc-agent-api-production-e0e4.up.railway.app"
+NEON_URL = "postgresql://neondb_owner:npg_ajGNSf1E4QDB@ep-young-rain-a5zx38do-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require&channel_binding=require"
 
 ALLOWED_FIELDS = {
     "phishing": {"sender_domain", "sender_email", "url", "user_id"},
@@ -33,36 +36,32 @@ def run_eval():
     with open(DATASET_PATH) as f:
         records = json.load(f)
 
-    phishing = [r for r in records if r["alert_type"] == "phishing"]
-    lateral = [r for r in records if r["alert_type"] == "lateral_movement"]
-    insider = [r for r in records if r["alert_type"] == "insider_threat"]
-    records = phishing[:34] + lateral[:33] + insider[:33]
+    batch_start = int(sys.argv[1]) if len(sys.argv) > 1 else 0
+    batch = records[batch_start:batch_start + 100]
+    print(f"Running batch {batch_start}-{batch_start + len(batch)} ({len(batch)} alerts)...")
 
-    # Skip already-processed alerts
-    conn = psycopg.connect(DB_URL, row_factory=dict_row)
+    # Skip already-processed alerts in Neon
+    conn = psycopg.connect(NEON_URL, row_factory=dict_row)
     with conn.cursor() as cur:
         cur.execute("SELECT alert_id FROM investigations WHERE alert_id LIKE 'fable_%'")
         already_done = {row["alert_id"] for row in cur.fetchall()}
     conn.close()
 
-    remaining = [r for r in records if r["alert_id"] not in already_done]
-    print(f"Already done: {len(already_done)}, Remaining: {len(remaining)}")
+    remaining = [r for r in batch if r["alert_id"] not in already_done]
+    print(f"Already done: {len(already_done)}, Remaining in batch: {len(remaining)}")
 
     if not remaining:
-        print("All alerts already processed — computing metrics.")
+        print("All alerts in this batch already processed — computing metrics.")
         compute_metrics()
         return
 
-    r = redis_lib.from_url(REDIS_URL, decode_responses=True)
-    supervisor = SupervisorAgent(StubLLMClient(), r)
-
-    print(f"Publishing {len(remaining)} alerts...")
+    print(f"Publishing {len(remaining)} alerts to Railway API...")
 
     for i, record in enumerate(remaining):
         alert_type = record["alert_type"]
         allowed = ALLOWED_FIELDS[alert_type]
 
-        safe_alert = {
+        payload = {
             "alert_id": record["alert_id"],
             "alert_type": alert_type,
             "source": record.get("source", "fable_generated"),
@@ -70,17 +69,26 @@ def run_eval():
                 k: v for k, v in record.items()
                 if k in allowed
             },
-            "is_synthetic": True,
         }
 
-        supervisor.process(safe_alert)
-        time.sleep(2.0)
+        try:
+            resp = requests.post(
+                f"{RAILWAY_URL}/v2/investigations/run",
+                json=payload,
+                timeout=10,
+            )
+            if resp.status_code != 200:
+                print(f"  error on {record['alert_id']}: {resp.status_code} {resp.text}")
+        except Exception as e:
+            print(f"  error on {record['alert_id']}: {e}")
+
+        time.sleep(3.0)
 
         if (i + 1) % 10 == 0:
             print(f"  queued {i + 1}/{len(remaining)}")
 
-    print("Waiting for workers to finish...")
-    time.sleep(120)
+    print("Waiting for Railway workers to finish (3 minutes)...")
+    time.sleep(180)
 
     compute_metrics()
 
@@ -91,7 +99,7 @@ def compute_metrics():
 
     true_labels = {r["alert_id"]: r["true_label"] for r in records}
 
-    conn = psycopg.connect(DB_URL, row_factory=dict_row)
+    conn = psycopg.connect(NEON_URL, row_factory=dict_row)
     with conn.cursor() as cur:
         cur.execute("""
             SELECT alert_id, alert_type, verdict, confidence_score,
@@ -152,8 +160,7 @@ def compute_metrics():
         print(f"  Benign escalation rate:   {benign_esc_rate:.3f} ({len(benign_escalated)}/{len(actual_benign)} benign cases escalated)")
         print(f"  Auto-resolved:            {total - len(escalated)}")
 
-    total_elapsed = time.time()
-    print(f"\nTotal time: {total_elapsed:.0f}s")
+    print(f"\nDone.")
 
 
 if __name__ == "__main__":

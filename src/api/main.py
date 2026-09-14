@@ -79,6 +79,7 @@ def get_investigation(alert_id: str):
 
 
 class AlertPayload(BaseModel):
+    alert_id: str | None = None  # use provided or generate new
     alert_type: str
     source: str
     raw_evidence: dict
@@ -89,8 +90,10 @@ def run_single_alert(payload: AlertPayload):
     from src.supervisor.supervisor import SupervisorAgent
     from src.agent.llm_client import StubLLMClient
 
+    alert_id = payload.alert_id or f"manual_{uuid.uuid4().hex[:8]}"
+
     alert = {
-        "alert_id": f"manual_{uuid.uuid4().hex[:8]}",
+        "alert_id": alert_id,
         "alert_type": payload.alert_type,
         "source": payload.source,
         "raw_evidence": payload.raw_evidence,
@@ -101,7 +104,7 @@ def run_single_alert(payload: AlertPayload):
     stream = supervisor.process(alert)
 
     return {
-        "alert_id": alert["alert_id"],
+        "alert_id": alert_id,
         "routed_to": stream,
         "status": "queued",
     }
@@ -118,26 +121,48 @@ def start_simulation(speed_seconds: float = 2.0):
 
     def run():
         global _simulation_running
+        import random
+        import json
         from src.supervisor.supervisor import SupervisorAgent
         from src.agent.llm_client import StubLLMClient
-        from src.data.synthesize_phishing import generate_synthetic_phishing_rows
+
+        try:
+            with open("src/data/combined_alerts.json") as f:
+                records = json.load(f)
+        except FileNotFoundError:
+            records = []
 
         r = get_redis()
         supervisor = SupervisorAgent(StubLLMClient(), r)
-        phishing_df = generate_synthetic_phishing_rows(n_rows=10, seed=99)
+        sample = random.sample(records, min(20, len(records))) if records else []
 
-        for _, row in phishing_df.iterrows():
+        ALLOWED_FIELDS = {
+            "phishing": {"sender_domain", "sender_email", "url", "user_id"},
+            "lateral_movement": {
+                "source_ip", "dest_ip", "source_port", "dest_port", "protocol",
+                "flow_duration", "total_fwd_packets", "total_bwd_packets",
+                "syn_flag_count", "fin_flag_count", "avg_packet_size",
+            },
+            "insider_threat": {
+                "user_id", "event_type", "action",
+                "bytes_transferred", "resource_id",
+            },
+        }
+
+        for record in sample:
             if not _simulation_running:
                 break
+
+            alert_type = record.get("alert_type", "phishing")
+            allowed = ALLOWED_FIELDS.get(alert_type, set())
+
             alert = {
                 "alert_id": f"sim_{uuid.uuid4().hex[:8]}",
-                "alert_type": "phishing",
+                "alert_type": alert_type,
                 "source": "simulation",
                 "raw_evidence": {
-                    "sender_domain": row.get("sender_domain", "unknown"),
-                    "sender_email": row.get("sender_email", "unknown"),
-                    "url": row.get("url", ""),
-                    "user_id": row.get("user_id", "unknown"),
+                    k: v for k, v in record.items()
+                    if k in allowed
                 },
                 "is_synthetic": True,
             }
