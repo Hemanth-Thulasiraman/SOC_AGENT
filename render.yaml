@@ -1,0 +1,83 @@
+services:
+  # FastAPI
+  - type: web
+    name: soc-agent-api
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn src.api.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: soc-agent-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: soc-agent-redis
+          type: redis
+          property: connectionString
+      - key: OPENAI_API_KEY
+        sync: false
+
+  # Phishing worker
+  - type: worker
+    name: soc-phishing-worker
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m src.workers.run_phishing
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: soc-agent-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: soc-agent-redis
+          type: redis
+          property: connectionString
+      - key: OPENAI_API_KEY
+        sync: false
+
+  # Lateral movement worker
+  - type: worker
+    name: soc-lateral-worker
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m src.workers.run_lateral_movement
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: soc-agent-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: soc-agent-redis
+          type: redis
+          property: connectionString
+      - key: OPENAI_API_KEY
+        sync: false
+
+  # Insider threat worker
+  - type: worker
+    name: soc-insider-worker
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m src.workers.run_insider_threat
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: soc-agent-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: soc-agent-redis
+          type: redis
+          property: connectionString
+      - key: OPENAI_API_KEY
+        sync: false
+
+databases:
+  - name: soc-agent-db
+    plan: free
+
+  - name: soc-agent-redis
+    plan: free

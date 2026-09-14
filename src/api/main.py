@@ -13,6 +13,8 @@ from psycopg.rows import dict_row
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from src.config import DATABASE_URL, REDIS_URL
+import redis as redis_lib
 
 app = FastAPI(title="SOC Alert Triage API")
 
@@ -23,8 +25,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DB_URL = "postgresql://postgres:devpassword@localhost:5433/soc_agent"
-REDIS_URL = {"host": "localhost", "port": 6379}
+DB_URL = DATABASE_URL
+
+def get_redis():
+    return redis_lib.from_url(REDIS_URL, decode_responses=True)
 
 # Simulation state — simple flag, one simulation at a time
 _simulation_thread: threading.Thread | None = None

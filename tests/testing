@@ -1,0 +1,24 @@
+import redis
+from src.supervisor.supervisor import SupervisorAgent
+from src.agent.llm_client import StubLLMClient
+
+r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+supervisor = SupervisorAgent(StubLLMClient(), r)
+
+alert = {
+    "alert_id": "phish_00001",
+    "alert_type": "phishing",
+    "source": "email_filter",
+    "raw_evidence": {
+        "sender_domain": "evil.example.com",
+        "user_id": "u_001"
+    }
+}
+
+stream = supervisor.process(alert)
+print(f"routed to: {stream}")
+
+# Verify the message actually landed in Redis
+messages = r.xrange("soc:alerts:phishing")
+print(f"messages in phishing stream: {len(messages)}")
+print(messages)

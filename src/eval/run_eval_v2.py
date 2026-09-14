@@ -5,13 +5,14 @@ supervisor → Redis → worker → Postgres pipeline and computes metrics.
 from __future__ import annotations
 import json
 import time
-import redis
+import redis as redis_lib
 import psycopg
 from psycopg.rows import dict_row
+from src.config import DATABASE_URL, REDIS_URL
 from src.supervisor.supervisor import SupervisorAgent
 from src.agent.llm_client import StubLLMClient
 
-DB_URL = "postgresql://postgres:devpassword@localhost:5433/soc_agent"
+DB_URL = DATABASE_URL
 DATASET_PATH = "src/data/combined_alerts.json"
 
 ALLOWED_FIELDS = {
@@ -52,7 +53,7 @@ def run_eval():
         compute_metrics()
         return
 
-    r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+    r = redis_lib.from_url(REDIS_URL, decode_responses=True)
     supervisor = SupervisorAgent(StubLLMClient(), r)
 
     print(f"Publishing {len(remaining)} alerts...")
