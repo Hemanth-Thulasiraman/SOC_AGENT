@@ -7,14 +7,13 @@ import json
 import threading
 import time
 import uuid
-import redis
 import psycopg
+import redis as redis_lib
 from psycopg.rows import dict_row
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from src.config import DATABASE_URL, REDIS_URL
-import redis as redis_lib
 
 app = FastAPI(title="SOC Alert Triage API")
 
@@ -25,25 +24,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-DB_URL = DATABASE_URL
-
-def get_redis():
-    return redis_lib.from_url(REDIS_URL, decode_responses=True)
-
-# Simulation state — simple flag, one simulation at a time
 _simulation_thread: threading.Thread | None = None
 _simulation_running = False
 
 
 def get_db():
-    return psycopg.connect(DB_URL, row_factory=dict_row)
+    return psycopg.connect(DATABASE_URL, row_factory=dict_row)
 
 
 def get_redis():
-    return redis.Redis(decode_responses=True, **REDIS_URL)
+    return redis_lib.from_url(REDIS_URL, decode_responses=True)
 
-
-# ── V1: read-only endpoints ──────────────────────────────────────────
 
 @app.get("/investigations")
 def list_investigations(
@@ -87,8 +78,6 @@ def get_investigation(alert_id: str):
         return row
 
 
-# ── V2: ingestion endpoints ──────────────────────────────────────────
-
 class AlertPayload(BaseModel):
     alert_type: str
     source: str
@@ -97,7 +86,6 @@ class AlertPayload(BaseModel):
 
 @app.post("/v2/investigations/run")
 def run_single_alert(payload: AlertPayload):
-    """Trigger a single alert investigation via the supervisor."""
     from src.supervisor.supervisor import SupervisorAgent
     from src.agent.llm_client import StubLLMClient
 
@@ -121,7 +109,6 @@ def run_single_alert(payload: AlertPayload):
 
 @app.post("/v2/simulation/start")
 def start_simulation(speed_seconds: float = 2.0):
-    """Replay the eval dataset through the pipeline at a configurable rate."""
     global _simulation_thread, _simulation_running
 
     if _simulation_running:
@@ -134,18 +121,14 @@ def start_simulation(speed_seconds: float = 2.0):
         from src.supervisor.supervisor import SupervisorAgent
         from src.agent.llm_client import StubLLMClient
         from src.data.synthesize_phishing import generate_synthetic_phishing_rows
-        import pandas as pd
 
         r = get_redis()
         supervisor = SupervisorAgent(StubLLMClient(), r)
-
-        # Generate a small batch of synthetic alerts to replay
         phishing_df = generate_synthetic_phishing_rows(n_rows=10, seed=99)
 
         for _, row in phishing_df.iterrows():
             if not _simulation_running:
                 break
-
             alert = {
                 "alert_id": f"sim_{uuid.uuid4().hex[:8]}",
                 "alert_type": "phishing",
@@ -161,12 +144,10 @@ def start_simulation(speed_seconds: float = 2.0):
             supervisor.process(alert)
             time.sleep(speed_seconds)
 
-        
         _simulation_running = False
 
     _simulation_thread = threading.Thread(target=run, daemon=True)
     _simulation_thread.start()
-
     return {"status": "started", "speed_seconds": speed_seconds}
 
 
