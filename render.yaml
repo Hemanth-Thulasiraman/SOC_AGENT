@@ -80,6 +80,7 @@ services:
     name: soc-agent-redis
     plan: free
     maxmemoryPolicy: noeviction
+    ipAllowList: []  # empty list = allow all Render internal services
 
 databases:
   - name: soc-agent-db
