@@ -16,6 +16,17 @@ def run_consumer(worker, stream: str, consumer_name: str) -> None:
     consumer_name: unique name for this consumer instance
     """
     r = worker._redis
+    
+    # Create consumer group if it doesn't exist
+    try:
+        r.xgroup_create(stream, CONSUMER_GROUP, id="$", mkstream=True)
+        print(f"[{consumer_name}] created consumer group for {stream}")
+    except Exception as e:
+        if "BUSYGROUP" in str(e):
+            pass  # group already exists, fine
+        else:
+            raise
+    
     print(f"[{consumer_name}] listening on {stream}")
 
     while True:
