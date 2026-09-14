@@ -1,6 +1,4 @@
 import redis as redis_lib
-import psycopg
-from src.config import DATABASE_URL, REDIS_URL
 from src.workers.insider_threat_worker import InsiderThreatWorker
 from src.workers.consumer import run_consumer
 from src.agent.llm_client import OpenAILLMClient
@@ -8,13 +6,11 @@ from src.streams.config import STREAM_INSIDER_THREAT
 from src.tools.insider_threat_tools import user_behavior_lookup, data_access_logs
 from src.tools.registry import ToolRegistry
 from src.data.build_fixtures import build_fixtures
+from src.config import DATABASE_URL, REDIS_URL
 
 
 def main():
     r = redis_lib.from_url(REDIS_URL, decode_responses=True)
-
-    query_conn = psycopg.connect(DATABASE_URL)
-    write_conn = psycopg.connect(DATABASE_URL)
 
     fixtures = build_fixtures("src/data/combined_alerts.json")
 
@@ -33,10 +29,11 @@ def main():
         redis_client=r,
         registry=registry,
         data_sources=data_sources,
-        conn=write_conn,
+        db_url=DATABASE_URL,
     )
 
     run_consumer(worker, STREAM_INSIDER_THREAT, "insider-threat-worker-1")
+
 
 if __name__ == "__main__":
     main()

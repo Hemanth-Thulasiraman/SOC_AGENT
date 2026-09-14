@@ -12,7 +12,7 @@ from src.agent.llm_client import LLMClient
 
 
 class BaseWorker:
-    domain: str  # "phishing" | "lateral_movement" | "insider_threat"
+    domain: str
     expected_alert_type: str
 
     def __init__(
@@ -21,16 +21,20 @@ class BaseWorker:
         redis_client: redis.Redis,
         registry,
         data_sources: dict,
-        conn,
+        db_url: str,  # store URL instead of connection
         true_label_lookup: dict | None = None,
     ):
         self._llm = llm_client
         self._redis = redis_client
-        self._graph = build_graph(
-            llm_client, registry, data_sources, conn, true_label_lookup
-        )
+        self._registry = registry
+        self._data_sources = data_sources
+        self._db_url = db_url  # store URL
+        self._true_label_lookup = true_label_lookup
 
     def handle(self, message: dict) -> str:
+        import psycopg
+        from src.config import DATABASE_URL
+        
         alert = json.loads(message["payload"])
         alert_type = alert.get("alert_type")
 
@@ -41,20 +45,29 @@ class BaseWorker:
             ))
             return "rejected"
 
+        # Fresh connections per investigation — avoids Neon idle timeout
+        write_conn = psycopg.connect(self._db_url)
+        query_conn = psycopg.connect(self._db_url)
+        
+        # Update data_sources with fresh query connection
+        data_sources = {**self._data_sources, "conn": query_conn}
+
+        graph = build_graph(
+            self._llm, self._registry, data_sources,
+            write_conn, self._true_label_lookup
+        )
+
         state = new_investigation_state(
             alert_id=alert["alert_id"],
             alert_type=alert_type,
             raw_evidence=alert.get("raw_evidence", {}),
             is_synthetic=alert.get("is_synthetic", False),
         )
-        self._graph.invoke(state)
+        
+        try:
+            graph.invoke(state)
+        finally:
+            write_conn.close()
+            query_conn.close()
+            
         return "done"
-
-    def _reject(self, message: dict, alert: dict, reason: str) -> None:
-        self._redis.xadd(STREAM_REJECTIONS, {
-            "alert_id": alert["alert_id"],
-            "worker_stream": f"soc:alerts:{self.domain}",
-            "attempt": message.get("attempt", "1"),
-            "reason": reason,
-            "payload": message["payload"],
-        })
