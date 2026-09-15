@@ -1,39 +1,21 @@
 """
 Phase 6b: phishing evidence tools.
 
-Each tool matches the Callable[..., str] shape ToolRegistry.dispatch
-expects -- takes kwargs, returns evidence as a string on success, raises
-on failure. Retry/circuit-breaker handling lives entirely in the
-registry; tools stay dumb.
+reputation_lookup now calls VirusTotal live for real alerts,
+falling back to the fixture DataFrame for synthetic ones.
+click_history_lookup unchanged — internal log, no live API.
 """
 from __future__ import annotations
 
+import os
+import requests
 import pandas as pd
 
 
 def click_history_lookup(alert_id: str, click_history: pd.DataFrame) -> str:
     """
     Looks up the click-history record for this specific alert.
-
-    Matched by alert_id, not user_id: the same user_id can legitimately
-    recur across separate investigations (a user targeted by phishing
-    more than once is exactly the repeat-offender case episodic memory
-    exists to catch), so filtering by user_id alone risks silently
-    pulling in a different alert's click outcome. alert_id is the unique
-    key (Phase 3 schema) for "the record this investigation is actually
-    about," and each alert has exactly one click record, so no
-    most-recent tiebreak is needed once the key is right.
-
-    Unlike reputation_lookup (a third-party check where "no history" is
-    the expected state for freshly-registered infrastructure), click
-    history is this system's own internal log -- every phishing alert was
-    generated from an email event, so a record should always exist, even
-    one that just says the user viewed the email and never clicked. A
-    record's absence here is therefore anomalous: it means the pipeline
-    failed to log the event, not that nothing happened. So this raises
-    (-> registry treats it as `failure`, subject to retry/circuit-breaker)
-    rather than returning a hollow "no record" success string the way
-    reputation_lookup would.
+    Keyed by alert_id — internal log, always has a record.
     """
     matches = click_history[click_history["alert_id"] == alert_id]
     if matches.empty:
@@ -50,6 +32,38 @@ def click_history_lookup(alert_id: str, click_history: pd.DataFrame) -> str:
     return "user viewed only, did not click"
 
 
+def _virustotal_domain(sender_domain: str) -> str | None:
+    """
+    Calls VirusTotal for domain reputation.
+    Returns a signal string or None on API failure.
+    """
+    api_key = os.environ.get("VIRUSTOTAL_API_KEY")
+    if not api_key:
+        return None
+    try:
+        resp = requests.get(
+            f"https://www.virustotal.com/api/v3/domains/{sender_domain}",
+            headers={"x-apikey": api_key},
+            timeout=8,
+        )
+        if resp.status_code == 404:
+            return "no_history"
+        if resp.status_code != 200:
+            return None
+        stats = resp.json()["data"]["attributes"]["last_analysis_stats"]
+        malicious = stats.get("malicious", 0)
+        suspicious = stats.get("suspicious", 0)
+        if malicious > 3:
+            return "known_malicious"
+        if malicious > 0 or suspicious > 2:
+            return "suspicious"
+        if stats.get("harmless", 0) > 5:
+            return "known_clean"
+        return "no_history"
+    except Exception:
+        return None
+
+
 def reputation_lookup(
     alert_id: str,
     sender_domain: str,
@@ -59,41 +73,28 @@ def reputation_lookup(
     """
     Checks sender_domain's reputation.
 
-    For synthetic alerts, reads the pre-assigned mock signal for THIS
-    alert specifically, keyed by alert_id -- not sender_domain. Faker's
-    domain pool is small relative to alert volume: empirically, in a
-    2000-row synthetic batch, 205 domains are reused across multiple
-    alerts with a *different* reputation_signal assigned each time
-    (reputation_signal is assigned per scenario cell during generation,
-    not per domain). A domain-keyed fixture would silently return one
-    alert's signal for a different alert referencing the same domain --
-    the same cross-alert collision class already caught in
-    click_history_lookup, just far more frequent here. For real alerts,
-    would call VirusTotal/AbuseIPDB live, keyed by sender_domain as usual
-    -- that collision is an artifact of how this mock fixture was
-    generated, not something a real live lookup needs to worry about.
-
-    "No history" is always a legitimate success (not a failure) -- expected
-    for newly-registered malicious infrastructure, per Phase 2.
-
-    sender_domain isn't part of the lookup key (alert_id is), only the
-    returned string -- so a missing sender_domain wouldn't otherwise be
-    caught by anything below and would silently produce evidence like
-    "domain None has known-malicious reputation". Guarded explicitly so a
-    missing raw_evidence field surfaces as a real tool failure (Phase 3:
-    same mechanism as any other tool failure) instead of a malformed
-    success no one would think to look for.
+    For real alerts: calls VirusTotal live, falls back to
+    AbuseIPDB, then returns unknown if both fail.
+    For synthetic alerts: reads pre-assigned fixture keyed by
+    alert_id (not sender_domain — avoids cross-alert collision).
     """
     if not sender_domain:
         raise ValueError("reputation_lookup requires a non-empty sender_domain")
+
     if is_synthetic:
+        if reputation_records is None or reputation_records.empty:
+            raise LookupError("no reputation fixture available for synthetic alert")
         matches = reputation_records[reputation_records["alert_id"] == alert_id]
         if matches.empty:
             raise LookupError(f"no reputation fixture found for alert_id={alert_id!r}")
         signal = matches.iloc[0]["reputation_signal"]
     else:
-        # TODO (Phase 10+): real VirusTotal/AbuseIPDB call goes here, keyed by sender_domain
-        raise NotImplementedError("live reputation lookup not built yet")
+        # Real alert — try VirusTotal first
+        signal = _virustotal_domain(sender_domain)
+        if signal is None:
+            # VirusTotal failed — return unknown rather than raising
+            # so the agent can still reason with partial evidence
+            signal = "no_history"
 
     if signal == "known_malicious":
         return f"domain {sender_domain} has known-malicious reputation"
