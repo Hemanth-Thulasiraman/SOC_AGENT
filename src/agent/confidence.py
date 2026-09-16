@@ -263,3 +263,23 @@ def compute_confidence(
         escalation_flag = True
 
     return posterior, verdict, escalation_flag
+
+
+# ── Compatibility shim for summary.py ─────────────────────────────────────
+# select_key_evidence uses this to rank which tool result to include in the
+# investigation summary. Higher weight = more important evidence.
+EVIDENCE_WEIGHTS = {
+    "phishing": {
+        "reputation_lookup": 0.9,
+        "click_history_lookup": 0.8,
+    },
+    "lateral_movement": {
+        "sql_correlation": 0.9,
+        "ip_reputation_lookup": 0.8,
+        "flow_analysis": 0.6,
+    },
+    "insider_threat": {
+        "user_behavior_lookup": 0.9,
+        "data_access_logs": 0.8,
+    },
+}
