@@ -12,10 +12,6 @@ from src.agent.tool_binding import build_tool_kwargs
 from src.agent.tool_schemas import tool_schemas_for_alert_type
 from src.tools.registry import ToolRegistry
 
-AUTO_RESOLVE_THRESHOLD = 0.7
-LATERAL_MOVEMENT_THRESHOLD = 0.4
-
-
 def planner_node(state: dict, llm_client: LLMClient) -> dict:
     tool_schemas = tool_schemas_for_alert_type(state["alert_type"])
     decision = llm_client.call_planner(
@@ -56,21 +52,19 @@ def verdict_escalate_node(state: dict) -> dict:
 
 
 def verdict_node(state: dict) -> dict:
-    confidence_score, leaning = compute_confidence(state["alert_type"], state["evidence"])
+    posterior, verdict, escalation_flag = compute_confidence(
+        state["alert_type"], state["evidence"]
+    )
     return {
-        "confidence_score": confidence_score,
-        "verdict": leaning,
+        "confidence_score": posterior,
+        "verdict": verdict,
+        "escalation_flag": escalation_flag,
         "verdict_timestamp": datetime.now(timezone.utc),
     }
 
 
 def route_after_verdict(state: dict) -> Literal["escalate", "auto_resolve"]:
-    threshold = (
-        LATERAL_MOVEMENT_THRESHOLD
-        if state["alert_type"] == "lateral_movement"
-        else AUTO_RESOLVE_THRESHOLD
-    )
-    if state["escalation_flag"] or state["confidence_score"] < threshold:
+    if state["escalation_flag"]:
         return "escalate"
     return "auto_resolve"
 
